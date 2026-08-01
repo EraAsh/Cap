@@ -87,65 +87,65 @@ const MODEL_DOWNLOAD_STATUS_POLL_MS = 1000;
 const MODEL_OPTIONS: ModelOption[] = [
 	{
 		name: "best",
-		label: "Recommended",
+		label: "推荐",
 		modelName: "parakeet-tdt-0.6b-v3 int8",
 		size: "~640MB",
-		description: "Best balance for most recordings",
+		description: "大多数录制的最佳平衡",
 	},
 	{
 		name: "best-max",
-		label: "High Accuracy",
+		label: "高精度",
 		modelName: "parakeet-tdt-0.6b-v3",
 		size: "~2.4GB",
-		description: "Larger download, higher accuracy",
+		description: "更大下载，更高精度",
 	},
 	{
 		name: "small",
 		modelName: "whisper.cpp small",
-		label: "Small",
+		label: "小",
 		size: "466MB",
-		description: "Smallest download",
+		description: "最小下载",
 	},
 	{
 		name: "medium",
 		modelName: "whisper.cpp medium",
-		label: "Medium",
+		label: "中等",
 		size: "1.5GB",
-		description: "Slower, more accurate",
+		description: "更慢但更精确",
 	},
 ];
 
 const LANGUAGE_OPTIONS: LanguageOption[] = [
-	{ code: "auto", label: "Auto Detect" },
-	{ code: "en", label: "English" },
-	{ code: "es", label: "Spanish" },
-	{ code: "fr", label: "French" },
-	{ code: "de", label: "German" },
-	{ code: "it", label: "Italian" },
-	{ code: "pt", label: "Portuguese" },
-	{ code: "nl", label: "Dutch" },
-	{ code: "pl", label: "Polish" },
-	{ code: "ru", label: "Russian" },
-	{ code: "sk", label: "Slovak" },
-	{ code: "tr", label: "Turkish" },
-	{ code: "ja", label: "Japanese" },
-	{ code: "ko", label: "Korean" },
-	{ code: "zh", label: "Chinese" },
-	{ code: "ar", label: "Arabic" },
-	{ code: "hi", label: "Hindi" },
-	{ code: "bn", label: "Bengali" },
-	{ code: "ta", label: "Tamil" },
-	{ code: "te", label: "Telugu" },
-	{ code: "mr", label: "Marathi" },
-	{ code: "gu", label: "Gujarati" },
+	{ code: "auto", label: "自动检测" },
+	{ code: "en", label: "英语" },
+	{ code: "es", label: "西班牙语" },
+	{ code: "fr", label: "法语" },
+	{ code: "de", label: "德语" },
+	{ code: "it", label: "意大利语" },
+	{ code: "pt", label: "葡萄牙语" },
+	{ code: "nl", label: "荷兰语" },
+	{ code: "pl", label: "波兰语" },
+	{ code: "ru", label: "俄语" },
+	{ code: "sk", label: "斯洛伐克语" },
+	{ code: "tr", label: "土耳其语" },
+	{ code: "ja", label: "日语" },
+	{ code: "ko", label: "韩语" },
+	{ code: "zh", label: "中文" },
+	{ code: "ar", label: "阿拉伯语" },
+	{ code: "hi", label: "印地语" },
+	{ code: "bn", label: "孟加拉语" },
+	{ code: "ta", label: "泰米尔语" },
+	{ code: "te", label: "泰卢固语" },
+	{ code: "mr", label: "马拉地语" },
+	{ code: "gu", label: "古吉拉特语" },
 	{ code: "pa", label: "Punjabi" },
 	{ code: "ur", label: "Urdu" },
 	{ code: "fa", label: "Persian" },
 	{ code: "he", label: "Hebrew" },
-	{ code: "ar", label: "Arabic" },
-	{ code: "hi", label: "Hindi" },
-	{ code: "bn", label: "Bengali" },
-	{ code: "ta", label: "Tamil" },
+	{ code: "ar", label: "阿拉伯语" },
+	{ code: "hi", label: "印地语" },
+	{ code: "bn", label: "孟加拉语" },
+	{ code: "ta", label: "泰米尔语" },
 ];
 
 const STYLE_PRESET_KEYS = new Set<keyof EditorCaptionSettings>([
@@ -1264,7 +1264,7 @@ export function CaptionsTab(props: {
 							</div>
 						</Field>
 
-						<Field name="Position" icon={<IconCapMessageBubble />}>
+						<Field name="位置" icon={<IconCapMessageBubble />}>
 							<KSelect<string>
 								options={CAPTION_POSITION_OPTIONS.map((p) => p.value)}
 								value={getSetting("position")}

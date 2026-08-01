@@ -98,7 +98,7 @@ function Inner(props: { initialStore: GeneralSettingsStore | null }) {
 		<div class="cap-settings-page flex flex-col h-full custom-scroll">
 			<SettingsPageContent>
 				<Section
-					title="Transcription"
+					title="转写"
 					description="Add names, spellings, domains, and capitalization preferences that caption generation should keep in mind."
 				>
 					<SectionCard padded class="space-y-3">
@@ -125,9 +125,9 @@ function Inner(props: { initialStore: GeneralSettingsStore | null }) {
 								</Show>
 								<span class="text-xs text-gray-11 min-w-15 text-right">
 									{saveState() === "saving"
-										? "Saving..."
+										? "保存中..."
 										: saveState() === "saved"
-											? "Saved"
+											? "已保存"
 											: ""}
 								</span>
 							</div>

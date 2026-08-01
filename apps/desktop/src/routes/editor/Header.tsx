@@ -151,7 +151,7 @@ export function Header() {
 					disabled={
 						!projectHistory.canUndo() && !editorState.timeline.selection
 					}
-					tooltipText="Undo"
+					tooltipText="撤销"
 					leftIcon={<IconCapUndo class="w-5" />}
 				/>
 				<EditorButton
@@ -163,7 +163,7 @@ export function Header() {
 					disabled={
 						!projectHistory.canRedo() && !editorState.timeline.selection
 					}
-					tooltipText="Redo"
+					tooltipText="重做"
 					leftIcon={<IconCapRedo class="w-5" />}
 				/>
 				<div data-tauri-drag-region class="flex-1 h-full" />
@@ -204,7 +204,7 @@ export function Header() {
 						>
 							<IconLucideArrowLeft class="size-4" />
 						</Show>
-						{isTranscriptOpen() ? "Back" : "Captions"}
+						{isTranscriptOpen() ? "返回" : "Captions"}
 					</Button>
 				</Show>
 				<button

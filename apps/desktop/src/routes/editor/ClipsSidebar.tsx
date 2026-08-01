@@ -990,7 +990,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 								<button
 									type="button"
 									onClick={closeRecord}
-									aria-label="Close"
+									aria-label="关闭"
 									class="flex flex-none justify-center items-center ml-auto rounded-md transition-colors size-7 text-gray-11 hover:bg-gray-4 hover:text-gray-12"
 								>
 									<IconCapX class="size-3" />
@@ -1049,7 +1049,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 															selected={rawOptions.targetMode === "window"}
 															Component={IconLucideAppWindowMac}
 															onClick={() => void openTargetMode("window")}
-															name="Window"
+															name="窗口"
 															class="flex-1 pl-5 rounded-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
 														/>
 														<TargetDropdownButton
@@ -1138,7 +1138,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 													)?.focus();
 												}}
 												class="flex h-[36px] gap-1 items-center shrink-0 rounded-md px-2 text-xs text-gray-11 transition-colors hover:text-gray-12 hover:bg-gray-4"
-												aria-label="Back"
+												aria-label="返回"
 											>
 												<IconLucideArrowLeft class="size-3 text-gray-11" />
 												<span class="font-medium text-gray-12">Back</span>

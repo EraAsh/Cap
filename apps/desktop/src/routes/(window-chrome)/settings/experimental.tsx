@@ -66,7 +66,7 @@ function Inner(props: {
 						</p>
 					}
 				>
-					<Section title="Preview">
+					<Section title="预览">
 						<SectionRows>
 							<ToggleSettingItem
 								label="Native camera preview"

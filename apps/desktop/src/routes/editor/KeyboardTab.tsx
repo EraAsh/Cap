@@ -294,7 +294,7 @@ export function KeyboardTab(props: {
 							optionValue="value"
 							optionTextValue="label"
 							value={{
-								label: "Custom",
+								label: "自定义",
 								value: getSetting("fontWeight"),
 							}}
 							onChange={(value) => {

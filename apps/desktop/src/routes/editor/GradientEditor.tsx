@@ -163,7 +163,7 @@ export function GradientEditor(props: {
 
 					<div class="w-full border-t border-dashed border-gray-5 my-1" />
 
-					<Subfield name="Angle" class="gap-4 items-center">
+					<Subfield name="角度" class="gap-4 items-center">
 						<div class="flex flex-1 gap-3 items-center">
 							<Slider
 								class="flex-1"

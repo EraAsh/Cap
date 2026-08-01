@@ -60,7 +60,7 @@ export default function FeedbackTab() {
 		<div class="cap-settings-page flex flex-col w-full h-full custom-scroll">
 			<SettingsPageContent>
 				<Section
-					title="Feedback"
+					title="反馈"
 					description="Help us improve Cap by submitting feedback or reporting bugs. We'll get right on it."
 				>
 					<form

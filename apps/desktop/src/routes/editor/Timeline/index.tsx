@@ -83,7 +83,7 @@ type TrackDefinition = {
 const trackDefinitions: TrackDefinition[] = [
 	{
 		type: "clip",
-		label: "Clip",
+		label: "片段",
 		icon: trackIcons.clip,
 		locked: true,
 	},
@@ -101,13 +101,13 @@ const trackDefinitions: TrackDefinition[] = [
 	},
 	{
 		type: "text",
-		label: "Text",
+		label: "文字",
 		icon: trackIcons.text,
 		locked: false,
 	},
 	{
 		type: "mask",
-		label: "Mask",
+		label: "遮罩",
 		icon: trackIcons.mask,
 		locked: false,
 	},
@@ -119,7 +119,7 @@ const trackDefinitions: TrackDefinition[] = [
 	},
 	{
 		type: "zoom",
-		label: "Zoom",
+		label: "缩放",
 		icon: trackIcons.zoom,
 		locked: true,
 	},
@@ -834,7 +834,7 @@ export function Timeline(props: {
 			return;
 		}
 
-		if (e.code === "Backspace" || (e.code === "Delete" && hasNoModifiers)) {
+		if (e.code === "Backspace" || (e.code === "删除" && hasNoModifiers)) {
 			const selection = editorState.timeline.selection;
 			if (!selection) return;
 
@@ -1161,7 +1161,7 @@ export function Timeline(props: {
 								{(laneIndex) => (
 									<TrackRow
 										icon={trackIcons.text}
-										label="Text"
+										label="文字"
 										type="text"
 										onDelete={() => handleDeleteTrackLane("text", laneIndex)}
 										onContextMenu={(e) =>
@@ -1182,7 +1182,7 @@ export function Timeline(props: {
 								{(laneIndex) => (
 									<TrackRow
 										icon={trackIcons.mask}
-										label="Mask"
+										label="遮罩"
 										type="mask"
 										onDelete={() => handleDeleteTrackLane("mask", laneIndex)}
 										onContextMenu={(e) =>
@@ -1223,7 +1223,7 @@ export function Timeline(props: {
 							</For>
 							<TrackRow
 								icon={trackIcons.zoom}
-								label="Zoom"
+								label="缩放"
 								type="zoom"
 								onDelete={
 									(project.timeline?.zoomSegments?.length ?? 0) > 0
@@ -1306,7 +1306,7 @@ function TrackRow(props: {
 					>
 						<IconCapTrash class="size-4" />
 						<span class="text-[0.625rem] leading-none font-medium">
-							{props.deleteLabel ?? "Delete"}
+							{props.deleteLabel ?? "删除"}
 						</span>
 					</button>
 				</Show>

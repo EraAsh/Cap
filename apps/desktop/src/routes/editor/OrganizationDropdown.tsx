@@ -214,7 +214,7 @@ function BrandSettingsDialog(props: {
 	return (
 		<Dialog.Root open={props.open} onOpenChange={props.onOpenChange} size="sm">
 			<DialogContent
-				title={props.organization?.name ?? "Organization"}
+				title={props.organization?.name ?? "组织"}
 				class="gap-5 text-gray-12"
 				confirm={
 					<>
@@ -229,7 +229,7 @@ function BrandSettingsDialog(props: {
 							disabled={saving() || !props.organization}
 							onClick={() => void save()}
 						>
-							{saving() ? "Saving..." : "Save"}
+							{saving() ? "保存中..." : "保存"}
 						</Dialog.ConfirmButton>
 					</>
 				}
@@ -355,10 +355,10 @@ export function OrganizationDropdown() {
 	const triggerLabel = createMemo(() => {
 		const availability = organizationSelection.availability();
 		if (availability === "available") {
-			return selectedOrganization()?.name ?? "Organization";
+			return selectedOrganization()?.name ?? "组织";
 		}
 		if (availability === "loading") return "Loading...";
-		if (availability === "unavailable") return "Organization";
+		if (availability === "unavailable") return "组织";
 		return "Sign in";
 	});
 	const fallbackTitle = createMemo(() => {

@@ -92,7 +92,7 @@ export default function Screenshots() {
 	);
 
 	const emptyMessage = createMemo(() => {
-		const prefix = trimmedSearch() ? "No matching" : "No";
+		const prefix = trimmedSearch() ? "No matching" : "否";
 		return `${prefix} screenshots`;
 	});
 
@@ -164,7 +164,7 @@ export default function Screenshots() {
 		<div class="cap-settings-page flex relative flex-col w-full h-full custom-scroll">
 			<SettingsPageContent class="max-w-none space-y-4">
 				<Section
-					title="Screenshots"
+					title="截图"
 					description="Manage your screenshots and perform actions."
 					right={
 						<Button
@@ -202,7 +202,7 @@ export default function Screenshots() {
 											setSearch("");
 										}
 									}}
-									placeholder="Search"
+									placeholder="搜索"
 									autoCapitalize="off"
 									autocorrect="off"
 									autocomplete="off"
@@ -333,7 +333,7 @@ function ScreenshotItem(props: {
 				</TooltipIconButton>
 
 				<TooltipIconButton
-					tooltipText="Delete"
+					tooltipText="删除"
 					onClick={async () => {
 						if (
 							!(await ask("Are you sure you want to delete this screenshot?"))

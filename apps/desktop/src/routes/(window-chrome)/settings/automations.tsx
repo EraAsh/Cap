@@ -125,7 +125,7 @@ const TRIGGER_PHRASE: Record<Trigger, string> = {
 const ACTION_SHORT: Record<ActionType, string> = {
 	copyToClipboard: "Copy to clipboard",
 	saveToLocation: "Save to folder",
-	export: "Export",
+	export: "导出",
 	upload: "Upload & copy link",
 	revealInFileManager: "Reveal in file manager",
 	openFile: "Open file",
@@ -140,11 +140,11 @@ const ACTION_SHORT: Record<ActionType, string> = {
 };
 
 const TRIGGER_NOUN: Record<Trigger, string> = {
-	screenshotTaken: "Screenshot",
+	screenshotTaken: "截图",
 	studioRecordingFinished: "Studio recording",
 	instantRecordingFinished: "Instant recording",
 	recordingStarted: "Recording start",
-	uploadCompleted: "Upload",
+	uploadCompleted: "上传",
 	videoImported: "Import",
 	recordingDeleted: "Deletion",
 };
@@ -152,18 +152,18 @@ const TRIGGER_NOUN: Record<Trigger, string> = {
 const ACTION_NOUN: Record<ActionType, string> = {
 	copyToClipboard: "Clipboard",
 	saveToLocation: "Folder",
-	export: "Export",
-	upload: "Upload",
+	export: "导出",
+	upload: "上传",
 	revealInFileManager: "Reveal",
-	openFile: "Open",
-	recognizeTextToClipboard: "Text",
+	openFile: "打开",
+	recognizeTextToClipboard: "文字",
 	notify: "Notify",
-	openEditor: "Editor",
+	openEditor: "编辑器",
 	skipEditor: "Skip editor",
 	applyPreset: "Preset",
-	runCommand: "Command",
+	runCommand: "命令",
 	webhook: "Webhook",
-	deleteLocalFiles: "Delete",
+	deleteLocalFiles: "删除",
 };
 
 const FPS_PRESETS = [15, 30, 60] as const;
@@ -519,7 +519,7 @@ export default function AutomationsSettings() {
 		<div class="cap-settings-page flex flex-col h-full custom-scroll">
 			<SettingsPageContent>
 				<Section
-					title="Automations"
+					title="自动化"
 					description="Run actions automatically when something happens in Cap. Rules are shared with the Cap CLI."
 				>
 					<Suspense
@@ -692,7 +692,7 @@ function RuleCard(props: {
 				<button
 					type="button"
 					onClick={props.onToggleExpand}
-					title={props.expanded ? "Collapse" : "Edit"}
+					title={props.expanded ? "Collapse" : "编辑"}
 					class="flex justify-center items-center rounded-lg transition-colors size-7 text-gray-10 hover:text-gray-12 hover:bg-gray-3"
 				>
 					<IconLucideChevronDown
@@ -749,7 +749,7 @@ function RuleEditorBody(props: {
 
 	return (
 		<div class="p-4 space-y-5">
-			<Field label="Name">
+			<Field label="名称">
 				<TextInput
 					value={props.rule.name}
 					placeholder={autoRuleName(props.rule)}
@@ -953,7 +953,7 @@ function ConditionValue(props: {
 					value={c.target}
 					options={[
 						{ value: "display", label: "Display" },
-						{ value: "window", label: "Window" },
+						{ value: "window", label: "窗口" },
 						{ value: "area", label: "Area" },
 					]}
 					onChange={(v) =>

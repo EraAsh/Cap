@@ -179,7 +179,7 @@ export function PerformanceOverlay(_props: PerformanceOverlayProps) {
 			s.droppedFrames > 0
 				? `Dropped: ${s.droppedFrames}/${s.totalFrames}`
 				: null,
-			`Playing: ${editorState.playing ? "Yes" : "No"}`,
+			`Playing: ${editorState.playing ? "是" : "否"}`,
 		]
 			.filter(Boolean)
 			.join("\n");

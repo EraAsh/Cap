@@ -153,12 +153,12 @@ const CaptionsTab = lazy(() =>
 type BackgroundSourceTab = BackgroundSource["type"] | "desktop" | "none";
 
 const BACKGROUND_SOURCES = {
-	desktop: "Desktop",
-	wallpaper: "Wallpaper",
-	image: "Image",
-	color: "Color",
-	gradient: "Gradient",
-	none: "None",
+	desktop: "桌面",
+	wallpaper: "壁纸",
+	image: "图片",
+	color: "颜色",
+	gradient: "渐变",
+	none: "无",
 } satisfies Record<BackgroundSourceTab, string>;
 
 const BACKGROUND_ICONS = {
@@ -276,9 +276,9 @@ const CURRENT_DESKTOP_BACKGROUND_ID = "current-desktop-background";
 const CURRENT_DESKTOP_BACKGROUND_BASENAME = "current-desktop-background";
 const getCurrentDesktopBackgroundLabel = () => {
 	const os = ostype();
-	if (os === "macos") return "This Mac";
-	if (os === "windows") return "This PC";
-	return "This device";
+	if (os === "macos") return "本机";
+	if (os === "windows") return "本机";
+	return "本设备";
 };
 
 type WallpaperOption = {
@@ -299,18 +299,18 @@ const isCurrentDesktopBackgroundPath = (path: string | null | undefined) => {
 };
 
 const STEREO_MODES = [
-	{ name: "Stereo", value: "stereo" },
-	{ name: "Mono L", value: "monoL" },
-	{ name: "Mono R", value: "monoR" },
+	{ name: "立体声", value: "stereo" },
+	{ name: "左声道", value: "monoL" },
+	{ name: "右声道", value: "monoR" },
 ] satisfies Array<{ name: string; value: StereoMode }>;
 
 const CAMERA_SHAPES = [
 	{
-		name: "Square",
+		name: "方形",
 		value: "square",
 	},
 	{
-		name: "Source",
+		name: "源",
 		value: "source",
 	},
 ] satisfies Array<{ name: string; value: CameraShape }>;
@@ -323,17 +323,17 @@ const CAMERA_X_POSITIONS = [
 const CAMERA_Y_POSITIONS = ["top", "bottom"] satisfies CameraYPosition[];
 
 const CORNER_STYLE_OPTIONS = [
-	{ name: "Squircle", value: "squircle" },
-	{ name: "Rounded", value: "rounded" },
+	{ name: "圆角方形", value: "squircle" },
+	{ name: "圆角", value: "rounded" },
 ] satisfies Array<{ name: string; value: CornerRoundingType }>;
 
 const BACKGROUND_THEMES = {
 	macOS: "macOS",
-	dark: "Dark",
-	blue: "Blue",
-	cities: "Cities",
-	purple: "Purple",
-	orange: "Orange",
+	dark: "深色",
+	blue: "蓝色",
+	cities: "城市",
+	purple: "紫色",
+	orange: "橙色",
 };
 
 type CursorPresetValues = {
@@ -347,12 +347,12 @@ const DEFAULT_MOTION_BLUR = 1.0;
 const CURSOR_TYPE_OPTIONS = [
 	{
 		value: "auto" as CursorType,
-		label: "Auto",
-		description: "Uses the actual cursor from your recording.",
+		label: "自动",
+		description: "使用录制中的实际光标",
 	},
 	{
 		value: "circle" as CursorType,
-		label: "Circle",
+		label: "圆形",
 		description: "A touch-style circle cursor like mobile simulators.",
 	},
 ];
@@ -360,32 +360,32 @@ const CURSOR_TYPE_OPTIONS = [
 const CURSOR_ANIMATION_STYLE_OPTIONS = [
 	{
 		value: "slow",
-		label: "Slow",
-		description: "Relaxed easing with a gentle follow and higher inertia.",
+		label: "慢速",
+		description: "轻松缓动，柔和跟随，更高惯性",
 		preset: { tension: 200, mass: 2.25, friction: 40 },
 	},
 	{
 		value: "smooth",
-		label: "Smooth",
-		description: "Ultra-smooth cinematic feel with high damping.",
+		label: "平滑",
+		description: "超平滑电影感，高阻尼",
 		preset: { tension: 80, mass: 2.5, friction: 28 },
 	},
 	{
 		value: "mellow",
-		label: "Mellow",
-		description: "Balanced smoothing for everyday tutorials and walkthroughs.",
+		label: "柔和",
+		description: "均衡平滑，适合日常教程和演示",
 		preset: { tension: 470, mass: 3, friction: 70 },
 	},
 	{
 		value: "fast",
 		label: "Fast",
-		description: "Quick, responsive smoothing for fast-paced content.",
+		description: "快速响应平滑，适合快节奏内容",
 		preset: { tension: 380, mass: 1.0, friction: 30 },
 	},
 	{
 		value: "custom",
 		label: "Custom",
-		description: "Tune tension, friction, and mass manually for full control.",
+		description: "手动调节张力、摩擦和质量，完全控制",
 	},
 ] satisfies Array<{
 	value: CursorAnimationStyle;
@@ -613,17 +613,17 @@ export function ConfigSidebar() {
 					class="flex flex-col flex-1 gap-6 p-4 min-h-0"
 				>
 					<Field
-						name="Audio Controls"
+						name="音频控制"
 						icon={<IconLucideVolume2 class="size-4" />}
 					>
-						<Subfield name="Mute Audio">
+						<Subfield name="静音">
 							<Toggle
 								checked={project.audio.mute}
 								onChange={(v) => setProject("audio", "mute", v)}
 							/>
 						</Subfield>
 						{editorInstance.recordings.segments[0].mic?.channels === 2 && (
-							<Subfield name="Microphone Stereo Mode">
+							<Subfield name="麦克风立体声模式">
 								<KSelect<{ name: string; value: StereoMode }>
 									options={STEREO_MODES}
 									optionValue="value"
@@ -677,7 +677,7 @@ export function ConfigSidebar() {
 							</Subfield>
 						)}
 
-						{/* <Subfield name="Mute Audio">
+						{/* <Subfield name="静音">
                 <Toggle
                   checked={project.audio.mute}
                   onChange={(v) => setProject("audio", "mute", v)}
@@ -685,14 +685,14 @@ export function ConfigSidebar() {
               </Subfield> */}
 
 						{/* <ComingSoonTooltip>
-                <Subfield name="Improve Mic Quality">
+                <Subfield name="增强麦克风质量">
                   <Toggle disabled />
                 </Subfield>
               </ComingSoonTooltip> */}
 					</Field>
 					{meta().hasMicrophone && (
 						<Field
-							name="Microphone Volume"
+							name="麦克风音量"
 							icon={<IconCapMicrophone class="size-4" />}
 						>
 							<Slider
@@ -710,7 +710,7 @@ export function ConfigSidebar() {
 					)}
 					{meta().hasSystemAudio && (
 						<Field
-							name="System Audio Volume"
+							name="系统音频音量"
 							icon={<IconLucideMonitor class="size-4" />}
 						>
 							<Slider
@@ -732,7 +732,7 @@ export function ConfigSidebar() {
 					class="flex flex-col flex-1 gap-6 p-4 min-h-0"
 				>
 					<Field
-						name="Show cursor"
+						name="显示光标"
 						value={
 							<Toggle
 								checked={!project.cursor.hide}
@@ -743,7 +743,7 @@ export function ConfigSidebar() {
 						}
 					/>
 					<Show when={!project.cursor.hide}>
-						<Field name="Cursor Type" icon={<IconCapCursor />}>
+						<Field name="光标类型" icon={<IconCapCursor />}>
 							<RadioGroup
 								class="flex flex-col gap-2"
 								value={project.cursor.type}
@@ -792,7 +792,7 @@ export function ConfigSidebar() {
 							/>
 						</Field>
 						<Field
-							name="Hide When Idle"
+							name="空闲时隐藏"
 							icon={<IconLucideTimer class="size-4" />}
 							value={
 								<Toggle
@@ -804,7 +804,7 @@ export function ConfigSidebar() {
 							}
 						/>
 						<Show when={project.cursor.hideWhenIdle}>
-							<Subfield name="Inactivity Delay" class="gap-4 items-center">
+							<Subfield name="不活跃延迟" class="gap-4 items-center">
 								<div class="flex flex-1 gap-3 items-center">
 									<Slider
 										class="flex-1"
@@ -825,7 +825,7 @@ export function ConfigSidebar() {
 							</Subfield>
 						</Show>
 						<Field
-							name="Cursor Movement Style"
+							name="光标移动风格"
 							icon={<IconLucideRabbit class="size-4" />}
 						>
 							<RadioGroup
@@ -858,7 +858,7 @@ export function ConfigSidebar() {
 						</Field>
 						<KCollapsible open={!project.cursor.raw}>
 							<Field
-								name="Smooth Movement"
+								name="平滑移动"
 								icon={<IconHugeiconsEaseCurveControlPoints />}
 								value={
 									<Toggle
@@ -872,7 +872,7 @@ export function ConfigSidebar() {
 							<KCollapsible.Content class="overflow-hidden border-b opacity-0 transition-opacity border-gray-3 animate-collapsible-up data-expanded:animate-collapsible-down data-expanded:opacity-100">
 								{/* if Content has padding or margin the animation doesn't look as good */}
 								<div class="flex flex-col gap-4 pt-4 pb-6">
-									<Field name="Tension">
+									<Field name="张力">
 										<Slider
 											value={[project.cursor.tension]}
 											onChange={(v) => setCursorPhysics("tension", v[0])}
@@ -881,7 +881,7 @@ export function ConfigSidebar() {
 											step={1}
 										/>
 									</Field>
-									<Field name="Friction">
+									<Field name="摩擦力">
 										<Slider
 											value={[project.cursor.friction]}
 											onChange={(v) => setCursorPhysics("friction", v[0])}
@@ -903,7 +903,7 @@ export function ConfigSidebar() {
 							</KCollapsible.Content>
 						</KCollapsible>
 						<Field
-							name="High Quality SVG Cursors"
+							name="高质量 SVG 光标"
 							icon={<IconLucideSparkles />}
 							value={
 								<Toggle
@@ -916,7 +916,7 @@ export function ConfigSidebar() {
 						/>
 					</Show>
 
-					{/* <Field name="Animation Style" icon={<IconLucideRabbit />}>
+					{/* <Field name="动画风格" icon={<IconLucideRabbit />}>
             <RadioGroup
               defaultValue="regular"
               value={project.cursor.animationStyle}
@@ -963,9 +963,9 @@ export function ConfigSidebar() {
           </Field> */}
 				</KTabs.Content>
 				<KTabs.Content value="hotkeys" class="flex flex-1 p-4 min-h-0">
-					<Field name="Hotkeys" icon={<IconCapHotkeys />}>
+					<Field name="快捷键" icon={<IconCapHotkeys />}>
 						<ComingSoonTooltip>
-							<Subfield name="Show hotkeys">
+							<Subfield name="显示快捷键">
 								<Toggle disabled />
 							</Subfield>
 						</ComingSoonTooltip>
@@ -1669,9 +1669,9 @@ function BackgroundConfig(props: {
 			isNoneBackground() ? "none" : projectBackgroundSourceTab(),
 		);
 
-	// "None" is a sticky selection: nudging the padding/rounding sliders must not
+	// "无" is a sticky selection: nudging the padding/rounding sliders must not
 	// swap the panel back to the underlying source tab (that reflow moves the very
-	// slider being dragged), so only re-sync when the user isn't sitting on "None".
+	// slider being dragged), so only re-sync when the user isn't sitting on "无".
 	createEffect(
 		on(projectBackgroundSourceTab, (tab) => {
 			if (backgroundSourceTab() !== "none") setBackgroundSourceTab(tab);
@@ -1753,7 +1753,7 @@ function BackgroundConfig(props: {
 		return wallpapers()?.find((w) => path.includes(w.id)) ?? null;
 	});
 
-	// Leaving "None" seeds default padding AND rounding; real→real switches only
+	// Leaving "无" seeds default padding AND rounding; real→real switches only
 	// ensure padding so an intentionally-square background keeps rounding 0. Keyed
 	// off `fromNone` because rounding is already 0 once the slider has left None.
 	const ensureBackgroundPresentation = (fromNone = false) => {
@@ -1770,8 +1770,8 @@ function BackgroundConfig(props: {
 		value: number,
 	) => {
 		batch(() => {
-			// Revealing padding/rounding out of "None" shows a clean white canvas
-			// rather than resurrecting the hidden source. The tab stays on "None".
+			// Revealing padding/rounding out of "无" shows a clean white canvas
+			// rather than resurrecting the hidden source. The tab stays on "无".
 			if (value > 0 && backgroundSourceTab() === "none" && isNoneBackground())
 				setProject("background", "source", {
 					type: "color",
@@ -1817,7 +1817,7 @@ function BackgroundConfig(props: {
 
 								setWallpaperSource(rawPath);
 							} catch (_err) {
-								toast.error("Failed to set wallpaper");
+								toast.error("设置壁纸失败");
 							}
 						};
 
@@ -1913,7 +1913,7 @@ function BackgroundConfig(props: {
 				ensureBackgroundPresentation(addingFromBlankBackground);
 			});
 		} catch (_err) {
-			toast.error("Couldn't import your desktop wallpaper");
+			toast.error("无法导入桌面壁纸");
 		} finally {
 			setImportingDesktopBackground(false);
 		}
@@ -2051,7 +2051,7 @@ function BackgroundConfig(props: {
 
 	return (
 		<KTabs.Content value={TAB_IDS.background} class="flex flex-col gap-6 p-4">
-			<Field icon={<IconCapImage class="size-4" />} name="Background Image">
+			<Field icon={<IconCapImage class="size-4" />} name="背景图片">
 				<KTabs
 					value={backgroundSourceTab()}
 					onChange={(v) => {
@@ -2163,8 +2163,8 @@ function BackgroundConfig(props: {
 										leftIcon={<IconLucideMonitor />}
 									>
 										{importingDesktopBackground()
-											? "Importing..."
-											: "Import desktop background"}
+											? "导入中..."
+											: "导入桌面背景"}
 									</EditorButton>
 								</div>
 							}
@@ -2202,8 +2202,8 @@ function BackgroundConfig(props: {
 											leftIcon={<IconLucideMonitor />}
 										>
 											{importingDesktopBackground()
-												? "Importing..."
-												: "Re-import"}
+												? "导入中..."
+												: "重新导入"}
 										</EditorButton>
 									</div>
 								</div>
@@ -2269,7 +2269,7 @@ function BackgroundConfig(props: {
 
 									ensureBackgroundPresentation();
 								} catch (_err) {
-									toast.error("Failed to set wallpaper");
+									toast.error("设置壁纸失败");
 								}
 							}}
 							class="grid grid-cols-7 gap-2 h-auto"
@@ -2297,7 +2297,7 @@ function BackgroundConfig(props: {
 													src={photo.url}
 													loading="eager"
 													class="object-cover w-full h-full"
-													alt="Wallpaper option"
+													alt="壁纸选项"
 												/>
 											</KRadioGroup.ItemControl>
 										</KRadioGroup.Item>
@@ -2316,7 +2316,7 @@ function BackgroundConfig(props: {
 														<KRadioGroup.ItemControl class="overflow-hidden w-full h-full rounded-lg border border-gray-5 data-checked:border-blue-9 data-checked:ring-2 data-checked:ring-blue-9 peer-focus-visible:border-2 peer-focus-visible:border-blue-9">
 															<img
 																src={photo.url}
-																alt="Wallpaper option"
+																alt="壁纸选项"
 																class="object-cover w-full h-full"
 																loading="lazy"
 															/>
@@ -2354,7 +2354,7 @@ function BackgroundConfig(props: {
 									<img
 										src={convertFileSrc(source())}
 										class="object-cover w-full h-full"
-										alt="Selected background"
+										alt="已选背景"
 									/>
 									<div class="absolute top-2 right-2">
 										<button
@@ -2384,7 +2384,7 @@ function BackgroundConfig(props: {
 
 								const extension = getValidBackgroundImageExtension(file);
 								if (!extension) {
-									toast.error("Invalid image file type");
+									toast.error("无效的图片文件类型");
 									return;
 								}
 
@@ -2404,7 +2404,7 @@ function BackgroundConfig(props: {
 										path: fullPath,
 									});
 								} catch (_err) {
-									toast.error("Failed to save image");
+									toast.error("保存图片失败");
 								}
 							}}
 						/>
@@ -2478,13 +2478,13 @@ function BackgroundConfig(props: {
 										)}
 									</For>
 								</div>
-								{/* <Tooltip content="Add custom color">
+								{/* <Tooltip content="添加自定义颜色">
                       <button
                         class="flex justify-center items-center w-6 h-6 rounded-lg border border-gray-400 border-dashed text-gray-12 hover:border-gray-500"
                         onClick={() => {
                           // Function to add a new color (you can modify this)
                           console.log(
-                            "Open color picker or modal to add a color"
+                            "打开颜色选择器添加颜色"
                           );
                         }}
                       >
@@ -2500,7 +2500,7 @@ function BackgroundConfig(props: {
 				</KTabs>
 			</Field>
 
-			<Field name="Background Blur" icon={<IconCapBgBlur />}>
+			<Field name="背景模糊" icon={<IconCapBgBlur />}>
 				<Slider
 					value={[project.background.blur]}
 					onChange={(v) => setProject("background", "blur", v[0])}
@@ -2512,7 +2512,7 @@ function BackgroundConfig(props: {
 			</Field>
 			{/** Dashed divider */}
 			<div class="w-full border-t border-gray-300 border-dashed" />
-			<Field name="Padding" icon={<IconCapPadding class="size-4" />}>
+			<Field name="内边距" icon={<IconCapPadding class="size-4" />}>
 				<Slider
 					value={[project.background.padding]}
 					onChange={(v) => setBackgroundDimension("padding", v[0])}
@@ -2534,7 +2534,7 @@ function BackgroundConfig(props: {
 					</div>
 				</Show>
 			</Field>
-			<Field name="Rounded Corners" icon={<IconCapCorners class="size-4" />}>
+			<Field name="圆角" icon={<IconCapCorners class="size-4" />}>
 				<div class="flex flex-col gap-3">
 					<Slider
 						value={[project.background.rounding]}
@@ -2545,7 +2545,7 @@ function BackgroundConfig(props: {
 						formatTooltip="%"
 					/>
 					<CornerStyleSelect
-						label="Corner Style"
+						label="圆角风格"
 						value={project.background.roundingType}
 						onChange={(value) =>
 							setProject("background", "roundingType", value)
@@ -2553,7 +2553,7 @@ function BackgroundConfig(props: {
 					/>
 				</div>
 			</Field>
-			<Field name="Motion Blur" icon={<IconLucideWind class="size-4" />}>
+			<Field name="运动模糊" icon={<IconLucideWind class="size-4" />}>
 				<Slider
 					value={[
 						project.screenMotionBlur ??
@@ -2609,7 +2609,7 @@ function BackgroundConfig(props: {
 			<KCollapsible open={project.background.border?.enabled ?? false}>
 				<KCollapsible.Content class="overflow-hidden opacity-0 transition-opacity animate-collapsible-up data-expanded:animate-collapsible-down data-expanded:opacity-100">
 					<div class="flex flex-col gap-6 pb-6">
-						<Field name="Border Width" icon={<IconCapEnlarge class="size-4" />}>
+						<Field name="边框宽度" icon={<IconCapEnlarge class="size-4" />}>
 							<Slider
 								value={[project.background.border?.width ?? 5.0]}
 								onChange={(v) =>
@@ -2629,7 +2629,7 @@ function BackgroundConfig(props: {
 								formatTooltip="px"
 							/>
 						</Field>
-						<Field name="Border Color" icon={<IconCapImage class="size-4" />}>
+						<Field name="边框颜色" icon={<IconCapImage class="size-4" />}>
 							<div class="flex flex-col gap-2">
 								<RgbInput
 									value={project.background.border?.color ?? [0, 0, 0]}
@@ -2652,7 +2652,7 @@ function BackgroundConfig(props: {
 							</div>
 						</Field>
 						<Field
-							name="Border Opacity"
+							name="边框不透明度"
 							icon={<IconCapShadow class="size-4" />}
 						>
 							<Slider
@@ -2775,7 +2775,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 			<Field icon={<IconCapCamera class="size-4" />} name="Camera">
 				<div class="flex flex-col gap-6">
 					<div>
-						<Subfield name="Position" />
+						<Subfield name="位置" />
 						<KRadioGroup
 							value={cameraPositionValue()}
 							onChange={(v) => {
@@ -2845,24 +2845,24 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 							</div>
 						</Show>
 					</div>
-					<Subfield name="Hide Camera">
+					<Subfield name="隐藏摄像头">
 						<Toggle
 							checked={project.camera.hide}
 							onChange={(hide) => setProject("camera", "hide", hide)}
 						/>
 					</Subfield>
-					<Subfield name="Mirror Camera">
+					<Subfield name="镜像摄像头">
 						<Toggle
 							checked={project.camera.mirror}
 							onChange={(mirror) => setProject("camera", "mirror", mirror)}
 						/>
 					</Subfield>
-					<Subfield name="Background Blur">
+					<Subfield name="背景模糊">
 						<KSelect<{ name: string; value: BackgroundBlurMode }>
 							options={[
 								{ name: "Off", value: "off" },
-								{ name: "Light Blur", value: "light" },
-								{ name: "Heavy Blur", value: "heavy" },
+								{ name: "轻度模糊", value: "light" },
+								{ name: "重度模糊", value: "heavy" },
 							]}
 							optionValue="value"
 							optionTextValue="name"
@@ -2870,8 +2870,8 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 								(
 									[
 										{ name: "Off", value: "off" },
-										{ name: "Light Blur", value: "light" },
-										{ name: "Heavy Blur", value: "heavy" },
+										{ name: "轻度模糊", value: "light" },
+										{ name: "重度模糊", value: "heavy" },
 									] as const
 								).find(
 									(v) =>
@@ -2978,7 +2978,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 						</KSelect>
 					</Subfield>
 
-					{/* <Subfield name="Use Camera Aspect Ratio">
+					{/* <Subfield name="使用摄像头宽高比">
             <Toggle
               checked={project.camera.use_camera_aspect}
               onChange={(v) => setProject("camera", "use_camera_aspect", v)}
@@ -2998,7 +2998,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 					formatTooltip="%"
 				/>
 			</Field>
-			<Field name="Size During Zoom" icon={<IconCapEnlarge class="size-4" />}>
+			<Field name="缩放时大小" icon={<IconCapEnlarge class="size-4" />}>
 				<Slider
 					value={[project.camera.zoomSize ?? 60]}
 					onChange={(v) => setProject("camera", "zoomSize", v[0])}
@@ -3008,7 +3008,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 					formatTooltip="%"
 				/>
 			</Field>
-			<Subfield name="Keep original size during zoom">
+			<Subfield name="缩放时保持原始大小">
 				<Toggle
 					checked={
 						(project.camera.scaleDuringZoom ??
@@ -3023,7 +3023,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 					}
 				/>
 			</Subfield>
-			<Field name="Rounded Corners" icon={<IconCapCorners class="size-4" />}>
+			<Field name="圆角" icon={<IconCapCorners class="size-4" />}>
 				<div class="flex flex-col gap-3">
 					<Slider
 						value={[project.camera.rounding ?? 0]}
@@ -3034,7 +3034,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 						formatTooltip="%"
 					/>
 					<CornerStyleSelect
-						label="Corner Style"
+						label="圆角风格"
 						value={project.camera.roundingType}
 						onChange={(value) => setProject("camera", "roundingType", value)}
 					/>
@@ -3338,7 +3338,7 @@ function TextSegmentConfig(props: {
 					<KSelect
 						options={[
 							{ label: "Normal", value: 400 },
-							{ label: "Medium", value: 500 },
+							{ label: "中等", value: 500 },
 							{ label: "Bold", value: 700 },
 						]}
 						optionValue="value"
@@ -3375,7 +3375,7 @@ function TextSegmentConfig(props: {
 									const weight = props.segment.fontWeight;
 									const option = [
 										{ label: "Normal", value: 400 },
-										{ label: "Medium", value: 500 },
+										{ label: "中等", value: 500 },
 										{ label: "Bold", value: 700 },
 									].find((o) => o.value === weight);
 									if (option) return option.label;
@@ -3413,7 +3413,7 @@ function TextSegmentConfig(props: {
 					</div>
 				</div>
 			</Field>
-			<Field name="Color" icon={<IconLucidePalette class="size-4" />}>
+			<Field name="颜色" icon={<IconLucidePalette class="size-4" />}>
 				<HexColorInput
 					value={props.segment.color}
 					brandColorSwatches={props.brandColorSwatches}
@@ -3424,7 +3424,7 @@ function TextSegmentConfig(props: {
 					}
 				/>
 			</Field>
-			<Field name="Fade Duration" icon={<IconLucideTimer class="size-4" />}>
+			<Field name="淡入淡出时长" icon={<IconLucideTimer class="size-4" />}>
 				<Slider
 					value={[clampNumber(props.segment.fadeDuration ?? 0.15, 0, 1)]}
 					onChange={([value]) =>
@@ -3542,7 +3542,7 @@ function AudioSegmentConfig(props: {
 					formatTooltip="dB"
 				/>
 			</Field>
-			<Field name="Fade In" icon={<IconLucideTimer class="size-4" />}>
+			<Field name="淡入" icon={<IconLucideTimer class="size-4" />}>
 				<Slider
 					value={[clampNumber(props.segment.fadeIn, 0, fadeMax())]}
 					onChange={([value]) =>
@@ -3556,7 +3556,7 @@ function AudioSegmentConfig(props: {
 					formatTooltip="s"
 				/>
 			</Field>
-			<Field name="Fade Out" icon={<IconLucideTimer class="size-4" />}>
+			<Field name="淡出" icon={<IconLucideTimer class="size-4" />}>
 				<Slider
 					value={[clampNumber(props.segment.fadeOut, 0, fadeMax())]}
 					onChange={([value]) =>
@@ -3655,7 +3655,7 @@ function KeyboardSegmentConfig(props: {
 					</div>
 				</div>
 			</Field>
-			<Field name="Fade Duration" icon={<IconLucideTimer class="size-4" />}>
+			<Field name="淡入淡出时长" icon={<IconLucideTimer class="size-4" />}>
 				<Slider
 					value={[(props.segment.fadeDurationOverride ?? 0.15) * 100]}
 					onChange={([value]) =>
@@ -3860,8 +3860,8 @@ function MaskSegmentConfig(props: {
 						}
 					>
 						{[
-							{ value: "sensitive", label: "Sensitive" },
-							{ value: "highlight", label: "Highlight" },
+							{ value: "sensitive", label: "敏感内容" },
+							{ value: "highlight", label: "高亮" },
 						].map((option) => (
 							<RadioGroup.Item
 								value={option.value}
@@ -3897,7 +3897,7 @@ function MaskSegmentConfig(props: {
 					>
 						{[
 							{ value: "blur", label: "Blur" },
-							{ value: "pixelate", label: "Pixelate" },
+							{ value: "pixelate", label: "像素化" },
 						].map((option) => (
 							<RadioGroup.Item
 								value={option.value}
@@ -3915,7 +3915,7 @@ function MaskSegmentConfig(props: {
 			</Show>
 			<Show when={props.segment.maskType === "sensitive"}>
 				<Field
-					name={maskEffect() === "blur" ? "Blur" : "Pixel Size"}
+					name={maskEffect() === "blur" ? "Blur" : "像素大小"}
 					icon={
 						maskEffect() === "blur" ? (
 							<IconLucideWind class="size-4" />
@@ -3935,7 +3935,7 @@ function MaskSegmentConfig(props: {
 				</Field>
 			</Show>
 			<Show when={props.segment.maskType === "highlight"}>
-				<Field name="Outside Darkness" icon={<IconLucideMoon class="size-4" />}>
+				<Field name="外部暗度" icon={<IconLucideMoon class="size-4" />}>
 					<Slider
 						value={[props.segment.darkness]}
 						onChange={([v]) =>
@@ -3950,7 +3950,7 @@ function MaskSegmentConfig(props: {
 				</Field>
 			</Show>
 			<Show when={props.segment.maskType === "highlight"}>
-				<Field name="Fade Duration" icon={<IconLucideTimer class="size-4" />}>
+				<Field name="淡入淡出时长" icon={<IconLucideTimer class="size-4" />}>
 					<Slider
 						value={[props.segment.fadeDuration ?? 0.15]}
 						onChange={([v]) =>
@@ -4125,7 +4125,7 @@ function ZoomSegmentConfig(props: {
 					formatTooltip="x"
 				/>
 			</Field>
-			<Field name="Zoom Mode" icon={<IconCapSettings />}>
+			<Field name="缩放模式" icon={<IconCapSettings />}>
 				<KTabs
 					class="space-y-6"
 					value={props.segment.mode === "auto" ? "auto" : "manual"}

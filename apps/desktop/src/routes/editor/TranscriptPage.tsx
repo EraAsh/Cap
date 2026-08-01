@@ -775,7 +775,7 @@ function TranscriptEditor(props: {
 			e.preventDefault();
 			const word = props.allWords[[...selected][0]];
 			if (word) startEditing(word);
-		} else if (e.key === "Backspace" || e.key === "Delete") {
+		} else if (e.key === "Backspace" || e.key === "删除") {
 			e.preventDefault();
 			const indices = [...selected];
 			if (indices.length === 1) {

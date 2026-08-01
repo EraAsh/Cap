@@ -202,7 +202,7 @@ export function FrameButton() {
 				}
 				rightIcon={<IconCapChevronDown />}
 			>
-				{hasFrame() ? activeStyle().label : "Frame"}
+				{hasFrame() ? activeStyle().label : "相框"}
 			</EditorButton>
 			<KPopover.Portal>
 				<KPopover.Content

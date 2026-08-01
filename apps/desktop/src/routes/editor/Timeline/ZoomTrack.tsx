@@ -659,7 +659,7 @@ export function ZoomTrack(props: {
 																? segment().mode === "auto"
 																	? "Automatic Zoom"
 																	: "Manual Zoom"
-																: "Zoom"}
+																: "缩放"}
 														</span>
 														<div class="flex gap-1 items-center text-md">
 															<IconLucideSearch class="size-3.5" />

@@ -842,7 +842,7 @@ function Dialogs() {
 											</Dialog.ConfirmButton>
 										}
 									>
-										<Subfield name="Name" required />
+										<Subfield name="名称" required />
 										<Input
 											class="mt-2"
 											value={form.name}
@@ -890,7 +890,7 @@ function Dialogs() {
 											</Dialog.ConfirmButton>
 										}
 									>
-										<Subfield name="Name" required />
+										<Subfield name="名称" required />
 										<Input
 											class="mt-2"
 											value={name()}
@@ -919,7 +919,7 @@ function Dialogs() {
 
 								return (
 									<DialogContent
-										title="Delete Preset"
+										title="删除预设"
 										confirm={
 											<Dialog.ConfirmButton
 												variant="destructive"

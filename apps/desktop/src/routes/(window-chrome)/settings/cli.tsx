@@ -131,7 +131,7 @@ export default function CliSettings() {
 													disabled={isUninstalling()}
 													onClick={handleUninstall}
 												>
-													{isUninstalling() ? "Removing..." : "Remove"}
+													{isUninstalling() ? "Removing..." : "移除"}
 												</Button>
 											</Show>
 											<Button
@@ -146,7 +146,7 @@ export default function CliSettings() {
 									</div>
 
 									<div class="grid gap-2 text-xs">
-										<PathRow label="Command" value={currentStatus().shimPath} />
+										<PathRow label="命令" value={currentStatus().shimPath} />
 										<PathRow
 											label="Target"
 											value={currentStatus().targetPath}

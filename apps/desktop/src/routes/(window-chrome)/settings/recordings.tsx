@@ -161,7 +161,7 @@ export default function Recordings() {
 	const emptyMessage = createMemo(() => {
 		const tabLabel =
 			activeTab() === "all" ? "recordings" : `${activeTab()} recordings`;
-		const prefix = trimmedSearch() ? "No matching" : "No";
+		const prefix = trimmedSearch() ? "No matching" : "否";
 		return `${prefix} ${tabLabel}`;
 	});
 
@@ -256,7 +256,7 @@ export default function Recordings() {
 											setSearch("");
 										}
 									}}
-									placeholder="Search"
+									placeholder="搜索"
 									autoCapitalize="off"
 									autocorrect="off"
 									autocomplete="off"
@@ -442,7 +442,7 @@ function RecordingItem(props: {
 						)}
 					</Show>
 					<TooltipIconButton
-						tooltipText="Edit"
+						tooltipText="编辑"
 						onClick={async () => {
 							if (
 								props.recording.meta.status.status === "Failed" &&
@@ -517,7 +517,7 @@ function RecordingItem(props: {
 					<IconLucideFolder class="size-4" />
 				</TooltipIconButton>
 				<TooltipIconButton
-					tooltipText="Delete"
+					tooltipText="删除"
 					onClick={async () => {
 						if (!(await ask("Are you sure you want to delete this recording?")))
 							return;

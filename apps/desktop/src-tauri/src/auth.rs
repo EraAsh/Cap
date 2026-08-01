@@ -114,10 +114,8 @@ impl AuthStore {
     }
 
     pub fn is_upgraded(&self) -> bool {
-        match &self.plan {
-            Some(plan) => plan.upgraded || plan.manual,
-            None => false,
-        }
+        // 汉化版：免费版全部功能解锁，恒为 true
+        true
     }
 
     pub fn set(app: &AppHandle, value: Option<Self>) -> Result<(), String> {

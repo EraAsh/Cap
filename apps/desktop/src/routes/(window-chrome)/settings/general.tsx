@@ -63,7 +63,7 @@ import {
 } from "./Setting";
 
 const getExclusionPrimaryLabel = (entry: WindowExclusion) =>
-	entry.ownerName ?? entry.windowTitle ?? entry.bundleIdentifier ?? "Unknown";
+	entry.ownerName ?? entry.windowTitle ?? entry.bundleIdentifier ?? "未知";
 
 const getExclusionSecondaryLabel = (entry: WindowExclusion) => {
 	if (entry.ownerName && entry.windowTitle) {
@@ -155,9 +155,9 @@ function AppearanceSection(props: {
 	onThemeChange: (theme: AppTheme) => void;
 }) {
 	const options = [
-		{ id: "system", name: "System" },
-		{ id: "light", name: "Light" },
-		{ id: "dark", name: "Dark" },
+		{ id: "system", name: "跟随系统" },
+		{ id: "light", name: "浅色" },
+		{ id: "dark", name: "深色" },
 	] satisfies { id: AppTheme; name: string }[];
 
 	const previews = {
@@ -168,8 +168,8 @@ function AppearanceSection(props: {
 
 	return (
 		<Section
-			title="Appearance"
-			description="Match Cap to your system theme or pick a fixed look."
+			title="外观"
+			description="匹配系统主题或选择固定外观"
 		>
 			<SectionCard padded>
 				<div
@@ -345,7 +345,7 @@ function Inner(props: {
 			});
 		} catch (error) {
 			setConfirmBeforeRecordingWithoutMicrophone(previousValue);
-			console.error("Failed to update recording start safety", error);
+			console.error("更新录制安全设置失败", error);
 		}
 	};
 
@@ -416,7 +416,7 @@ function Inner(props: {
 			const refreshed = (await refetchWindows()) ?? windows() ?? [];
 			return refreshed.filter(isWindowAvailable);
 		} catch (error) {
-			console.error("Failed to refresh available windows", error);
+			console.error("刷新可用窗口失败", error);
 			return availableWindows();
 		}
 	};
@@ -430,7 +430,7 @@ function Inner(props: {
 				await events.requestScreenCapturePrewarm.emit({ force: true });
 			}
 		} catch (error) {
-			console.error("Failed to update excluded windows", error);
+			console.error("更新排除窗口失败", error);
 		}
 	};
 
@@ -525,17 +525,17 @@ function Inner(props: {
 				{ostype === "macos" && (
 					<Section
 						title="App"
-						description="Choose how Cap shows up on your system."
+						description="选择 Cap 在系统中的显示方式"
 					>
 						<SectionRows>
 							<ToggleSettingItem
-								label="Always show dock icon"
-								description="Keep Cap in the dock even when no windows are open."
+								label="始终显示托盘图标"
+								description="即使没有窗口打开，也保留托盘图标"
 								value={!settings.hideDockIcon}
 								onChange={(v) => handleChange("hideDockIcon", !v)}
 							/>
 							<ToggleSettingItem
-								label="System notifications"
+								label="系统通知"
 								description="Show notifications for clipboard copies, saved files, and more. You may need to allow Cap in your system's notification settings."
 								value={!!settings.enableNotifications}
 								onChange={async (value) => {
@@ -573,13 +573,13 @@ function Inner(props: {
 				/>
 
 				<Section
-					title="Recording"
-					description="Behaviour while you record and after you stop."
+					title="录制"
+					description="录制时和停止后的行为"
 				>
 					<SectionRows>
 						<SelectSettingItem
-							label="Countdown"
-							description="Wait before the recording starts."
+							label="倒计时"
+							description="录制开始前等待"
 							value={settings.recordingCountdown ?? 0}
 							onChange={(value) => handleChange("recordingCountdown", value)}
 							options={[
@@ -590,44 +590,44 @@ function Inner(props: {
 							]}
 						/>
 						<ToggleSettingItem
-							label="Confirm before recording without a microphone"
+							label="无麦克风录制前确认"
 							description="Require confirmation when no microphone is selected or the selected microphone is unavailable."
 							value={confirmBeforeRecordingWithoutMicrophone()}
 							onChange={handleRecordingStartSafetyChange}
 						/>
 						<SelectSettingItem
-							label="Main window when recording starts"
-							description="What happens to the main window once a recording begins."
+							label="录制开始时主窗口行为"
+							description="录制开始时主窗口的处理方式"
 							value={settings.mainWindowRecordingStartBehaviour ?? "close"}
 							onChange={(value) =>
 								handleChange("mainWindowRecordingStartBehaviour", value)
 							}
 							options={[
-								{ text: "Close", value: "close" },
-								{ text: "Minimise", value: "minimise" },
+								{ text: "关闭", value: "close" },
+								{ text: "最小化", value: "minimise" },
 							]}
 						/>
 						<SelectSettingItem
-							label="After a Studio recording"
-							description="What happens once you stop a Studio recording."
+							label="工作室录制后"
+							description="停止工作室录制后的处理"
 							value={settings.postStudioRecordingBehaviour ?? "openEditor"}
 							onChange={(value) =>
 								handleChange("postStudioRecordingBehaviour", value)
 							}
 							options={[
-								{ text: "Open editor", value: "openEditor" },
-								{ text: "Show in overlay", value: "showOverlay" },
+								{ text: "打开编辑器", value: "openEditor" },
+								{ text: "在覆盖层显示", value: "showOverlay" },
 							]}
 						/>
 						<SelectSettingItem
-							label="After deleting a recording"
-							description="Whether the recording window should reopen."
+							label="删除录制后"
+							description="录制窗口是否重新打开"
 							value={settings.postDeletionBehaviour ?? "doNothing"}
 							onChange={(value) => handleChange("postDeletionBehaviour", value)}
 							options={[
-								{ text: "Do nothing", value: "doNothing" },
+								{ text: "无操作", value: "doNothing" },
 								{
-									text: "Reopen recording window",
+									text: "重新打开录制窗口",
 									value: "reopenRecordingWindow",
 								},
 							]}
@@ -1089,7 +1089,7 @@ function InstantQualitySetting(props: {
 						class="px-2.5 py-1 text-xs font-medium rounded-lg transition-colors bg-blue-9 text-white hover:bg-blue-10"
 						onClick={() => {
 							toast.dismiss(t.id);
-							void commands.showWindow("Upgrade");
+							void commands.showWindow("升级");
 						}}
 					>
 						Upgrade

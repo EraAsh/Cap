@@ -18,7 +18,7 @@ function AspectRatioSelect() {
 	let triggerSelect: HTMLDivElement | undefined;
 
 	return (
-		<Tooltip content="Aspect Ratio">
+		<Tooltip content="宽高比">
 			<KSelect<AspectRatio | "auto">
 				open={open()}
 				onOpenChange={setOpen}

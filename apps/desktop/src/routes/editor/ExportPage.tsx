@@ -52,10 +52,10 @@ export const COMPRESSION_OPTIONS: Array<{
 	value: ExportCompression;
 	bpp: number;
 }> = [
-	{ label: "Maximum", value: "Maximum", bpp: 0.3 },
-	{ label: "Social Media", value: "Social", bpp: 0.15 },
+	{ label: "最高质量", value: "最高质量", bpp: 0.3 },
+	{ label: "社交媒体", value: "社交", bpp: 0.15 },
 	{ label: "Web", value: "Web", bpp: 0.08 },
-	{ label: "Potato", value: "Potato", bpp: 0.04 },
+	{ label: "极低质量", value: "极低质量", bpp: 0.04 },
 ];
 
 const COMPRESSION_TO_BPP: Record<ExportCompression, number> = {
@@ -81,22 +81,22 @@ export const GIF_FPS_OPTIONS = [
 
 export const EXPORT_TO_OPTIONS = [
 	{
-		label: "File",
+		label: "文件",
 		value: "file",
 		icon: IconCapFile,
-		description: "Save to your computer",
+		description: "保存到电脑",
 	},
 	{
-		label: "Clipboard",
+		label: "剪贴板",
 		value: "clipboard",
 		icon: IconCapCopy,
-		description: "Copy to paste anywhere",
+		description: "复制到剪贴板",
 	},
 	{
-		label: "Shareable Link",
+		label: "分享链接",
 		value: "link",
 		icon: IconCapLink,
-		description: "Share via Cap cloud",
+		description: "通过 Cap 云分享",
 	},
 ] as const;
 
@@ -188,11 +188,11 @@ export function ExportPage() {
 
 	const isCancellationError = (error: unknown) =>
 		error instanceof SilentError ||
-		error === "Export cancelled" ||
-		error === "Save dialog cancelled" ||
+		error === "导出已取消" ||
+		error === "保存对话框已取消" ||
 		(error instanceof Error &&
-			(error.message === "Export cancelled" ||
-				error.message === "Save dialog cancelled"));
+			(error.message === "导出已取消" ||
+				error.message === "保存对话框已取消"));
 
 	const [_settings, setSettings] = makePersisted(
 		createStore<Settings>({
@@ -200,17 +200,17 @@ export function ExportPage() {
 			fps: 30,
 			exportTo: "file",
 			resolution: { label: "720p", value: "720p", width: 1280, height: 720 },
-			compression: "Maximum",
+			compression: "最高质量",
 			optimizeFilesize: false,
 		}),
 		{ name: "export_settings" },
 	);
 
 	const VALID_COMPRESSIONS: ExportCompression[] = [
-		"Maximum",
-		"Social",
+		"最高质量",
+		"社交",
 		"Web",
-		"Potato",
+		"极低质量",
 	];
 	const [cursorOnly, setCursorOnly] = createSignal(false);
 
@@ -258,7 +258,7 @@ export function ExportPage() {
 		}
 
 		if (!VALID_COMPRESSIONS.includes(_settings.compression))
-			ret.compression = "Maximum";
+			ret.compression = "最高质量";
 
 		Object.defineProperty(ret, "organizationId", {
 			get() {
@@ -399,7 +399,7 @@ export function ExportPage() {
 			setPreviewUnavailable(false);
 			setRenderEstimate(newEstimate);
 		} catch (e) {
-			console.error("Failed to generate preview:", e);
+			console.error("生成预览失败：", e);
 			if (retryCount < maxRetries) {
 				await new Promise((resolve) =>
 					setTimeout(resolve, 200 * (retryCount + 1)),
@@ -509,10 +509,10 @@ export function ExportPage() {
 		isMovCursorOnlyExport() ? "mov" : settings.format === "Gif" ? "gif" : "mp4";
 	const exportedAssetLabel = () =>
 		isMovCursorOnlyExport()
-			? "Cursor track"
+			? "光标轨迹"
 			: settings.format === "Gif"
 				? "GIF"
-				: "Recording";
+				: "录制";
 	const exportMediumLabel = () =>
 		isMovCursorOnlyExport()
 			? "cursor track"
@@ -522,8 +522,8 @@ export function ExportPage() {
 
 	const handleCancel = async () => {
 		if (
-			await ask("Are you sure you want to cancel the export?", {
-				title: "Cancel Export",
+			await ask("确定要取消导出吗？", {
+				title: "取消导出",
 				kind: "warning",
 			})
 		) {
@@ -536,7 +536,7 @@ export function ExportPage() {
 				try {
 					await remove(path);
 				} catch (e) {
-					console.error("Failed to delete cancelled file", e);
+					console.error("删除已取消文件失败", e);
 				}
 			}
 		}
@@ -551,11 +551,11 @@ export function ExportPage() {
 				setExportState(reconcile({ action: "copy", type: "starting" }));
 
 				const outputPath = await exportWithSettings((progress) => {
-					if (isCancelled()) throw new SilentError("Cancelled");
+					if (isCancelled()) throw new SilentError("已取消");
 					setExportState({ type: "rendering", progress });
 				});
 
-				if (isCancelled()) throw new SilentError("Cancelled");
+				if (isCancelled()) throw new SilentError("已取消");
 
 				setExportState({ type: "copying" });
 
@@ -570,7 +570,7 @@ export function ExportPage() {
 				return;
 			}
 			commands.globalMessageDialog(
-				error instanceof Error ? error.message : "Failed to copy recording",
+				error instanceof Error ? error.message : "复制录制文件失败",
 			);
 			setExportState(reconcile({ type: "idle" }));
 		},
@@ -599,7 +599,7 @@ export function ExportPage() {
 				`${meta().prettyName}.${extension}`,
 				extension,
 				(progress) => {
-					if (isCancelled()) throw new SilentError("Cancelled");
+					if (isCancelled()) throw new SilentError("已取消");
 					setExportState({ type: "rendering", progress });
 				},
 				() => {
@@ -614,7 +614,7 @@ export function ExportPage() {
 				if (cancelCurrentExport === task.cancel) cancelCurrentExport = null;
 			});
 
-			if (isCancelled()) throw new SilentError("Cancelled");
+			if (isCancelled()) throw new SilentError("已取消");
 
 			setOutputPath(savePath);
 			setExportState({ type: "done" });
@@ -661,14 +661,14 @@ export function ExportPage() {
 
 				if (!canShare.allowed) {
 					if (canShare.reason === "upgrade_required") {
-						await commands.showWindow("Upgrade");
+						await commands.showWindow("升级");
 						await new Promise((resolve) => setTimeout(resolve, 1000));
 						throw new SilentError();
 					}
 				}
 
 				const uploadChannel = new Channel<UploadProgress>((progress) => {
-					console.log("Upload progress:", progress);
+					console.log("上传进度：", progress);
 					setExportState(
 						produce((state) => {
 							if (state.type !== "uploading") return;
@@ -679,11 +679,11 @@ export function ExportPage() {
 				});
 
 				await exportWithSettings((progress) => {
-					if (isCancelled()) throw new SilentError("Cancelled");
+					if (isCancelled()) throw new SilentError("已取消");
 					setExportState({ type: "rendering", progress });
 				});
 
-				if (isCancelled()) throw new SilentError("Cancelled");
+				if (isCancelled()) throw new SilentError("已取消");
 
 				setExportState({ type: "uploading", progress: 0 });
 
@@ -692,7 +692,7 @@ export function ExportPage() {
 				const result = meta().sharing
 					? await commands.uploadExportedVideo(
 							projectPath,
-							"Reupload",
+							"重新上传",
 							uploadChannel,
 							settings.organizationId ?? null,
 						)
@@ -704,7 +704,7 @@ export function ExportPage() {
 						);
 
 				if (result === "NotAuthenticated")
-					throw new Error("You need to sign in to share recordings");
+					throw new Error("请登录以分享录制内容");
 				else if (result === "PlanCheckFailed")
 					throw new Error("Failed to verify your subscription status");
 				else if (result === "UpgradeRequired")
@@ -725,7 +725,7 @@ export function ExportPage() {
 			console.error(error);
 			if (!(error instanceof SilentError)) {
 				commands.globalMessageDialog(
-					error instanceof Error ? error.message : "Failed to upload recording",
+					error instanceof Error ? error.message : "上传录制失败",
 				);
 			}
 
@@ -1168,8 +1168,8 @@ export function ExportPage() {
 														setSettings("compression", option.value);
 													}}
 												>
-													{option.label === "Social Media"
-														? "Social"
+													{option.label === "社交媒体"
+														? "社交"
 														: option.label}
 												</button>
 											);
