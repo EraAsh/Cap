@@ -427,7 +427,7 @@ export function TextTrack(props: {
 									<span class="opacity-70">Text</span>
 									<div class="flex gap-1 items-center text-md w-full min-w-0 justify-center">
 										<span class="truncate max-w-full">
-											{segment.content || "Label"}
+											{segment.content || "标签"}
 										</span>
 									</div>
 								</div>

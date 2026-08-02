@@ -73,7 +73,7 @@ export function RgbInput(props: {
 					prevHex = rgbToHex(props.value);
 				}}
 				onKeyDown={(e) => {
-					if (e.key === "Enter") {
+					if (e.key === "回车") {
 						e.preventDefault();
 						if (!commitValue(e.currentTarget.value)) {
 							setText(prevHex);

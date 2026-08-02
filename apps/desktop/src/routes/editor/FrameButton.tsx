@@ -29,7 +29,7 @@ const FRAME_STYLES: Array<{
 }> = [
 	{
 		value: "none",
-		label: "None",
+		label: "无",
 		description: "按原样显示录制",
 		icon: IconLucideBan,
 	},
@@ -47,7 +47,7 @@ const FRAME_STYLES: Array<{
 	},
 	{
 		value: "browser",
-		label: "Browser",
+		label: "浏览器",
 		description: "带地址栏的浏览器窗口",
 		icon: IconLucideGlobe,
 	},
@@ -128,7 +128,7 @@ function FrameSettings() {
 			<Show when={style() !== "none" && project.background.frame}>
 				{(frame) => (
 					<div class="flex flex-col gap-3 p-3 border-t border-gray-3">
-						<SettingRow name="Theme">
+						<SettingRow name="主题">
 							<KTabs
 								class="w-40"
 								value={frame().theme}
@@ -161,7 +161,7 @@ function FrameSettings() {
 							</SettingRow>
 						</Show>
 						<Show when={frame().style === "macOS"}>
-							<SettingRow name="Title">
+							<SettingRow name="标题">
 								<div class="w-40">
 									<Input
 										value={frame().title}

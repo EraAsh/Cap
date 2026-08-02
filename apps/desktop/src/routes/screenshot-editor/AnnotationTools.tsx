@@ -42,7 +42,7 @@ export function AnnotationTools() {
 			<ToolButton
 				tool="arrow"
 				icon={IconLucideArrowUpRight}
-				label="Arrow"
+				label="箭头"
 				shortcut="A"
 			/>
 			<ToolButton
@@ -54,7 +54,7 @@ export function AnnotationTools() {
 			<ToolButton
 				tool="mask"
 				icon={IconLucideEyeOff}
-				label="Mask"
+				label="遮罩"
 				shortcut="M"
 			/>
 			<ToolButton
@@ -63,7 +63,7 @@ export function AnnotationTools() {
 				label="圆形"
 				shortcut="C"
 			/>
-			<ToolButton tool="text" icon={IconLucideType} label="Text" shortcut="T" />
+			<ToolButton tool="text" icon={IconLucideType} label="文字" shortcut="T" />
 		</div>
 	);
 }

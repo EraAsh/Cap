@@ -59,7 +59,7 @@ export function PaddingPopover() {
 					setActivePopover(activePopover() === "padding" ? null : "padding")
 				}
 				leftIcon={<IconCapPadding class="size-4" />}
-				tooltipText="Padding"
+				tooltipText="内边距"
 				kbd={["P"]}
 			/>
 			<Popover.Portal>

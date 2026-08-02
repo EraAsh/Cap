@@ -24,7 +24,7 @@ const organizations: DesktopOrganization[] = [
 	},
 	{
 		id: "org-2",
-		name: "Beta",
+		name: "测试版",
 		ownerId: "user-2",
 		role: "member",
 		canEditBrand: false,
@@ -107,9 +107,9 @@ describe("desktop organization branding", () => {
 
 	it("returns available organization brand colour swatches", () => {
 		expect(getOrganizationBrandColorSwatches(organizations[1])).toEqual([
-			{ key: "secondary", label: "Secondary", color: "#FFFFFF" },
-			{ key: "accent", label: "Accent", color: "#FF4766" },
-			{ key: "background", label: "Background", color: "#000000" },
+			{ key: "secondary", label: "辅助色", color: "#FFFFFF" },
+			{ key: "accent", label: "强调色", color: "#FF4766" },
+			{ key: "background", label: "背景", color: "#000000" },
 		]);
 		expect(getOrganizationBrandColorSwatches(null)).toEqual([]);
 	});

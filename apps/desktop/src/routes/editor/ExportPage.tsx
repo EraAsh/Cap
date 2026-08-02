@@ -52,10 +52,10 @@ export const COMPRESSION_OPTIONS: Array<{
 	value: ExportCompression;
 	bpp: number;
 }> = [
-	{ label: "最高质量", value: "最高质量", bpp: 0.3 },
-	{ label: "社交媒体", value: "社交", bpp: 0.15 },
+	{ label: "Maximum", value: "Maximum", bpp: 0.3 },
+	{ label: "社交媒体", value: "Social", bpp: 0.15 },
 	{ label: "Web", value: "Web", bpp: 0.08 },
-	{ label: "极低质量", value: "极低质量", bpp: 0.04 },
+	{ label: "Potato", value: "Potato", bpp: 0.04 },
 ];
 
 const COMPRESSION_TO_BPP: Record<ExportCompression, number> = {
@@ -104,7 +104,7 @@ type ExportFormat = ExportSettings["format"];
 
 const FORMAT_OPTIONS = [
 	{ label: "MP4", value: "Mp4" },
-	{ label: "GIF", value: "Gif" },
+	{ label: "Gif", value: "Gif" },
 ] as { label: string; value: ExportFormat; disabled?: boolean }[];
 
 type ExportToOption = (typeof EXPORT_TO_OPTIONS)[number]["value"];
@@ -200,17 +200,17 @@ export function ExportPage() {
 			fps: 30,
 			exportTo: "file",
 			resolution: { label: "720p", value: "720p", width: 1280, height: 720 },
-			compression: "最高质量",
+			compression: "Maximum",
 			optimizeFilesize: false,
 		}),
 		{ name: "export_settings" },
 	);
 
 	const VALID_COMPRESSIONS: ExportCompression[] = [
-		"最高质量",
-		"社交",
+		"Maximum",
+		"Social",
 		"Web",
-		"极低质量",
+		"Potato",
 	];
 	const [cursorOnly, setCursorOnly] = createSignal(false);
 
@@ -258,7 +258,7 @@ export function ExportPage() {
 		}
 
 		if (!VALID_COMPRESSIONS.includes(_settings.compression))
-			ret.compression = "最高质量";
+			ret.compression = "Maximum";
 
 		Object.defineProperty(ret, "organizationId", {
 			get() {
@@ -511,13 +511,13 @@ export function ExportPage() {
 		isMovCursorOnlyExport()
 			? "光标轨迹"
 			: settings.format === "Gif"
-				? "GIF"
+				? "Gif"
 				: "录制";
 	const exportMediumLabel = () =>
 		isMovCursorOnlyExport()
 			? "cursor track"
 			: settings.format === "Gif"
-				? "GIF"
+				? "Gif"
 				: "video";
 
 	const handleCancel = async () => {
@@ -661,7 +661,7 @@ export function ExportPage() {
 
 				if (!canShare.allowed) {
 					if (canShare.reason === "upgrade_required") {
-						await commands.showWindow("升级");
+						await commands.showWindow("Upgrade");
 						await new Promise((resolve) => setTimeout(resolve, 1000));
 						throw new SilentError();
 					}
@@ -692,7 +692,7 @@ export function ExportPage() {
 				const result = meta().sharing
 					? await commands.uploadExportedVideo(
 							projectPath,
-							"重新上传",
+							"Reupload",
 							uploadChannel,
 							settings.organizationId ?? null,
 						)
@@ -901,7 +901,7 @@ export function ExportPage() {
 						Back to editor
 					</button>
 					<div class="flex-1 overflow-y-auto p-4 space-y-5">
-						<Field name="Destination" icon={<IconCapUpload class="size-4" />}>
+						<Field name="目标" icon={<IconCapUpload class="size-4" />}>
 							<div class="flex gap-1.5">
 								<For each={EXPORT_TO_OPTIONS}>
 									{(option) => {
@@ -1005,7 +1005,7 @@ export function ExportPage() {
 							</Suspense>
 						</Field>
 
-						<Field name="Format" icon={<IconLucideVideo class="size-4" />}>
+						<Field name="格式" icon={<IconLucideVideo class="size-4" />}>
 							<div class="flex gap-1.5">
 								<For each={FORMAT_OPTIONS}>
 									{(option) => {
@@ -1082,7 +1082,7 @@ export function ExportPage() {
 						</Field>
 
 						<Field
-							name="Resolution"
+							name="分辨率"
 							icon={<IconLucideMonitor class="size-4" />}
 						>
 							<div class="flex gap-1.5">
@@ -1143,7 +1143,7 @@ export function ExportPage() {
 
 						<Show when={settings.format === "Mp4" && !cursorOnly()}>
 							<Field
-								name="Quality"
+								name="质量"
 								icon={<IconLucideSparkles class="size-4" />}
 							>
 								<div class="grid grid-cols-4 gap-1.5">
@@ -1169,7 +1169,7 @@ export function ExportPage() {
 													}}
 												>
 													{option.label === "社交媒体"
-														? "社交"
+														? "Social"
 														: option.label}
 												</button>
 											);
@@ -1378,7 +1378,7 @@ export function ExportPage() {
 							<div class="flex flex-col items-center gap-2.5">
 								<SignInButton class="w-full justify-center">
 									<IconCapLink class="size-4" />
-									<span>Sign in to share</span>
+									<span>本地版 · 无需登录</span>
 								</SignInButton>
 							</div>
 						) : (
@@ -1568,7 +1568,7 @@ export function ExportPage() {
 											>
 												{(uploading) => (
 													<ActiveExport
-														heading="Uploading"
+														heading="上传中"
 														percent={uploading.progress}
 													/>
 												)}

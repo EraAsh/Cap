@@ -53,8 +53,8 @@ export default function CaptureArea() {
 	);
 
 	createEventListener(window, "keydown", (e) => {
-		if (e.key === "Escape") close();
-		else if (e.key === "Enter") handleConfirm();
+		if (e.key === "Esc") close();
+		else if (e.key === "回车") handleConfirm();
 	});
 
 	let cropperRef: CropperRef | undefined;
@@ -191,7 +191,7 @@ export default function CaptureArea() {
 							classList={{ "flex-row-reverse": ostype() === "windows" }}
 						>
 							<button
-								title="Close"
+								title="关闭"
 								class="group flex items-center justify-center size-12 text-gray-11 shadow-xl shadow-black/30 bg-gray-1 border border-gray-5 hover:bg-gray-4 active:bg-gray-6 rounded-full transition-colors duration-200 cursor-default"
 								type="button"
 								onClick={close}
@@ -210,7 +210,7 @@ export default function CaptureArea() {
 									</button>
 									<div class="inline-block my-3 w-px self-stretch bg-gray-3" />
 									<button
-										title="Fill"
+										title="填充"
 										class="group flex items-center justify-center size-10 text-gray-11 hover:bg-gray-5 active:bg-gray-6 rounded-full transition-colors duration-200 cursor-default"
 										type="button"
 										onClick={() => cropperRef?.fill()}

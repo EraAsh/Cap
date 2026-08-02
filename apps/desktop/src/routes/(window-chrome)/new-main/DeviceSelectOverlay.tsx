@@ -89,7 +89,7 @@ export default function DeviceSelectOverlay<T>(
 		};
 
 		const handleEscape = (e: KeyboardEvent) => {
-			if (e.key === "Escape") {
+			if (e.key === "Esc") {
 				props.onOpenChange(false);
 			}
 		};
@@ -209,7 +209,7 @@ export default function DeviceSelectOverlay<T>(
 								)}
 							>
 								<IconLucideCircleOff class="size-4 shrink-0" />
-								<span class="truncate">{props.noneLabel ?? "None"}</span>
+								<span class="truncate">{props.noneLabel ?? "无"}</span>
 								<Show when={props.selectedItem === null}>
 									<IconLucideCheck class="size-4 ml-auto shrink-0" />
 								</Show>

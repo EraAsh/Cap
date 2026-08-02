@@ -1493,6 +1493,12 @@ pub async fn start_recording(
         inputs.mode = RecordingMode::Studio;
     }
 
+    // 汉化版：未登录时强制 Studio 本地模式，避免触发登录流程
+    let authed = AuthStore::get(&app).ok().flatten().is_some();
+    if !authed && matches!(inputs.mode, RecordingMode::Instant) {
+        inputs.mode = RecordingMode::Studio;
+    }
+
     let is_camera_only = matches!(inputs.capture_target, ScreenCaptureTarget::CameraOnly);
 
     if is_camera_only {

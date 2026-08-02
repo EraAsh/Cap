@@ -139,7 +139,7 @@ function Inner(props: { initialStore: GeneralSettingsStore | null }) {
 								value={pendingHint()}
 								onInput={(event) => setPendingHint(event.currentTarget.value)}
 								onKeyDown={(event) => {
-									if (event.key !== "Enter") return;
+									if (event.key !== "回车") return;
 									event.preventDefault();
 									addHint();
 								}}

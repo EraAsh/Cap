@@ -530,7 +530,7 @@ export function AudioTrack(props: {
 								<div class="flex z-10 gap-1.5 items-center w-full min-w-0 text-xs text-white/95 drop-shadow-sm">
 									<IconLucideMusic class="size-3 shrink-0 opacity-90" />
 									<span class="max-w-full font-medium truncate">
-										{segment.name || "Audio"}
+										{segment.name || "音频"}
 									</span>
 								</div>
 							</SegmentContent>

@@ -56,7 +56,7 @@ declare global {
 
 const MAX_RECORDING_FOR_FREE = 5 * 60 * 1000;
 const NO_MICROPHONE = "无麦克风";
-const NO_WEBCAM = "No Webcam";
+const NO_WEBCAM = "无摄像头";
 const FAKE_WINDOW_BOUNDS_NAME = "recording-controls-interactive-area";
 
 export default function () {
@@ -517,7 +517,7 @@ function InProgressRecordingInner() {
 		mutationFn: async () => {
 			const shouldRestart = await dialog.confirm(
 				"确定要重新开始录制吗？当前录制将被丢弃。",
-				{ title: "确认重启", okLabel: "Restart", cancelLabel: "取消" },
+				{ title: "确认重启", okLabel: "重启", cancelLabel: "取消" },
 			);
 
 			if (!shouldRestart) return;
@@ -536,7 +536,7 @@ function InProgressRecordingInner() {
 		mutationFn: async () => {
 			const shouldDelete = await dialog.confirm(
 				"确定要删除此录制吗？",
-				{ title: "确认删除", okLabel: "Delete", cancelLabel: "取消" },
+				{ title: "确认删除", okLabel: "删除", cancelLabel: "取消" },
 			);
 
 			if (!shouldDelete) return;
@@ -644,7 +644,7 @@ function InProgressRecordingInner() {
 			items.push(
 				await MenuItem.new({
 					text: startedWithMicrophone
-						? "Microphone"
+						? "麦克风"
 						: "麦克风（本次录制已锁定）",
 					enabled: false,
 				}),
@@ -671,7 +671,7 @@ function InProgressRecordingInner() {
 			items.push(
 				await MenuItem.new({
 					text: startedWithCameraInput
-						? "Webcam"
+						? "摄像头"
 						: "摄像头（本次录制已锁定）",
 					enabled: false,
 				}),

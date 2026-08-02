@@ -170,7 +170,7 @@ export function AudioLibraryPanel(props: {
 		try {
 			const selected = await open({
 				multiple: false,
-				filters: [{ name: "Audio", extensions: [...AUDIO_IMPORT_EXTENSIONS] }],
+				filters: [{ name: "音频", extensions: [...AUDIO_IMPORT_EXTENSIONS] }],
 			});
 			if (typeof selected !== "string") return;
 			commit(await commands.importAudioTrackFile(selected));
@@ -192,7 +192,7 @@ export function AudioLibraryPanel(props: {
 					Done
 				</EditorButton>
 				<span class="text-sm text-gray-10">
-					{isReplace() ? "更换音频" : "Add audio"}
+					{isReplace() ? "更换音频" : "添加音频"}
 				</span>
 			</div>
 
@@ -301,7 +301,7 @@ export function AudioLibraryPanel(props: {
 
 										<button
 											type="button"
-											aria-label={isReplace() ? "Use track" : "添加到时间轴"}
+											aria-label={isReplace() ? "使用轨道" : "添加到时间轴"}
 											class={cx(
 												"flex absolute top-1 right-1 justify-center items-center rounded-full border backdrop-blur-sm transition-all size-5",
 												"opacity-0 group-hover/tile:opacity-100",

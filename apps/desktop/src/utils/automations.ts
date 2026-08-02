@@ -64,7 +64,7 @@ export const ACTION_LABELS: Record<ActionType, string> = {
 	export: "使用配置文件导出",
 	upload: "上传并复制链接",
 	revealInFileManager: "在文件管理器中显示",
-	openFile: "Open file",
+	openFile: "打开文件",
 	runCommand: "运行命令",
 	webhook: "发送 Webhook",
 	recognizeTextToClipboard: "识别文字（OCR）到剪贴板",

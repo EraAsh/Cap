@@ -196,12 +196,12 @@ export default function Settings(props: RouteSectionProps) {
 	const settingsItems = [
 		{
 			href: "general",
-			name: "General",
+			name: "通用",
 			icon: IconCapSettings,
 		},
 		{
 			href: "hotkeys",
-			name: "Shortcuts",
+			name: "快捷键",
 			icon: IconCapHotkeys,
 		},
 		{
@@ -211,53 +211,53 @@ export default function Settings(props: RouteSectionProps) {
 		},
 		{
 			href: "recordings",
-			name: "Recordings",
+			name: "录制",
 			icon: IconLucideSquarePlay,
 		},
 		{
 			href: "screenshots",
-			name: "Screenshots",
+			name: "截图",
 			icon: IconLucideImage,
 		},
 		{
 			href: "automations",
-			name: "Automations",
+			name: "自动化",
 			icon: IconLucideZap,
 		},
 		{
 			href: "transcription",
-			name: "Transcription",
+			name: "转写",
 			icon: IconCapCaptions,
 		},
 		{
 			href: "integrations",
-			name: "Integrations",
+			name: "集成",
 			icon: IconLucideUnplug,
 		},
 		{
 			href: "license",
-			name: "License",
+			name: "授权",
 			icon: IconLucideGift,
 		},
 		{
 			href: "experimental",
-			name: "Experimental",
+			name: "实验性",
 			icon: IconCapSettings,
 		},
 		{
 			href: "feedback",
-			name: "Feedback",
+			name: "反馈",
 			icon: IconLucideMessageSquarePlus,
 		},
 		{
 			href: "changelog",
-			name: "Changelog",
+			name: "更新日志",
 			icon: IconLucideBell,
 		},
 	];
 	const accountName = createMemo(() => {
 		if (!auth()) return "点击登录";
-		if (!userProfile.isSuccess) return "Signed in";
+		if (!userProfile.isSuccess) return "已登录";
 
 		const name = userProfile.data?.name?.trim();
 		if (name) return name;
@@ -265,7 +265,7 @@ export default function Settings(props: RouteSectionProps) {
 		const email = userProfile.data?.email?.trim();
 		if (email) return email;
 
-		return "Signed in";
+		return "已登录";
 	});
 	const accountRemoteImageUrl = createMemo(() => {
 		if (!userProfile.isSuccess) return null;
@@ -445,7 +445,7 @@ export default function Settings(props: RouteSectionProps) {
 			const openDownload = await dialog
 				.confirm(
 					"Couldn't check for updates automatically. You can download the latest version of Cap from cap.so/download \u2014 your data won't be lost.",
-					{ title: "更新 Cap", okLabel: "Download", cancelLabel: "Later" },
+					{ title: "更新 Cap", okLabel: "下载", cancelLabel: "稍后" },
 				)
 				.catch(() => false);
 			if (openDownload) await shell.open("https://cap.so/download");
@@ -557,13 +557,7 @@ export default function Settings(props: RouteSectionProps) {
 							<div class="h-9 w-full rounded-lg bg-gray-4 animate-pulse" />
 						}
 					>
-						{auth() ? (
-							<Button onClick={handleAuth} variant="gray" class="w-full">
-								Sign Out
-							</Button>
-						) : (
-							<SignInButton>Sign In</SignInButton>
-						)}
+						<SignInButton>本地版 · 无需登录</SignInButton>
 					</Show>
 				</div>
 			</div>

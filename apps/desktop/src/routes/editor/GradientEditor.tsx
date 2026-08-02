@@ -184,7 +184,7 @@ export function GradientEditor(props: {
 
 					<div class="w-full border-t border-dashed border-gray-5 my-1" />
 
-					<Subfield name="Noise">
+					<Subfield name="噪点">
 						<div class="w-[120px]">
 							<Slider
 								value={[noiseIntensity()]}
@@ -232,7 +232,7 @@ export function GradientEditor(props: {
 									to: randomColor(),
 								});
 							}}
-							title="Randomize"
+							title="随机"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

@@ -292,7 +292,7 @@ export default function () {
 												>
 													<TooltipIconButton
 														class="absolute top-3 left-3 z-20"
-														tooltipText="Close"
+														tooltipText="关闭"
 														tooltipPlacement="right"
 														onClick={() => {
 															const setMedia = isRecording
@@ -315,7 +315,7 @@ export default function () {
 													{isRecording ? (
 														<TooltipIconButton
 															class="absolute bottom-3 left-3 z-20"
-															tooltipText="Edit"
+															tooltipText="编辑"
 															tooltipPlacement="right"
 															onClick={() => {
 																const setMedia = isRecording
@@ -341,7 +341,7 @@ export default function () {
 													) : (
 														<TooltipIconButton
 															class="absolute bottom-3 left-3 z-20"
-															tooltipText="View"
+															tooltipText="查看"
 															tooltipPlacement="right"
 															onClick={() => {
 																commands.openFilePath(media.path);
@@ -808,11 +808,11 @@ function createRecordingMutations(
 			}
 
 			switch (res) {
-				case "未登录":
-					throw new Error("未登录");
-				case "订阅检查失败":
-					throw new Error("订阅检查失败");
-				case "需要升级":
+				case "NotAuthenticated":
+					throw new Error("NotAuthenticated");
+				case "PlanCheckFailed":
+					throw new Error("PlanCheckFailed");
+				case "UpgradeRequired":
 					onEvent("upgradeRequired");
 					return;
 				default:

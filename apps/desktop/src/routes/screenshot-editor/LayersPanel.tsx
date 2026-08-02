@@ -19,11 +19,11 @@ const ANNOTATION_TYPE_ICONS = {
 };
 
 const ANNOTATION_TYPE_LABELS = {
-	arrow: "Arrow",
+	arrow: "箭头",
 	rectangle: "矩形",
 	circle: "圆形",
-	mask: "Mask",
-	text: "Text",
+	mask: "遮罩",
+	text: "文字",
 };
 
 export function LayersPanel() {

@@ -14,17 +14,17 @@ export function handleRecordingResult(
 			if (result === "InvalidAuthentication") {
 				const buttons = setOptions
 					? {
-							yes: "Login",
+							yes: "登录",
 							no: "切换到工作室模式",
-							cancel: "Cancel",
+							cancel: "取消",
 						}
 					: {
-							ok: "Login",
-							cancel: "Cancel",
+							ok: "登录",
+							cancel: "取消",
 						};
 
 				const result = await dialog.message(
-					"You must be authenticated to start an instant mode recording. Login or switch to Studio mode.",
+					"开始即时录制需要先登录。请登录或切换到工作室模式。",
 					{
 						title: "需要登录",
 						buttons,

@@ -424,7 +424,7 @@ function Inner() {
 								<div class="flex flex-col items-center text-white">
 									<IconCapMonitor class="size-20 mb-3" />
 									<span class="mb-2 text-3xl font-semibold">
-										{display.name || "Monitor"}
+										{display.name || "显示器"}
 									</span>
 									<Show when={display.physical_size}>
 										{(size) => (
@@ -1418,7 +1418,7 @@ function Inner() {
 												}
 											>
 												<IconLucideLock class="size-3.5" />
-												{isSelectionLocked() ? "Locked" : "Lock"}
+												{isSelectionLocked() ? "已锁定" : "锁定"}
 											</button>
 										</Show>
 									</div>
@@ -2085,7 +2085,7 @@ function RecordingControls(props: {
 
 	const countdownItems = async () => [
 		await CheckMenuItem.new({
-			text: "Off",
+			text: "关闭",
 			action: () => generalSettingsStore.set({ recordingCountdown: 0 }),
 			checked:
 				!generalSetings.data?.recordingCountdown ||

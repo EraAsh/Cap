@@ -116,7 +116,7 @@ export default function AppsTab() {
 		<div class="cap-settings-page flex flex-col h-full custom-scroll">
 			<SettingsPageContent>
 				<Section
-					title="Integrations"
+					title="集成"
 					description="Configure integrations to extend Cap's functionality and connect with third-party services."
 				>
 					<div class="space-y-3">
@@ -138,7 +138,7 @@ export default function AppsTab() {
 												? "由您的组织管理"
 												: app.pro && !isPro()
 													? "升级到 Pro"
-													: "Configure"}
+													: "配置"}
 										</Button>
 									</div>
 									<p class="text-xs leading-snug text-gray-10">

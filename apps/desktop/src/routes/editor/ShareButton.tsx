@@ -52,7 +52,7 @@ function ShareButton() {
 
 			if (!canShare.allowed) {
 				if (canShare.reason === "upgrade_required") {
-					await commands.showWindow("升级");
+					await commands.showWindow("Upgrade");
 					throw new Error(
 						"分享超过 5 分钟的录制需要升级",
 					);
@@ -105,7 +105,7 @@ function ShareButton() {
 			const result = meta().sharing
 				? await commands.uploadExportedVideo(
 						projectPath,
-						"重新上传",
+						"Reupload",
 						uploadChannel,
 						null,
 					)

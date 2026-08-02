@@ -1,7 +1,7 @@
 import { createEventListener } from "@solid-primitives/event-listener";
 
 export type ShortcutBinding = {
-	combo: string; // e.g. "Mod+=", "Mod+-", "Space", "S", "C"
+	combo: string; // e.g. "Mod+=", "Mod+-", "空格", "S", "C"
 	handler: (e: KeyboardEvent) => void | Promise<void>;
 	preventDefault?: boolean; // default: true
 	when?: () => boolean; // optional enablement gate
@@ -11,18 +11,18 @@ const isMod = (e: KeyboardEvent) => e.metaKey || e.ctrlKey; // treat Cmd/Ctrl as
 
 function normalizeCombo(e: KeyboardEvent): string {
 	const parts: string[] = [];
-	if (isMod(e)) parts.push("Mod");
+	if (isMod(e)) parts.push("Ctrl");
 
 	let key: string;
 	switch (e.code) {
-		case "Equal":
+		case "=":
 			key = "=";
 			break;
-		case "Minus":
+		case "-":
 			key = "-";
 			break;
 		default:
-			key = e.code.startsWith("Key") ? e.code.slice(3) : e.code;
+			key = e.code.startsWith("键") ? e.code.slice(3) : e.code;
 	}
 
 	parts.push(key);

@@ -204,7 +204,7 @@ export function Header() {
 						>
 							<IconLucideArrowLeft class="size-4" />
 						</Show>
-						{isTranscriptOpen() ? "返回" : "Captions"}
+						{isTranscriptOpen() ? "返回" : "字幕"}
 					</Button>
 				</Show>
 				<button
@@ -314,7 +314,7 @@ function NameEditor(props: { name: string }) {
 						}
 					}}
 					onKeyDown={(e) => {
-						if (e.key === "Enter" || e.key === "Escape") {
+						if (e.key === "回车" || e.key === "Esc") {
 							prettyNameRef?.blur();
 						}
 					}}

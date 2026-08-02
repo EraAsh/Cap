@@ -792,7 +792,7 @@ export function ClipTrack(
 													"background-image":
 														"linear-gradient(135deg, transparent 42%, rgb(96 165 250 / 0.7) 43%, rgb(96 165 250 / 0.7) 57%, transparent 58%)",
 												}}
-												title={`${transition().type === "cross-fade" ? "Crossfade" : "黑场转场"} · ${transition().duration.toFixed(2)}s`}
+												title={`${transition().type === "cross-fade" ? "交叉淡化" : "黑场转场"} · ${transition().duration.toFixed(2)}s`}
 												onMouseDown={(event) => event.stopPropagation()}
 											>
 												<span class="sr-only">Edit clip transition</span>
@@ -813,8 +813,8 @@ export function ClipTrack(
 													<div class="grid grid-cols-2 gap-1 rounded-lg bg-gray-2 p-1">
 														{(
 															[
-																["cross-fade", "Crossfade"],
-																["fade-through-black", "Fade"],
+																["cross-fade", "交叉淡化"],
+																["fade-through-black", "淡化"],
 															] as const
 														).map(([type, label]) => (
 															<button
@@ -980,7 +980,7 @@ export function ClipTrack(
 													<span class="text-white/70">
 														{hasMultipleRecordingSegments()
 															? `Clip ${seg.recordingSegment}`
-															: "Clip"}
+															: "片段"}
 													</span>
 													<div class="flex gap-1 items-center text-md dark:text-gray-12 text-gray-1">
 														<IconLucideClock class="size-3.5" />{" "}

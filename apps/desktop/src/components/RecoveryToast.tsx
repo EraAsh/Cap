@@ -109,7 +109,7 @@ export function RecoveryToast() {
 								variant="primary"
 								size="xs"
 							>
-								{recoverMutation.isPending ? "..." : "Recover"}
+								{recoverMutation.isPending ? "..." : "恢复"}
 							</Button>
 							<Button
 								onClick={() => discardMutation.mutate(rec().projectPath)}

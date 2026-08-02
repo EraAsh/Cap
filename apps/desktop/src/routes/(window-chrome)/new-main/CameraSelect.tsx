@@ -27,7 +27,7 @@ import InfoPill from "./InfoPill";
 import TargetSelectInfoPill from "./TargetSelectInfoPill";
 import useRequestPermission from "./useRequestPermission";
 
-const NO_CAMERA = "No Camera";
+const NO_CAMERA = "无摄像头";
 
 export default function CameraSelect(props: {
 	disabled?: boolean;
@@ -98,7 +98,7 @@ export default function CameraSelect(props: {
 	const label = () =>
 		props.value?.display_name ??
 		(hasSelection() ? props.selectedLabel : null) ??
-		(hasSelection() ? "Camera" : NO_CAMERA);
+		(hasSelection() ? "摄像头" : NO_CAMERA);
 
 	const showHiddenIndicator = () =>
 		props.value !== null &&

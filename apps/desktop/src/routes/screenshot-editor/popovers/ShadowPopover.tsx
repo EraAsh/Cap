@@ -24,7 +24,7 @@ export function ShadowPopover() {
 					setActivePopover(activePopover() === "shadow" ? null : "shadow")
 				}
 				leftIcon={<IconCapShadow class="size-4" />}
-				tooltipText="Shadow"
+				tooltipText="阴影"
 				kbd={["H"]}
 			/>
 			<Popover.Portal>

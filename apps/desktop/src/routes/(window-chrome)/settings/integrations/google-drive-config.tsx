@@ -158,7 +158,7 @@ export default function GoogleDriveConfigPage() {
 		const timestamp = formatTimestamp(quota.fetchedAt);
 		if (!timestamp) return null;
 
-		return `${quota.stale ? "Cached" : "Updated"} ${timestamp}`;
+		return `${quota.stale ? "已缓存" : "已更新"} ${timestamp}`;
 	};
 
 	const waitForGoogleDriveConnection = async () => {
@@ -278,7 +278,7 @@ export default function GoogleDriveConfigPage() {
 			<SettingsPageContent>
 				<IntegrationConfigHeader title="Google Drive" />
 				<Section
-					title="Connection"
+					title="连接"
 					description="Google Drive stores new uploads in a private Cap folder in your Drive. Existing Cap-hosted and S3 videos keep using their current storage."
 				>
 					<SectionCard padded class="custom-scroll">
@@ -319,7 +319,7 @@ export default function GoogleDriveConfigPage() {
 											disabled={busy()}
 											onClick={() => refetch()}
 										>
-											{isRefreshing() ? "Refreshing..." : "Refresh"}
+											{isRefreshing() ? "Refreshing..." : "刷新"}
 										</Button>
 									</div>
 
@@ -416,7 +416,7 @@ export default function GoogleDriveConfigPage() {
 												disabled={busy() || isActive()}
 												onClick={() => setActive.mutate("googleDrive")}
 											>
-												{isActive() ? "Active" : "使用 Google Drive"}
+												{isActive() ? "生效" : "使用 Google Drive"}
 											</Button>
 											<Show when={hasS3Config()}>
 												<Button
@@ -432,7 +432,7 @@ export default function GoogleDriveConfigPage() {
 												disabled={busy()}
 												onClick={() => testConnection.mutate()}
 											>
-												{testConnection.isPending ? "Testing..." : "Test"}
+												{testConnection.isPending ? "Testing..." : "测试"}
 											</Button>
 											<Button
 												variant="destructive"

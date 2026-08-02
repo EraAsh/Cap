@@ -48,7 +48,7 @@ export default function () {
 	);
 }
 
-const MODIFIER_KEYS = new Set(["Meta", "Shift", "Control", "Alt"]);
+const MODIFIER_KEYS = new Set(["Meta", "Shift", "Ctrl", "Alt"]);
 function Inner(props: { initialStore: HotkeysStore | null }) {
 	const [hotkeys, setHotkeys] = createStore<{
 		[K in HotkeyAction]?: Hotkey;
@@ -101,7 +101,7 @@ function Inner(props: { initialStore: HotkeysStore | null }) {
 		<div class="cap-settings-page flex flex-col h-full custom-scroll">
 			<SettingsPageContent>
 				<Section
-					title="Shortcuts"
+					title="快捷键"
 					description="配置全局快捷键以控制 Cap"
 				>
 					<SectionCard class="flex flex-col gap-3 p-4">
@@ -232,7 +232,7 @@ function HotkeyText(props: { binding: Hotkey }) {
 		if (props.binding.shift) keys.push("Shift");
 	}
 
-	const mainKey = props.binding.code.startsWith("Key")
+	const mainKey = props.binding.code.startsWith("键")
 		? props.binding.code[3]
 		: props.binding.code;
 	keys.push(mainKey);

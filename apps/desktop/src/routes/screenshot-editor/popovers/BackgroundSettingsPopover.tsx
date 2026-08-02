@@ -39,10 +39,10 @@ function prewarmBackground(path: string | null | undefined) {
 }
 
 const BACKGROUND_SOURCES = {
-	wallpaper: "Wallpaper",
-	image: "Image",
-	color: "Color",
-	gradient: "Gradient",
+	wallpaper: "壁纸",
+	image: "图片",
+	color: "颜色",
+	gradient: "渐变",
 } satisfies Record<BackgroundSource["type"], string>;
 
 const BACKGROUND_SOURCES_LIST = [
@@ -135,11 +135,11 @@ type WallpaperName = (typeof WALLPAPER_NAMES)[number];
 
 const BACKGROUND_THEMES = {
 	macOS: "macOS",
-	dark: "Dark",
-	blue: "Blue",
-	cities: "Cities",
-	purple: "Purple",
-	orange: "Orange",
+	dark: "深色",
+	blue: "蓝色",
+	cities: "城市",
+	purple: "紫色",
+	orange: "橙色",
 };
 
 export function BackgroundSettingsPopover() {
@@ -238,7 +238,7 @@ export function BackgroundSettingsPopover() {
 					)
 				}
 				leftIcon={<IconCapImage class="size-4" />}
-				tooltipText="Background"
+				tooltipText="背景"
 				kbd={["B"]}
 			/>
 			<Popover.Portal>

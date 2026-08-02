@@ -44,7 +44,7 @@ export function AnnotationConfigBar() {
 					>
 						<div class="flex items-center justify-center gap-6 px-4 h-11">
 							<Show when={!isMask()}>
-								<ConfigItem label={type() === "text" ? "Color" : "描边"}>
+								<ConfigItem label={type() === "text" ? "颜色" : "描边"}>
 									<ColorPickerButton
 										value={ann().strokeColor}
 										onChange={(c) => update("strokeColor", c)}
@@ -54,7 +54,7 @@ export function AnnotationConfigBar() {
 
 							<Show when={type() !== "text" && !isMask()}>
 								<ConfigItem
-									label="Width"
+									label="宽度"
 									value={`${Math.round(ann().strokeWidth)}px`}
 								>
 									<Slider
@@ -69,7 +69,7 @@ export function AnnotationConfigBar() {
 							</Show>
 
 							<Show when={type() === "rectangle" || type() === "circle"}>
-								<ConfigItem label="Fill">
+								<ConfigItem label="填充">
 									<ColorPickerButton
 										value={ann().fillColor}
 										onChange={(c) => update("fillColor", c)}
@@ -95,7 +95,7 @@ export function AnnotationConfigBar() {
 							</Show>
 
 							<Show when={type() === "mask"}>
-								<ConfigItem label="Style">
+								<ConfigItem label="风格">
 									<div class="flex gap-1">
 										<button
 											type="button"
@@ -143,7 +143,7 @@ export function AnnotationConfigBar() {
 
 							<Show when={type() === "text"}>
 								<ConfigItem
-									label="Size"
+									label="大小"
 									value={`${Math.round(ann().height)}px`}
 								>
 									<Slider

@@ -63,12 +63,6 @@ const ModeSelect = (props: { onClose?: () => void; standalone?: boolean }) => {
 
 	const modeOptions = [
 		{
-			mode: "instant" as const,
-			title: "即时",
-			description: "边录边传，即时分享链接",
-			icon: IconCapInstant,
-		},
-		{
 			mode: "studio" as const,
 			title: "工作室",
 			description: "最高质量本地录制，稍后编辑",

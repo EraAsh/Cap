@@ -38,7 +38,7 @@ export default function CliSettings() {
 	const installButtonLabel = () => {
 		if (isInstalling())
 			return status()?.installed ? "Repairing..." : "Installing...";
-		return status()?.installed ? "Repair" : "安装命令行工具";
+		return status()?.installed ? "修复" : "安装命令行工具";
 	};
 
 	const handleInstall = async () => {
@@ -114,7 +114,7 @@ export default function CliSettings() {
 										<div class="flex flex-col gap-1 min-w-0">
 											<p class="text-[13px] text-gray-12">
 												{currentStatus().installed
-													? "Installed"
+													? "已安装"
 													: "未安装"}
 											</p>
 											<p class="text-xs leading-snug text-gray-10">
@@ -148,7 +148,7 @@ export default function CliSettings() {
 									<div class="grid gap-2 text-xs">
 										<PathRow label="命令" value={currentStatus().shimPath} />
 										<PathRow
-											label="Target"
+											label="目标"
 											value={currentStatus().targetPath}
 										/>
 									</div>

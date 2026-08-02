@@ -89,13 +89,13 @@ const trackDefinitions: TrackDefinition[] = [
 	},
 	{
 		type: "caption",
-		label: "Captions",
+		label: "字幕",
 		icon: trackIcons.caption,
 		locked: false,
 	},
 	{
 		type: "keyboard",
-		label: "Keyboard",
+		label: "键盘",
 		icon: trackIcons.keyboard,
 		locked: false,
 	},
@@ -113,7 +113,7 @@ const trackDefinitions: TrackDefinition[] = [
 	},
 	{
 		type: "audio",
-		label: "Audio",
+		label: "音频",
 		icon: trackIcons.audio,
 		locked: false,
 	},
@@ -125,7 +125,7 @@ const trackDefinitions: TrackDefinition[] = [
 	},
 	{
 		type: "scene",
-		label: "Scene",
+		label: "场景",
 		icon: trackIcons.scene,
 		locked: false,
 	},
@@ -834,7 +834,7 @@ export function Timeline(props: {
 			return;
 		}
 
-		if (e.code === "Backspace" || (e.code === "删除" && hasNoModifiers)) {
+		if (e.code === "退格" || (e.code === "删除" && hasNoModifiers)) {
 			const selection = editorState.timeline.selection;
 			if (!selection) return;
 
@@ -873,7 +873,7 @@ export function Timeline(props: {
 			if (time === null || time === undefined) return;
 
 			projectActions.splitClipSegment(time);
-		} else if (e.code === "Escape" && hasNoModifiers) {
+		} else if (e.code === "Esc" && hasNoModifiers) {
 			// Deselect all selected segments
 			setEditorState("timeline", "selection", null);
 			setEditorState("timeline", "audioPicker", null);
@@ -1119,7 +1119,7 @@ export function Timeline(props: {
 						}}
 					>
 						<div class="flex flex-col gap-2 min-h-full">
-							<TrackRow icon={trackIcons.clip} label="Video" type="clip">
+							<TrackRow icon={trackIcons.clip} label="视频" type="clip">
 								<ClipTrack
 									ref={setTimelineRef}
 									handleUpdatePlayhead={handleUpdatePlayhead}
@@ -1128,7 +1128,7 @@ export function Timeline(props: {
 							<Show when={captionTrackVisible()}>
 								<TrackRow
 									icon={trackIcons.caption}
-									label="Captions"
+									label="字幕"
 									type="caption"
 									onDelete={() => handleDeleteSingleTrack("caption")}
 								>
@@ -1145,7 +1145,7 @@ export function Timeline(props: {
 							<Show when={keyboardTrackVisible()}>
 								<TrackRow
 									icon={trackIcons.keyboard}
-									label="Keyboard"
+									label="键盘"
 									type="keyboard"
 									onDelete={() => handleDeleteSingleTrack("keyboard")}
 								>
@@ -1203,7 +1203,7 @@ export function Timeline(props: {
 								{(laneIndex) => (
 									<TrackRow
 										icon={trackIcons.audio}
-										label="Audio"
+										label="音频"
 										type="audio"
 										onDelete={() => handleDeleteTrackLane("audio", laneIndex)}
 										onContextMenu={(e) =>
@@ -1230,7 +1230,7 @@ export function Timeline(props: {
 										? () => handleClearTrackSegments("zoom")
 										: undefined
 								}
-								deleteLabel="Clear all"
+								deleteLabel="全部清除"
 								deleteTitle="删除所有缩放片段"
 							>
 								<ZoomTrack
@@ -1243,14 +1243,14 @@ export function Timeline(props: {
 							<Show when={sceneTrackVisible()}>
 								<TrackRow
 									icon={trackIcons.scene}
-									label="Scene"
+									label="场景"
 									type="scene"
 									onDelete={
 										(project.timeline?.sceneSegments?.length ?? 0) > 0
 											? () => handleClearTrackSegments("scene")
 											: undefined
 									}
-									deleteLabel="Clear all"
+									deleteLabel="全部清除"
 									deleteTitle="删除所有场景片段"
 								>
 									<SceneTrack

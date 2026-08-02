@@ -181,7 +181,7 @@ export default function FeedbackTab() {
 												}`}
 											>
 												Screen Capture:{" "}
-												{captureSupported ? "Supported" : "不支持"}
+												{captureSupported ? "受支持" : "不支持"}
 											</span>
 										</div>
 									</div>

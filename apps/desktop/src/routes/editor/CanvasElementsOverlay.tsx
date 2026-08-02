@@ -583,7 +583,7 @@ export function CanvasElementsOverlay(props: { size: Size }) {
 		)
 			return;
 
-		if (e.key === "Escape") {
+		if (e.key === "Esc") {
 			setEditorState("canvasSelection", null);
 			return;
 		}
@@ -637,7 +637,7 @@ export function CanvasElementsOverlay(props: { size: Size }) {
 						<ElementBox
 							size={props.size}
 							rect={rect()}
-							label="Screen"
+							label="屏幕"
 							selected={selection()?.type === "display"}
 							draggable={displayDraggable()}
 							resizable={displayDraggable()}
@@ -646,7 +646,7 @@ export function CanvasElementsOverlay(props: { size: Size }) {
 									? null
 									: {
 											message: "缩放激活时屏幕被锁定",
-											actionLabel: "Edit zoom",
+											actionLabel: "编辑缩放",
 											onAction: selectActiveZoom,
 										}
 							}
@@ -664,7 +664,7 @@ export function CanvasElementsOverlay(props: { size: Size }) {
 						<ElementBox
 							size={props.size}
 							rect={rect()}
-							label="Camera"
+							label="摄像头"
 							selected={selection()?.type === "camera"}
 							draggable
 							resizable={cameraResizable()}
@@ -673,7 +673,7 @@ export function CanvasElementsOverlay(props: { size: Size }) {
 									? null
 									: {
 											message: "摄像头大小跟随缩放——拖动以移动",
-											actionLabel: "Edit zoom",
+											actionLabel: "编辑缩放",
 											onAction: selectActiveZoom,
 										}
 							}

@@ -128,9 +128,9 @@ const ACTION_SHORT: Record<ActionType, string> = {
 	export: "导出",
 	upload: "上传并复制链接",
 	revealInFileManager: "在文件管理器中显示",
-	openFile: "Open file",
+	openFile: "打开文件",
 	recognizeTextToClipboard: "复制文字（OCR）",
-	notify: "Notify",
+	notify: "通知",
 	openEditor: "打开编辑器",
 	skipEditor: "跳过编辑器",
 	applyPreset: "应用预设",
@@ -145,22 +145,22 @@ const TRIGGER_NOUN: Record<Trigger, string> = {
 	instantRecordingFinished: "即时录制",
 	recordingStarted: "录制开始",
 	uploadCompleted: "上传",
-	videoImported: "Import",
-	recordingDeleted: "Deletion",
+	videoImported: "导入",
+	recordingDeleted: "删除",
 };
 
 const ACTION_NOUN: Record<ActionType, string> = {
-	copyToClipboard: "Clipboard",
-	saveToLocation: "Folder",
+	copyToClipboard: "剪贴板",
+	saveToLocation: "文件夹",
 	export: "导出",
 	upload: "上传",
-	revealInFileManager: "Reveal",
+	revealInFileManager: "显示",
 	openFile: "打开",
 	recognizeTextToClipboard: "文字",
-	notify: "Notify",
+	notify: "通知",
 	openEditor: "编辑器",
 	skipEditor: "跳过编辑器",
-	applyPreset: "Preset",
+	applyPreset: "预设",
 	runCommand: "命令",
 	webhook: "Webhook",
 	deleteLocalFiles: "删除",
@@ -558,7 +558,7 @@ export default function AutomationsSettings() {
 				</Section>
 
 				<Section
-					title="Templates"
+					title="模板"
 					description="一键添加现成自动化，之后可随意调整"
 				>
 					<div class="grid grid-cols-2 gap-2.5">
@@ -692,7 +692,7 @@ function RuleCard(props: {
 				<button
 					type="button"
 					onClick={props.onToggleExpand}
-					title={props.expanded ? "Collapse" : "编辑"}
+					title={props.expanded ? "收起" : "编辑"}
 					class="flex justify-center items-center rounded-lg transition-colors size-7 text-gray-10 hover:text-gray-12 hover:bg-gray-3"
 				>
 					<IconLucideChevronDown
@@ -786,8 +786,8 @@ function RuleEditorBody(props: {
 								class="w-28"
 								value={props.rule.matchMode}
 								options={[
-									{ value: "all", label: "Match all" },
-									{ value: "any", label: "Match any" },
+									{ value: "all", label: "匹配全部" },
+									{ value: "any", label: "匹配任一" },
 								]}
 								onChange={(v) =>
 									props.onChange((r) => {
@@ -952,9 +952,9 @@ function ConditionValue(props: {
 				<SelectInput<CaptureTargetKind>
 					value={c.target}
 					options={[
-						{ value: "display", label: "Display" },
+						{ value: "display", label: "显示器" },
 						{ value: "window", label: "窗口" },
-						{ value: "area", label: "Area" },
+						{ value: "area", label: "区域" },
 					]}
 					onChange={(v) =>
 						props.onChange((cond) => {
@@ -968,8 +968,8 @@ function ConditionValue(props: {
 				<SelectInput<AutomationRecordingMode>
 					value={c.mode}
 					options={[
-						{ value: "studio", label: "Studio" },
-						{ value: "instant", label: "Instant" },
+						{ value: "studio", label: "工作室" },
+						{ value: "instant", label: "即时" },
 					]}
 					onChange={(v) =>
 						props.onChange((cond) => {
@@ -1056,14 +1056,14 @@ function ActionRow(props: {
 				</Show>
 				<RowButton
 					onClick={() => props.onMove(-1)}
-					title="Move up"
+					title="上移"
 					disabled={props.isFirst}
 				>
 					<IconLucideChevronUp class="size-4" />
 				</RowButton>
 				<RowButton
 					onClick={() => props.onMove(1)}
-					title="Move down"
+					title="下移"
 					disabled={props.isLast}
 				>
 					<IconLucideChevronDown class="size-4" />
@@ -1090,7 +1090,7 @@ function ActionParams(props: {
 	switch (a.type) {
 		case "copyToClipboard":
 			return (
-				<Field label="Source">
+				<Field label="来源">
 					<SelectInput<ClipboardSource>
 						value={a.source}
 						options={[
@@ -1108,7 +1108,7 @@ function ActionParams(props: {
 		case "saveToLocation":
 			return (
 				<div class="flex gap-2">
-					<Field label="Folder">
+					<Field label="文件夹">
 						<div class="flex gap-2">
 							<TextInput
 								value={a.dir}
@@ -1196,7 +1196,7 @@ function ActionParams(props: {
 			return (
 				<div class="space-y-2">
 					<div class="flex gap-2">
-						<Field label="Program">
+						<Field label="程序">
 							<TextInput
 								value={a.program}
 								placeholder="/usr/local/bin/my-script"
@@ -1248,7 +1248,7 @@ function ActionParams(props: {
 								}
 							/>
 						</Field>
-						<Field label="Method">
+						<Field label="方法">
 							<SelectInput<string>
 								class="w-28"
 								value={a.method}
@@ -1282,7 +1282,7 @@ function ActionParams(props: {
 		case "notify":
 			return (
 				<div class="flex gap-2">
-					<Field label="Title">
+					<Field label="标题">
 						<TextInput
 							value={a.titleTemplate}
 							onInput={(v) =>
@@ -1292,7 +1292,7 @@ function ActionParams(props: {
 							}
 						/>
 					</Field>
-					<Field label="Body">
+					<Field label="内容">
 						<TextInput
 							value={a.bodyTemplate}
 							onInput={(v) =>
@@ -1306,7 +1306,7 @@ function ActionParams(props: {
 			);
 		case "applyPreset":
 			return (
-				<Field label="Preset">
+				<Field label="预设">
 					<PresetSelect
 						value={a.name}
 						onChange={(name) =>
@@ -1330,7 +1330,7 @@ function PresetSelect(props: {
 	const presets = presetsStore.createQuery();
 	const names = () => presets.data?.presets.map((p) => p.name) ?? [];
 	const options = () => [
-		...(props.allowNone ? [{ value: "", label: "None" }] : []),
+		...(props.allowNone ? [{ value: "", label: "无" }] : []),
 		...names().map((n) => ({ value: n, label: n })),
 	];
 
@@ -1372,13 +1372,13 @@ function ExportParams(props: {
 	return (
 		<div class="space-y-2">
 			<div class="flex gap-2">
-				<Field label="Format">
+				<Field label="格式">
 					<SelectInput<ExportFormat>
 						value={a.profile.format}
 						options={[
 							{ value: "mp4", label: "MP4" },
-							{ value: "gif", label: "GIF" },
-							{ value: "mov", label: "MOV" },
+							{ value: "gif", label: "Gif" },
+							{ value: "mov", label: "Mov" },
 						]}
 						onChange={(v) =>
 							updateProfile((p) => {
@@ -1387,7 +1387,7 @@ function ExportParams(props: {
 						}
 					/>
 				</Field>
-				<Field label="Resolution">
+				<Field label="分辨率">
 					<SelectInput
 						value={resolutionValue()}
 						options={RESOLUTION_PRESETS.map((r) => ({
@@ -1420,14 +1420,14 @@ function ExportParams(props: {
 					/>
 				</Field>
 				<Show when={a.profile.format === "mp4"}>
-					<Field label="Compression">
+					<Field label="压缩">
 						<SelectInput<ExportCompression>
 							value={a.profile.compression ?? "web"}
 							options={[
-								{ value: "maximum", label: "Maximum" },
+								{ value: "maximum", label: "最高" },
 								{ value: "social", label: "Social" },
 								{ value: "web", label: "Web" },
-								{ value: "potato", label: "Potato" },
+								{ value: "potato", label: "极低" },
 							]}
 							onChange={(v) =>
 								updateProfile((p) => {

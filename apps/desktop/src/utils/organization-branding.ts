@@ -26,10 +26,10 @@ export const EMPTY_ORGANIZATION_BRAND_COLORS = {
 } satisfies OrganizationBrandColors;
 
 export const ORGANIZATION_BRAND_COLOR_LABELS = {
-	primary: "Primary",
-	secondary: "Secondary",
-	accent: "Accent",
-	background: "Background",
+	primary: "主色",
+	secondary: "辅助色",
+	accent: "强调色",
+	background: "背景",
 } satisfies Record<keyof OrganizationBrandColors, string>;
 
 export const ORGANIZATION_BRAND_COLOR_KEYS = [

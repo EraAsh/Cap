@@ -138,10 +138,10 @@ const LANGUAGE_OPTIONS: LanguageOption[] = [
 	{ code: "te", label: "泰卢固语" },
 	{ code: "mr", label: "马拉地语" },
 	{ code: "gu", label: "古吉拉特语" },
-	{ code: "pa", label: "Punjabi" },
-	{ code: "ur", label: "Urdu" },
-	{ code: "fa", label: "Persian" },
-	{ code: "he", label: "Hebrew" },
+	{ code: "pa", label: "旁遮普语" },
+	{ code: "ur", label: "乌尔都语" },
+	{ code: "fa", label: "波斯语" },
+	{ code: "he", label: "希伯来语" },
 	{ code: "ar", label: "阿拉伯语" },
 	{ code: "hi", label: "印地语" },
 	{ code: "bn", label: "孟加拉语" },
@@ -181,7 +181,7 @@ function clampDownloadProgress(progress: number) {
 
 function CaptionPresetPreview(props: { preset: CaptionStylePreset }) {
 	const style = () => props.preset.style;
-	const words = ["Make", "it", "pop"];
+	const words = ["制作", "it", "pop"];
 	const emphasizeIndex = 2;
 
 	const textShadow = () => {
@@ -759,11 +759,11 @@ export function CaptionsTab(props: {
 	);
 
 	return (
-		<Field name="Captions" icon={<IconCapMessageBubble />} badge="Beta">
+		<Field name="字幕" icon={<IconCapMessageBubble />} badge="测试版">
 			<div class="flex flex-col gap-4">
 				<div class="space-y-6 transition-all duration-200">
 					<div class="space-y-4">
-						<Subfield name="Model" class="items-start">
+						<Subfield name="模型" class="items-start">
 							<KSelect<string>
 								options={availableModelOptions().map((model) => model.name)}
 								value={selectedModel()}
@@ -878,7 +878,7 @@ export function CaptionsTab(props: {
 							One time download to your system. All captions are stored locally.
 						</p>
 
-						<Subfield name="Language">
+						<Subfield name="语言">
 							<KSelect<string>
 								options={LANGUAGE_OPTIONS.map((l) => l.code)}
 								value={selectedLanguage()}
@@ -1020,7 +1020,7 @@ export function CaptionsTab(props: {
 											<IconLucideTrash2 class="size-3.5" />
 											{deletingModel() === selectedModel()
 												? "Deleting..."
-												: "Delete"}
+												: "删除"}
 										</Button>
 									</div>
 								</div>
@@ -1034,7 +1034,7 @@ export function CaptionsTab(props: {
 							!hasCaptions() && "opacity-50 pointer-events-none",
 						)}
 					>
-						<Field name="Style" icon={<IconCapMessageBubble />}>
+						<Field name="风格" icon={<IconCapMessageBubble />}>
 							<div class="grid grid-cols-2 gap-2">
 								<For each={CAPTION_STYLE_PRESETS}>
 									{(preset) => (
@@ -1317,7 +1317,7 @@ export function CaptionsTab(props: {
 							</KSelect>
 						</Field>
 
-						<Field name="Animation" icon={<IconCapMessageBubble />}>
+						<Field name="动画" icon={<IconCapMessageBubble />}>
 							<div class="space-y-3">
 								<div class="flex flex-col gap-2">
 									<span class="text-gray-11 text-sm">Animation Style</span>
@@ -1406,7 +1406,7 @@ export function CaptionsTab(props: {
 								optionValue="value"
 								optionTextValue="label"
 								value={{
-									label: "Custom",
+									label: "自定义",
 									value: getSetting("fontWeight"),
 								}}
 								onChange={(value) => {
@@ -1499,7 +1499,7 @@ export function CaptionsTab(props: {
 														}
 													/>
 												</Subfield>
-												<Subfield name="End Time">
+												<Subfield name="结束时间">
 													<Input
 														type="number"
 														value={seg().end.toFixed(2)}

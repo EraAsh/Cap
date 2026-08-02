@@ -131,7 +131,7 @@ export function KeyboardTab(props: {
 			value={
 				<Toggle checked={getSetting("enabled")} onChange={setKeyboardVisible} />
 			}
-			badge="Beta"
+			badge="测试版"
 		>
 			<div class="flex flex-col gap-4">
 				<div
@@ -238,7 +238,7 @@ export function KeyboardTab(props: {
 						</div>
 					</Field>
 
-					<Field name="Position" icon={<IconLucideKeyboard />}>
+					<Field name="位置" icon={<IconLucideKeyboard />}>
 						<KSelect<string>
 							options={KEYBOARD_POSITION_OPTIONS.map((p) => p.value)}
 							value={getSetting("position")}
@@ -343,7 +343,7 @@ export function KeyboardTab(props: {
 						</KSelect>
 					</Field>
 
-					<Field name="Animation" icon={<IconLucideKeyboard />}>
+					<Field name="动画" icon={<IconLucideKeyboard />}>
 						<div class="space-y-3">
 							<div class="flex flex-col gap-2">
 								<span class="text-gray-11 text-sm">Fade Duration</span>
@@ -389,7 +389,7 @@ export function KeyboardTab(props: {
 						</div>
 					</Field>
 
-					<Field name="Behavior" icon={<IconLucideKeyboard />}>
+					<Field name="行为" icon={<IconLucideKeyboard />}>
 						<div class="space-y-3">
 							<div class="flex flex-col gap-2">
 								<div class="flex items-center justify-between">
@@ -465,7 +465,7 @@ export function KeyboardTab(props: {
 											}
 										/>
 									</Subfield>
-									<Subfield name="End Time">
+									<Subfield name="结束时间">
 										<Input
 											type="number"
 											value={seg().end.toFixed(2)}
@@ -517,7 +517,7 @@ export function KeyboardTab(props: {
 											step={1}
 										/>
 									</Subfield>
-									<Subfield name="Uppercase">
+									<Subfield name="大写">
 										<Toggle
 											checked={
 												seg().uppercaseOverride ?? getSetting("uppercase")

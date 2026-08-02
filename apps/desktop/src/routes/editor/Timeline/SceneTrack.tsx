@@ -98,7 +98,7 @@ export function SceneTrack(props: {
 			case "splitScreen":
 				return "分屏";
 			case "floating":
-				return "Floating";
+				return "悬浮";
 			default:
 				return "默认";
 		}

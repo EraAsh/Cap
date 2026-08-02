@@ -305,7 +305,7 @@ export default function Teleprompter() {
 	return (
 		<div
 			onKeyDown={(event) => {
-				if (event.key === "Escape") setSettingsOpen(false);
+				if (event.key === "Esc") setSettingsOpen(false);
 			}}
 			class={cx(
 				"cap-window-shell relative flex h-screen w-screen flex-col overflow-hidden text-gray-12",
@@ -417,8 +417,8 @@ export default function Teleprompter() {
 			<footer class="flex h-11 shrink-0 items-center px-3 pb-2">
 				<button
 					type="button"
-					title={isPlaying() ? "Pause" : "Play"}
-					aria-label={isPlaying() ? "Pause" : "Play"}
+					title={isPlaying() ? "暂停" : "播放"}
+					aria-label={isPlaying() ? "暂停" : "播放"}
 					disabled={!hasScript()}
 					onClick={togglePlayback}
 					class="flex size-8 items-center justify-center rounded-full border border-gray-12/6 bg-gray-12/7 text-gray-12 shadow-sm backdrop-blur-xl transition hover:bg-gray-12/11 disabled:cursor-not-allowed disabled:opacity-30"
@@ -489,7 +489,7 @@ export default function Teleprompter() {
 						</ToolButton>
 					</div>
 					<ToolButton
-						label="Settings"
+						label="设置"
 						active={settingsOpen()}
 						onClick={() => setSettingsOpen((open) => !open)}
 					>

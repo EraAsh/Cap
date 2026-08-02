@@ -524,7 +524,7 @@ function Inner(props: {
 
 				{ostype === "macos" && (
 					<Section
-						title="App"
+						title="应用"
 						description="选择 Cap 在系统中的显示方式"
 					>
 						<SectionRows>
@@ -578,12 +578,12 @@ function Inner(props: {
 				>
 					<SectionRows>
 						<SelectSettingItem
-							label="倒计时"
+							label="Countdown"
 							description="录制开始前等待"
 							value={settings.recordingCountdown ?? 0}
 							onChange={(value) => handleChange("recordingCountdown", value)}
 							options={[
-								{ text: "Off", value: 0 },
+								{ text: "关闭", value: 0 },
 								{ text: "3 seconds", value: 3 },
 								{ text: "5 seconds", value: 5 },
 								{ text: "10 seconds", value: 10 },
@@ -836,7 +836,7 @@ function StorageSection(props: {
 	const isCustom = () => props.recordingsPath !== null;
 
 	return (
-		<Section title="Storage" description="Cap 保存录制的位置">
+		<Section title="存储" description="Cap 保存录制的位置">
 			<SectionCard padded>
 				<div class="flex flex-col gap-3">
 					<div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-3 border border-gray-4 min-w-0">
@@ -865,7 +865,7 @@ function TelemetryCard(props: {
 	onChange: (value: boolean) => void;
 }) {
 	return (
-		<Section title="Privacy">
+		<Section title="隐私">
 			<SectionRows>
 				<ToggleSettingItem
 					label="分享匿名遥测数据"
@@ -887,12 +887,12 @@ type UpdateChannelOption = {
 const UPDATE_CHANNEL_OPTIONS: UpdateChannelOption[] = [
 	{
 		value: "stable",
-		label: "Stable",
+		label: "稳定版",
 		description: "带版本号的发布（推荐）",
 	},
 	{
 		value: "nightly",
-		label: "Nightly",
+		label: "测试版",
 		description:
 			"The newest builds, updated automatically in the background when you're not recording or exporting. May be unstable.",
 	},
@@ -909,7 +909,7 @@ function UpdatesSection(props: {
 	);
 
 	return (
-		<Section title="Updates" description="选择接收哪个 Cap 版本">
+		<Section title="更新" description="选择接收哪个 Cap 版本">
 			<SectionCard>
 				<div class="flex flex-col gap-3 px-4 py-4">
 					<div class="flex justify-between items-start gap-4">
@@ -953,19 +953,19 @@ type StudioQualityTier = {
 const STUDIO_QUALITY_TIERS: StudioQualityTier[] = [
 	{
 		value: "compatibility",
-		label: "Compatibility",
+		label: "兼容性",
 		summary: "降低码率以保证老旧或低功耗设备流畅",
 		bestFor: "较旧的 Intel Mac、8GB MacBook Air、性能较弱的笔记本",
 	},
 	{
 		value: "balanced",
-		label: "Balanced",
+		label: "均衡",
 		summary: "画面清晰，CPU 和磁盘占用合理",
 		bestFor: "大多数 16GB 以上内存的现代 Mac 和 PC",
 	},
 	{
 		value: "ultra",
-		label: "Ultra",
+		label: "极致",
 		summary: "适合调色和大屏剪辑的最高细节",
 		bestFor: "M-series Pro/Max, discrete GPUs, 32GB+ RAM, NVMe.",
 	},
@@ -1089,7 +1089,7 @@ function InstantQualitySetting(props: {
 						class="px-2.5 py-1 text-xs font-medium rounded-lg transition-colors bg-blue-9 text-white hover:bg-blue-10"
 						onClick={() => {
 							toast.dismiss(t.id);
-							void commands.showWindow("升级");
+							void commands.showWindow("Upgrade");
 						}}
 					>
 						Upgrade
@@ -1149,7 +1149,7 @@ function CapProSection(props: {
 }) {
 	return (
 		<Section
-			title="Cap Pro"
+			title="Cap 专业版"
 			description="需要 Cap Pro 授权可用的设置"
 			pro
 		>
@@ -1176,7 +1176,7 @@ function QualitySection(props: {
 }) {
 	return (
 		<Section
-			title="Quality"
+			title="质量"
 			description="为本地工作室录制选择合适的配置文件"
 		>
 			<SectionCard>
@@ -1275,7 +1275,7 @@ function DefaultProjectNameCard(props: {
 		const formatted = await commands.formatProjectName(
 			val,
 			macos ? "Safari" : "Chrome",
-			"Window",
+			"窗口",
 			"instant",
 			datetime,
 		);
@@ -1287,7 +1287,7 @@ function DefaultProjectNameCard(props: {
 			.formatProjectName(
 				MOMENT_EXAMPLE_TEMPLATE,
 				macos ? "Safari" : "Chrome",
-				"Window",
+				"窗口",
 				"instant",
 				datetime,
 			)
@@ -1392,8 +1392,8 @@ function DefaultProjectNameCard(props: {
 							<div class="space-y-1">
 								<p class="font-medium text-gray-12">Recording mode</p>
 								<p>
-									<CodeView>{"{recording_mode}"}</CodeView> → "Studio",
-									"Instant", or "Screenshot"
+									<CodeView>{"{recording_mode}"}</CodeView> → "工作室",
+									"即时", or "截图"
 								</p>
 								<p>
 									<CodeView>{"{mode}"}</CodeView> → "studio", "instant", or
@@ -1404,8 +1404,8 @@ function DefaultProjectNameCard(props: {
 							<div class="space-y-1">
 								<p class="font-medium text-gray-12">Target</p>
 								<p>
-									<CodeView>{"{target_kind}"}</CodeView> → "Display", "Window",
-									or "Area"
+									<CodeView>{"{target_kind}"}</CodeView> → "显示器", "窗口",
+									or "区域"
 								</p>
 								<p>
 									<CodeView>{"{target_name}"}</CodeView> → Monitor name or

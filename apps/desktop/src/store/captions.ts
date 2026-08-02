@@ -57,7 +57,7 @@ export type CaptionStylePreset = {
 export const CAPTION_STYLE_PRESETS: CaptionStylePreset[] = [
 	{
 		id: "classic",
-		label: "Classic",
+		label: "经典",
 		description: "纯色圆角背景上的干净文字",
 		style: {
 			font: "系统无衬线字体",
@@ -78,7 +78,7 @@ export const CAPTION_STYLE_PRESETS: CaptionStylePreset[] = [
 	},
 	{
 		id: "karaoke",
-		label: "Karaoke",
+		label: "卡拉OK",
 		description: "单词随语音同步点亮",
 		style: {
 			font: "系统无衬线字体",
@@ -99,7 +99,7 @@ export const CAPTION_STYLE_PRESETS: CaptionStylePreset[] = [
 	},
 	{
 		id: "highlight",
-		label: "Highlight",
+		label: "高亮",
 		description: "粗体字幕，当前词后有胶囊背景",
 		style: {
 			font: "系统无衬线字体",
@@ -120,7 +120,7 @@ export const CAPTION_STYLE_PRESETS: CaptionStylePreset[] = [
 	},
 	{
 		id: "pop",
-		label: "Pop",
+		label: "弹出",
 		description: "活泼的字幕风格，以鲜艳色调弹出",
 		style: {
 			font: "系统无衬线字体",
@@ -141,7 +141,7 @@ export const CAPTION_STYLE_PRESETS: CaptionStylePreset[] = [
 	},
 	{
 		id: "minimal",
-		label: "Minimal",
+		label: "极简",
 		description: "无背景的柔和描边文字",
 		style: {
 			font: "系统无衬线字体",

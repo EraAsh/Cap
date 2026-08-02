@@ -334,13 +334,13 @@ const cameraSettingsKeys = (camera: CameraWithDetails) => [
 
 const formatCameraSetting = (format: CameraDeviceSettings) => {
 	const size =
-		format.width && format.height ? `${format.width}×${format.height}` : "Auto";
-	const rate = format.frameRate ? `${Math.round(format.frameRate)}fps` : "Auto";
+		format.width && format.height ? `${format.width}×${format.height}` : "自动";
+	const rate = format.frameRate ? `${Math.round(format.frameRate)}fps` : "自动";
 	return `${size} @ ${rate}`;
 };
 
 const formatMicrophoneSetting = (setting: MicrophoneDeviceSettings) => {
-	const rate = setting.sampleRate ? `${setting.sampleRate / 1000}kHz` : "Auto";
+	const rate = setting.sampleRate ? `${setting.sampleRate / 1000}kHz` : "自动";
 	const channels =
 		setting.channels === 1
 			? "Mono"
@@ -348,7 +348,7 @@ const formatMicrophoneSetting = (setting: MicrophoneDeviceSettings) => {
 				? "Stereo"
 				: setting.channels
 					? `${setting.channels}ch`
-					: "Auto";
+					: "自动";
 	return `${rate} ${channels}`;
 };
 
@@ -1029,7 +1029,7 @@ function DeviceListPanel(props: DeviceListPanelProps) {
 				setFocusedIndex((prev) => (prev - 1 + total) % total);
 				break;
 			}
-			case "Enter": {
+			case "回车": {
 				e.preventDefault();
 				const idx = focusedIndex();
 				if (idx === 0) {
@@ -1577,7 +1577,7 @@ function TargetMenuPanel(props: TargetMenuPanelProps & SharedTargetMenuProps) {
 					class="flex h-[36px] gap-1 items-center shrink-0 rounded-md px-2 text-xs
 					text-gray-11 transition-colors hover:text-gray-12 hover:bg-gray-4
 					focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-9 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-1"
-					aria-label={inSettingsMode() ? "返回列表" : "Back"}
+					aria-label={inSettingsMode() ? "返回列表" : "返回"}
 				>
 					<IconLucideArrowLeft class="size-3 text-gray-11" />
 					<span class="font-medium text-gray-12">Back</span>
@@ -1594,7 +1594,7 @@ function TargetMenuPanel(props: TargetMenuPanelProps & SharedTargetMenuProps) {
 									value={search()}
 									onInput={(event) => setSearch(event.currentTarget.value)}
 									onKeyDown={(event) => {
-										if (event.key === "Escape" && search()) {
+										if (event.key === "Esc" && search()) {
 											event.preventDefault();
 											setSearch("");
 										}
@@ -1826,7 +1826,7 @@ function MainWindowHelpButton() {
 			<button
 				type="button"
 				onClick={() => {
-					commands.showWindow("新手引导");
+					commands.showWindow("Onboarding");
 				}}
 				class="flex shrink-0 justify-center items-center size-5 focus:outline-hidden"
 			>
@@ -3001,7 +3001,7 @@ function Page() {
 								onClick={() => {
 									toggleTargetMode("window");
 								}}
-								name="Window"
+								name="窗口"
 								class={cx(
 									"flex-1 rounded-none border-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0",
 									isExpanded() ? "pl-3" : "pl-5",
@@ -3038,7 +3038,7 @@ function Page() {
 							onClick={() => {
 								toggleTargetMode("area");
 							}}
-							name="Area"
+							name="区域"
 							class="flex-1"
 						/>
 						<TargetTypeButton
@@ -3233,7 +3233,7 @@ function Page() {
 										<span class="text-[0.6rem] ml-2 rounded-lg border border-gray-5 px-1 py-0.5 bg-(--blue-400) text-gray-1 dark:text-gray-12">
 											{license.data?.type === "commercial"
 												? "商业版"
-												: "Pro"}
+												: "专业版"}
 										</span>
 									}
 								>

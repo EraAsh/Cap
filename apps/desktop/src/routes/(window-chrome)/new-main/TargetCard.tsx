@@ -247,7 +247,7 @@ export default function TargetCard(props: TargetCardProps) {
 				defaultPath: `${screenshot.pretty_name}.png`,
 				filters: [
 					{
-						name: "Image",
+						name: "图片",
 						extensions: ["png"],
 					},
 				],
@@ -376,7 +376,7 @@ export default function TargetCard(props: TargetCardProps) {
 						<img
 							src={src()}
 							alt={`${
-								local.variant === "display" ? "Display" : "Window"
+								local.variant === "display" ? "显示器" : "窗口"
 							} preview for ${label()}`}
 							class="object-cover w-full h-full"
 							loading="lazy"
@@ -435,7 +435,7 @@ export default function TargetCard(props: TargetCardProps) {
 				</div>
 				<Show when={local.variant === "screenshot"}>
 					<div class="flex items-center justify-between px-2 pb-1.5 pt-0.5 gap-1">
-						<Tooltip content="Edit">
+						<Tooltip content="编辑">
 							<div
 								role="button"
 								tabIndex={-1}
@@ -508,7 +508,7 @@ export default function TargetCard(props: TargetCardProps) {
 						return (
 							<div class="flex items-center justify-between px-2 pb-1.5 pt-0.5 gap-1">
 								<Show when={isStudio}>
-									<Tooltip content="Edit">
+									<Tooltip content="编辑">
 										<div
 											role="button"
 											tabIndex={-1}
@@ -547,7 +547,7 @@ export default function TargetCard(props: TargetCardProps) {
 									</Show>
 								</Show>
 								<Show when={recording.sharing}>
-									<Tooltip content="Open link">
+									<Tooltip content="打开链接">
 										<div
 											role="button"
 											tabIndex={-1}
@@ -568,7 +568,7 @@ export default function TargetCard(props: TargetCardProps) {
 										<IconLucideFolder class="size-3.5" />
 									</div>
 								</Tooltip>
-								<Tooltip content="Delete">
+								<Tooltip content="删除">
 									<div
 										role="button"
 										tabIndex={-1}

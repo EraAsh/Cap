@@ -56,9 +56,9 @@ export function PlayerContent() {
 	} = useEditorContext();
 
 	const previewOptions = [
-		{ label: "Full", value: "full" as EditorPreviewQuality },
-		{ label: "Half", value: "half" as EditorPreviewQuality },
-		{ label: "Quarter", value: "quarter" as EditorPreviewQuality },
+		{ label: "完整", value: "full" as EditorPreviewQuality },
+		{ label: "一半", value: "half" as EditorPreviewQuality },
+		{ label: "四分之一", value: "quarter" as EditorPreviewQuality },
 	];
 
 	const zoomHint = () =>
@@ -269,7 +269,7 @@ export function PlayerContent() {
 				),
 		},
 		{
-			combo: "Space",
+			combo: "空格",
 			handler: async () => {
 				const prevTime = editorState.previewTime;
 
@@ -378,7 +378,7 @@ export function PlayerContent() {
 					>
 						<IconCapPrev class="text-gray-12 size-3" />
 					</button>
-					<Tooltip kbd={["Space"]} content="Play/Pause video">
+					<Tooltip kbd={["空格"]} content="Play/Pause video">
 						<button
 							type="button"
 							onClick={handlePlayPauseClick}
@@ -425,7 +425,7 @@ export function PlayerContent() {
 						}
 					/>
 					<div class="w-px h-8 rounded-full bg-gray-4" />
-					<Tooltip kbd={["meta", "-"]} content="Zoom out">
+					<Tooltip kbd={["meta", "-"]} content="缩小">
 						<IconCapZoomOut
 							onClick={() => {
 								editorState.timeline.transform.updateZoom(
@@ -436,7 +436,7 @@ export function PlayerContent() {
 							class="text-gray-12 size-5 will-change-[opacity] transition-opacity hover:opacity-70"
 						/>
 					</Tooltip>
-					<Tooltip kbd={["meta", "+"]} content="Zoom in">
+					<Tooltip kbd={["meta", "+"]} content="放大">
 						<IconCapZoomIn
 							onClick={() => {
 								editorState.timeline.transform.updateZoom(

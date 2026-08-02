@@ -199,7 +199,7 @@ export function TextOverlay(props: TextOverlayProps) {
 		)
 			return;
 
-		if (e.key === "Escape") {
+		if (e.key === "Esc") {
 			setEditorState("timeline", "selection", null);
 			return;
 		}
@@ -271,7 +271,7 @@ function normalizeSegment(segment: TauriTextSegment): SegmentWithDefaults {
 		start: segment.start,
 		end: segment.end,
 		enabled: segment.enabled ?? true,
-		content: segment.content ?? "Text",
+		content: segment.content ?? "文字",
 		center: segment.center ?? { x: 0.5, y: 0.5 },
 		size: segment.size ?? { x: 0.35, y: 0.2 },
 		fontFamily: segment.fontFamily ?? "sans-serif",
@@ -781,7 +781,7 @@ function TextSegmentOverlay(props: {
 						}
 						onKeyDown={(e) => {
 							e.stopPropagation();
-							if (e.key === "Escape") {
+							if (e.key === "Esc") {
 								e.preventDefault();
 								textareaRef?.blur();
 							}

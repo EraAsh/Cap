@@ -129,21 +129,21 @@ const setupPermissions: readonly SetupPermission[] = [
 		requiresManualGrant: false,
 	},
 	{
-		name: "Accessibility",
+		name: "辅助功能",
 		key: "accessibility",
 		description:
 			"During recording, Cap collects mouse activity locally to generate automatic zoom in segments.",
 		requiresManualGrant: false,
 	},
 	{
-		name: "Microphone",
+		name: "麦克风",
 		key: "microphone",
 		description: "录制音频需要此权限",
 		requiresManualGrant: false,
 		optional: true,
 	},
 	{
-		name: "Camera",
+		name: "摄像头",
 		key: "camera",
 		description:
 			"录制摄像头需要此权限",
@@ -403,7 +403,7 @@ export default function OnboardingPage() {
 			} else if (e.key === "ArrowLeft") {
 				e.preventDefault();
 				if (step() > minStep()) goToStep(step() - 1);
-			} else if (e.key === "Enter") {
+			} else if (e.key === "回车") {
 				e.preventDefault();
 				if (!nextDisabled()) handleNext();
 			}
@@ -415,7 +415,7 @@ export default function OnboardingPage() {
 	const nextLabel = () => {
 		if (permissionsOnly()) return "继续使用 Cap";
 		if (step() === totalSteps() - 1) return "开始使用 Cap";
-		return "Continue";
+		return "继续";
 	};
 
 	const nextDisabled = () => isMacOS() && step() === 0 && !permsGranted();
@@ -1385,7 +1385,7 @@ function InstantMockup(props: { active: boolean }) {
 	return (
 		<div class="w-full h-full flex flex-col min-h-0 p-4">
 			<MockupStepBar
-				steps={["Record", "Stop", "分享链接"]}
+				steps={["录制", "停止", "分享链接"]}
 				activeStep={activeStep()}
 			/>
 			<div class="relative flex-1 min-h-[200px] w-full max-w-[420px] mx-auto">
@@ -1514,7 +1514,7 @@ function StudioMockup(props: { active: boolean }) {
 	return (
 		<div class="w-full h-full flex flex-col min-h-0 p-4">
 			<MockupStepBar
-				steps={["Record", "Edit", "Export"]}
+				steps={["录制", "编辑", "导出"]}
 				activeStep={activeStep()}
 			/>
 			<div class="relative flex-1 w-full max-w-[420px] min-h-[248px] mx-auto flex items-center justify-center">
@@ -1824,7 +1824,7 @@ function StartupOverlay(props: {
 		const exiting = props.isExiting;
 		const onKeyDown = (e: KeyboardEvent) => {
 			if (exiting) return;
-			if (e.key !== " " && e.code !== "Space") return;
+			if (e.key !== " " && e.code !== "空格") return;
 			e.preventDefault();
 			handleGetStarted();
 		};
@@ -2140,7 +2140,7 @@ function PermissionsStep(props: {
 											{permission.requiresManualGrant ||
 											permStatus() === "denied"
 												? "打开设置"
-												: "Grant"}
+												: "授权"}
 										</Button>
 									</Show>
 								</div>
@@ -2172,7 +2172,7 @@ function ScreenshotMockup(props: { active: boolean }) {
 	return (
 		<div class="w-full h-full flex flex-col items-center justify-center p-4">
 			<MockupStepBar
-				steps={["选择区域", "Beautify", "Copy"]}
+				steps={["选择区域", "美化", "Copy"]}
 				activeStep={activeStep()}
 			/>
 			<div class="relative w-full max-w-[420px] h-[240px]">

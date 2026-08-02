@@ -378,7 +378,7 @@ const CURSOR_ANIMATION_STYLE_OPTIONS = [
 	},
 	{
 		value: "fast",
-		label: "Fast",
+		label: "快速",
 		description: "快速响应平滑，适合快节奏内容",
 		preset: { tension: 380, mass: 1.0, friction: 30 },
 	},
@@ -703,7 +703,7 @@ export function ConfigSidebar() {
 								maxValue={10}
 								step={0.1}
 								formatTooltip={(v) =>
-									v <= -30 ? "Muted" : `${v > 0 ? "+" : ""}${v.toFixed(1)} dB`
+									v <= -30 ? "已静音" : `${v > 0 ? "+" : ""}${v.toFixed(1)} dB`
 								}
 							/>
 						</Field>
@@ -721,7 +721,7 @@ export function ConfigSidebar() {
 								maxValue={10}
 								step={0.1}
 								formatTooltip={(v) =>
-									v <= -30 ? "Muted" : `${v > 0 ? "+" : ""}${v.toFixed(1)} dB`
+									v <= -30 ? "已静音" : `${v > 0 ? "+" : ""}${v.toFixed(1)} dB`
 								}
 							/>
 						</Field>
@@ -772,7 +772,7 @@ export function ConfigSidebar() {
 								))}
 							</RadioGroup>
 						</Field>
-						<Field name="Size" icon={<IconCapEnlarge />}>
+						<Field name="大小" icon={<IconCapEnlarge />}>
 							<Slider
 								value={[project.cursor.size]}
 								onChange={(v) => setProject("cursor", "size", v[0])}
@@ -781,7 +781,7 @@ export function ConfigSidebar() {
 								step={1}
 							/>
 						</Field>
-						<Field name="Tilt" icon={<IconLucideRotate3d class="size-4" />}>
+						<Field name="倾斜" icon={<IconLucideRotate3d class="size-4" />}>
 							<Slider
 								value={[project.cursor.rotationAmount ?? 0.15]}
 								onChange={(v) => setProject("cursor", "rotationAmount", v[0])}
@@ -890,7 +890,7 @@ export function ConfigSidebar() {
 											step={0.1}
 										/>
 									</Field>
-									<Field name="Mass">
+									<Field name="质量">
 										<Slider
 											value={[project.cursor.mass]}
 											onChange={(v) => setCursorPhysics("mass", v[0])}
@@ -2743,7 +2743,7 @@ function BackgroundConfig(props: {
 				/>
 			</Field>
 			{/* <ComingSoonTooltip>
-            <Field name="Inset" icon={<IconCapInset />}>
+            <Field name="内嵌" icon={<IconCapInset />}>
               <Slider
                 disabled
                 value={[project.background.inset]}
@@ -2860,7 +2860,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 					<Subfield name="背景模糊">
 						<KSelect<{ name: string; value: BackgroundBlurMode }>
 							options={[
-								{ name: "Off", value: "off" },
+								{ name: "关闭", value: "off" },
 								{ name: "轻度模糊", value: "light" },
 								{ name: "重度模糊", value: "heavy" },
 							]}
@@ -2869,14 +2869,14 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 							value={
 								(
 									[
-										{ name: "Off", value: "off" },
+										{ name: "关闭", value: "off" },
 										{ name: "轻度模糊", value: "light" },
 										{ name: "重度模糊", value: "heavy" },
 									] as const
 								).find(
 									(v) =>
 										v.value === (project.camera.backgroundBlur?.mode ?? "off"),
-								) ?? { name: "Off", value: "off" }
+								) ?? { name: "关闭", value: "off" }
 							}
 							onChange={(v) => {
 								if (v)
@@ -2925,7 +2925,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 							</KSelect.Portal>
 						</KSelect>
 					</Subfield>
-					<Subfield name="Shape">
+					<Subfield name="形状">
 						<KSelect<{ name: string; value: CameraShape }>
 							options={CAMERA_SHAPES}
 							optionValue="value"
@@ -2988,7 +2988,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 			</Field>
 			{/** Dashed divider */}
 			<div class="w-full border-t border-dashed border-gray-5" />
-			<Field name="Size" icon={<IconCapEnlarge class="size-4" />}>
+			<Field name="大小" icon={<IconCapEnlarge class="size-4" />}>
 				<Slider
 					value={[project.camera.size]}
 					onChange={(v) => setProject("camera", "size", v[0])}
@@ -3295,7 +3295,7 @@ function TextSegmentConfig(props: {
 					</div>
 				</div>
 			</Field>
-			<Field name="Size" icon={<IconCapEnlarge class="size-4" />}>
+			<Field name="大小" icon={<IconCapEnlarge class="size-4" />}>
 				<Slider
 					value={[
 						clampNumber(
@@ -3333,13 +3333,13 @@ function TextSegmentConfig(props: {
 					step={1}
 				/>
 			</Field>
-			<Field name="Style" icon={<IconLucideSparkles class="size-4" />}>
+			<Field name="风格" icon={<IconLucideSparkles class="size-4" />}>
 				<div class="flex flex-col gap-2">
 					<KSelect
 						options={[
 							{ label: "正常", value: 400 },
 							{ label: "中等", value: 500 },
-							{ label: "Bold", value: 700 },
+							{ label: "粗体", value: 700 },
 						]}
 						optionValue="value"
 						optionTextValue="label"
@@ -3376,7 +3376,7 @@ function TextSegmentConfig(props: {
 									const option = [
 										{ label: "正常", value: 400 },
 										{ label: "中等", value: 500 },
-										{ label: "Bold", value: 700 },
+										{ label: "粗体", value: 700 },
 									].find((o) => o.value === weight);
 									if (option) return option.label;
 									if (weight != null) return `Custom (${weight})`;
@@ -3488,7 +3488,7 @@ function AudioSegmentConfig(props: {
 						/>
 						<div class="flex flex-col flex-1 min-w-0">
 							<span class="text-sm font-medium truncate text-gray-12">
-								{props.segment.name || "Audio"}
+								{props.segment.name || "音频"}
 							</span>
 							<span class="text-xs text-gray-10">Tap to change track</span>
 						</div>
@@ -3501,7 +3501,7 @@ function AudioSegmentConfig(props: {
 						<input
 							class="flex-1 px-3 py-2 rounded-lg border border-gray-3 bg-gray-2 text-gray-12"
 							value={props.segment.name ?? ""}
-							placeholder="Audio"
+							placeholder="音频"
 							onInput={(e) =>
 								updateSegment((segment) => {
 									segment.name = e.currentTarget.value;
@@ -3896,7 +3896,7 @@ function MaskSegmentConfig(props: {
 						onChange={(value) => setMaskEffect(value as MaskEffect)}
 					>
 						{[
-							{ value: "blur", label: "Blur" },
+							{ value: "blur", label: "模糊" },
 							{ value: "pixelate", label: "像素化" },
 						].map((option) => (
 							<RadioGroup.Item
@@ -3915,7 +3915,7 @@ function MaskSegmentConfig(props: {
 			</Show>
 			<Show when={props.segment.maskType === "sensitive"}>
 				<Field
-					name={maskEffect() === "blur" ? "Blur" : "像素大小"}
+					name={maskEffect() === "blur" ? "模糊" : "像素大小"}
 					icon={
 						maskEffect() === "blur" ? (
 							<IconLucideWind class="size-4" />
@@ -4462,7 +4462,7 @@ function ClipSegmentConfig(props: {
 				</p>
 			</div>
 
-			<Field name="Speed" icon={<IconLucideFastForward class="size-4" />}>
+			<Field name="速度" icon={<IconLucideFastForward class="size-4" />}>
 				<KRadioGroup
 					class="flex flex-row gap-1.5 -mt-1"
 					value={props.segment.timescale.toString()}
@@ -4497,7 +4497,7 @@ function ClipSegmentConfig(props: {
 						>
 							<For
 								each={[
-									{ value: "mute", label: "Mute" },
+									{ value: "mute", label: "静音" },
 									{ value: "maintainPitch", label: "保持音调" },
 									{ value: "matchSpeed", label: "匹配速度" },
 								]}

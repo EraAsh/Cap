@@ -16,8 +16,8 @@ import {
 
 export type CornerRoundingType = "rounded" | "squircle";
 const CORNER_STYLE_OPTIONS = [
-	{ name: "Squircle", value: "squircle" },
-	{ name: "Rounded", value: "rounded" },
+	{ name: "圆角方形", value: "squircle" },
+	{ name: "圆角", value: "rounded" },
 ] satisfies Array<{ name: string; value: CornerRoundingType }>;
 
 export function RoundingPopover() {

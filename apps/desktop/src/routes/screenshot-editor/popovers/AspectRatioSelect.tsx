@@ -44,7 +44,7 @@ export function AspectRatioSelect() {
 					<MenuItem<typeof KSelect.Item> as={KSelect.Item} item={props.item}>
 						<KSelect.ItemLabel class="flex-1">
 							{props.item.rawValue === "auto"
-								? "Auto"
+								? "自动"
 								: ASPECT_RATIOS[props.item.rawValue].name}
 							<Show when={item()}>
 								{(item) => (
@@ -79,7 +79,7 @@ export function AspectRatioSelect() {
 					{(state) => {
 						const text = () => {
 							const option = state.selectedOption();
-							if (option === "auto") return "Auto";
+							if (option === "auto") return "自动";
 							const ratio = ASPECT_RATIOS[option].ratio;
 							return `${ratio[0]}:${ratio[1]}`;
 						};

@@ -762,7 +762,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 	};
 
 	createEventListener(window, "keydown", (event) => {
-		if (event.key !== "Escape") return;
+		if (event.key !== "Esc") return;
 		if (!recordOpen() || rawOptions.targetMode != null) return;
 		event.preventDefault();
 		event.stopPropagation();
@@ -916,10 +916,10 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 															onMouseDown={(e) => e.stopPropagation()}
 															onKeyDown={(e) => {
 																e.stopPropagation();
-																if (e.key === "Enter") {
+																if (e.key === "回车") {
 																	e.preventDefault();
 																	commitRename(index());
-																} else if (e.key === "Escape") {
+																} else if (e.key === "Esc") {
 																	e.preventDefault();
 																	cancelRename();
 																}
@@ -1016,7 +1016,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 															selected={rawOptions.targetMode === "display"}
 															Component={IconMdiMonitor}
 															onClick={() => void openTargetMode("display")}
-															name="Display"
+															name="显示器"
 															class="flex-1 pl-5 rounded-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
 														/>
 														<TargetDropdownButton
@@ -1074,7 +1074,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 												<div class="flex flex-row gap-2 items-stretch w-full">
 													{areaButton(
 														"area",
-														"Area",
+														"区域",
 														IconMaterialSymbolsScreenshotFrame2Rounded,
 													)}
 													{areaButton("camera", "仅摄像头", IconLucideVideo)}
@@ -1153,7 +1153,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 														setTargetSearch(event.currentTarget.value)
 													}
 													onKeyDown={(event) => {
-														if (event.key === "Escape" && targetSearch()) {
+														if (event.key === "Esc" && targetSearch()) {
 															event.preventDefault();
 															event.stopPropagation();
 															setTargetSearch("");

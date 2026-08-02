@@ -359,7 +359,7 @@ export function OrganizationDropdown() {
 		}
 		if (availability === "loading") return "Loading...";
 		if (availability === "unavailable") return "组织";
-		return "Sign in";
+		return "登录";
 	});
 	const fallbackTitle = createMemo(() => {
 		const availability = organizationSelection.availability();
@@ -429,7 +429,7 @@ export function OrganizationDropdown() {
 												}
 											>
 												<SignInButton class="w-full justify-center">
-													Sign In
+													本地版 · 无需登录
 												</SignInButton>
 											</Show>
 											<Show

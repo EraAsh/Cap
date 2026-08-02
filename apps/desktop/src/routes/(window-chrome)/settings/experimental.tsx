@@ -80,7 +80,7 @@ function Inner(props: {
 					</Section>
 				</Show>
 
-				<Section title="Reliability">
+				<Section title="可靠性">
 					<SectionRows>
 						<ToggleSettingItem
 							label="Out-of-process muxer"

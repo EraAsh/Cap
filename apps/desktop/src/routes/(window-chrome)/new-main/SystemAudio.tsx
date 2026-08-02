@@ -74,7 +74,7 @@ export function SystemAudioToggleRoot(
 					component={props.PillComponent}
 					variant={rawOptions.captureSystemAudio ? "blue" : "gray"}
 				>
-					{rawOptions.captureSystemAudio ? "On" : "Off"}
+					{rawOptions.captureSystemAudio ? "开启" : "关闭"}
 				</Dynamic>
 			</div>
 		</button>

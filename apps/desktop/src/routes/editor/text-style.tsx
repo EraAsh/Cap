@@ -15,46 +15,46 @@ export const FONT_OPTIONS = [
 ];
 
 export const CAPTION_POSITION_OPTIONS = [
-	{ value: "manual", label: "Manual" },
-	{ value: "top-left", label: "Top Left" },
+	{ value: "manual", label: "手动" },
+	{ value: "top-left", label: "左上" },
 	{ value: "top-center", label: "顶部居中" },
-	{ value: "top-right", label: "Top Right" },
+	{ value: "top-right", label: "右上" },
 	{ value: "bottom-left", label: "左下角" },
 	{ value: "bottom-center", label: "底部居中" },
 	{ value: "bottom-right", label: "右下角" },
 ];
 
 export const KEYBOARD_POSITION_OPTIONS = [
-	{ value: "top-left", label: "Top Left" },
+	{ value: "top-left", label: "左上" },
 	{ value: "top-center", label: "顶部居中" },
-	{ value: "top-right", label: "Top Right" },
+	{ value: "top-right", label: "右上" },
 	{ value: "bottom-left", label: "左下角" },
 	{ value: "bottom-center", label: "底部居中" },
 	{ value: "bottom-right", label: "右下角" },
 ];
 
 export const TEXT_WEIGHT_OPTIONS = [
-	{ label: "Normal", value: 400 },
-	{ label: "Medium", value: 500 },
-	{ label: "Bold", value: 700 },
+	{ label: "正常", value: 400 },
+	{ label: "中等", value: 500 },
+	{ label: "粗体", value: 700 },
 ];
 
 export const CAPTION_ANIMATION_OPTIONS = [
-	{ value: "none", label: "None" },
-	{ value: "bounce", label: "Bounce" },
-	{ value: "pop", label: "Pop" },
+	{ value: "none", label: "无" },
+	{ value: "bounce", label: "弹跳" },
+	{ value: "pop", label: "弹出" },
 ];
 
 export const CAPTION_HIGHLIGHT_STYLE_OPTIONS = [
-	{ value: "color", label: "Color" },
-	{ value: "pill", label: "Pill" },
+	{ value: "color", label: "颜色" },
+	{ value: "pill", label: "胶囊" },
 ];
 
 export function getTextWeightLabel(weight: number | null | undefined) {
 	const option = TEXT_WEIGHT_OPTIONS.find((option) => option.value === weight);
 	if (option) return option.label;
 	if (weight != null) return `Custom (${weight})`;
-	return "Normal";
+	return "正常";
 }
 
 export function HexColorInput(props: {
@@ -113,7 +113,7 @@ export function HexColorInput(props: {
 						prevColor = props.value;
 					}}
 					onKeyDown={(e) => {
-						if (e.key === "Enter") {
+						if (e.key === "回车") {
 							e.preventDefault();
 							if (!commitValue(e.currentTarget.value)) {
 								setText(prevColor);

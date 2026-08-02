@@ -346,7 +346,7 @@ export function MaskTrack(props: {
 					});
 
 					const contentLabel = () =>
-						segment.maskType === "sensitive" ? "Sensitive" : "Highlight";
+						segment.maskType === "sensitive" ? "敏感" : "高亮";
 
 					const segmentWidth = () => segment.end - segment.start;
 

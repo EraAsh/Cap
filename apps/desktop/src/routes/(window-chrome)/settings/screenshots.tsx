@@ -197,7 +197,7 @@ export default function Screenshots() {
 									value={search()}
 									onInput={(event) => setSearch(event.currentTarget.value)}
 									onKeyDown={(event) => {
-										if (event.key === "Escape" && search()) {
+										if (event.key === "Esc" && search()) {
 											event.preventDefault();
 											setSearch("");
 										}

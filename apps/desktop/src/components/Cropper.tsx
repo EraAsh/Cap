@@ -1025,7 +1025,7 @@ export function Cropper(
 	function handleKeyUp(e: KeyboardEvent) {
 		if (
 			!KEY_MAPPINGS.has(e.key) &&
-			!["Shift", "Alt", "Meta", "Control"].includes(e.key)
+			!["Shift", "Alt", "Meta", "Ctrl"].includes(e.key)
 		)
 			return;
 
@@ -1566,7 +1566,7 @@ export function createCropOptionsMenuItems(options: {
 }) {
 	return [
 		{
-			text: "Free",
+			text: "自由",
 			checked: !options.aspect,
 			action: () => options.onAspectSet(null),
 		} satisfies CheckMenuItemOptions,

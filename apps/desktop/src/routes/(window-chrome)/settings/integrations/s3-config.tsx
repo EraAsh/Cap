@@ -159,7 +159,7 @@ export default function S3ConfigPage() {
 			<SettingsPageContent>
 				<IntegrationConfigHeader title="S3 Config" />
 				<Section
-					title="Configuration"
+					title="配置"
 					description={
 						<>
 							It should take under 10 minutes to set up and connect your storage
@@ -245,12 +245,12 @@ export default function S3ConfigPage() {
 									"password",
 								)}
 								{renderInput(
-									"Endpoint",
+									"端点",
 									"endpoint",
 									"https://s3.amazonaws.com",
 								)}
 								{renderInput("存储桶名称", "bucketName", "my-bucket")}
-								{renderInput("Region", "region", "us-east-1")}
+								{renderInput("区域", "region", "us-east-1")}
 							</div>
 						</Suspense>
 					</SectionCard>
@@ -287,7 +287,7 @@ export default function S3ConfigPage() {
 							variant="primary"
 							onClick={() => saveConfig.mutate(s3Config())}
 						>
-							{saveConfig.isPending ? "Saving..." : "Save"}
+							{saveConfig.isPending ? "Saving..." : "保存"}
 						</Button>
 					</fieldset>
 				</div>

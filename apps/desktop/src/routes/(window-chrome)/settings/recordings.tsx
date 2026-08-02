@@ -47,17 +47,17 @@ type Recording = {
 const Tabs = [
 	{
 		id: "all",
-		label: "Show all",
+		label: "显示全部",
 	},
 	{
 		id: "instant",
 		icon: <IconCapInstant class="invert size-3 dark:invert-0" />,
-		label: "Instant",
+		label: "即时",
 	},
 	{
 		id: "studio",
 		icon: <IconCapFilmCut class="invert size-3 dark:invert-0" />,
-		label: "Studio",
+		label: "工作室",
 	},
 ] satisfies { id: string; label: string; icon?: JSX.Element }[];
 
@@ -202,7 +202,7 @@ export default function Recordings() {
 		<div class="cap-settings-page flex relative flex-col w-full h-full custom-scroll">
 			<SettingsPageContent class="max-w-none space-y-4">
 				<Section
-					title="Recordings"
+					title="录制"
 					description="管理您的录制并执行操作"
 					right={
 						<Button
@@ -251,7 +251,7 @@ export default function Recordings() {
 									value={search()}
 									onInput={(event) => setSearch(event.currentTarget.value)}
 									onKeyDown={(event) => {
-										if (event.key === "Escape" && search()) {
+										if (event.key === "Esc" && search()) {
 											event.preventDefault();
 											setSearch("");
 										}
@@ -434,7 +434,7 @@ function RecordingItem(props: {
 					<Show when={props.recording.meta.sharing}>
 						{(sharing) => (
 							<TooltipIconButton
-								tooltipText="Open link"
+								tooltipText="打开链接"
 								onClick={() => shell.open(sharing().link)}
 							>
 								<IconCapLink class="size-4" />
@@ -497,7 +497,7 @@ function RecordingItem(props: {
 								<Show when={props.recording.meta.sharing}>
 									{(sharing) => (
 										<TooltipIconButton
-											tooltipText="Open link"
+											tooltipText="打开链接"
 											onClick={() => shell.open(sharing().link)}
 										>
 											<IconCapLink class="size-4" />

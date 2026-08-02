@@ -494,7 +494,7 @@ export function TranscriptPanel() {
 	});
 
 	createEventListener(window, "keydown", (e) => {
-		if (e.code !== "Space") return;
+		if (e.code !== "空格") return;
 		const el = document.activeElement;
 		if (el) {
 			const tag = el.tagName.toLowerCase();
@@ -696,10 +696,10 @@ function TranscriptWord(props: {
 				onInput={(e) => sizeInput(e.currentTarget.value)}
 				onKeyDown={(e) => {
 					e.stopPropagation();
-					if (e.key === "Enter") {
+					if (e.key === "回车") {
 						e.preventDefault();
 						commit();
-					} else if (e.key === "Escape") {
+					} else if (e.key === "Esc") {
 						e.preventDefault();
 						props.onCancelEdit();
 					}
@@ -771,11 +771,11 @@ function TranscriptEditor(props: {
 		const selected = selectedIndices();
 		if (selected.size === 0) return;
 
-		if (e.key === "Enter" && selected.size === 1 && editingIndex() === -1) {
+		if (e.key === "回车" && selected.size === 1 && editingIndex() === -1) {
 			e.preventDefault();
 			const word = props.allWords[[...selected][0]];
 			if (word) startEditing(word);
-		} else if (e.key === "Backspace" || e.key === "删除") {
+		} else if (e.key === "退格" || e.key === "删除") {
 			e.preventDefault();
 			const indices = [...selected];
 			if (indices.length === 1) {
