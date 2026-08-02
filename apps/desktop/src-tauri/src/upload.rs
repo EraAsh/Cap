@@ -1,11 +1,11 @@
 // credit @filleduchaos
 
 use crate::{
+    UploadProgress, VideoUploadInfo,
     api::{self, PresignedS3PutRequest, PresignedS3PutRequestMethod, S3VideoMeta, UploadedPart},
     http_client::{HttpClient, RetryableHttpClient},
-    posthog::{async_capture_event, PostHogEvent},
+    posthog::{PostHogEvent, async_capture_event},
     web_api::{AuthedApiError, ManagerExt},
-    UploadProgress, VideoUploadInfo,
 };
 use async_stream::{stream, try_stream};
 use bytes::Bytes;
@@ -14,8 +14,8 @@ use cap_utils::spawn_actor;
 use ffmpeg::ffi::AV_TIME_BASE;
 use flume::Receiver;
 use futures::future::join;
-use futures::{stream, Stream, StreamExt, TryStreamExt};
-use image::{codecs::jpeg::JpegEncoder, ImageReader};
+use futures::{Stream, StreamExt, TryStreamExt, stream};
+use image::{ImageReader, codecs::jpeg::JpegEncoder};
 use reqwest::StatusCode;
 use serde::{Deserialize, Serialize};
 use specta::Type;
@@ -27,17 +27,17 @@ use std::{
     sync::{Arc, Mutex, PoisonError},
     time::Duration,
 };
-use tauri::{ipc::Channel, AppHandle, Manager};
+use tauri::{AppHandle, Manager, ipc::Channel};
 use tauri_plugin_clipboard_manager::ClipboardExt;
 use tauri_specta::Event;
 use tokio::{
     fs::File,
     io::{AsyncReadExt, AsyncSeekExt, BufReader},
     task::{self, JoinHandle},
-    time::{self, timeout, Instant},
+    time::{self, Instant, timeout},
 };
 use tokio_util::io::ReaderStream;
-use tracing::{debug, error, info, info_span, instrument, trace, warn, Span};
+use tracing::{Span, debug, error, info, info_span, instrument, trace, warn};
 use tracing_futures::Instrument;
 
 pub struct UploadedItem {
@@ -1197,17 +1197,27 @@ impl SegmentUploader {
             let recording_done = recording_done.clone();
             std::thread::Builder::new()
                 .name("segment-rx-bridge".to_string())
-                .spawn(move || loop {
-                    match segment_rx.recv_timeout(std::time::Duration::from_millis(20)) {
-                        Ok(event) => {
-                            if async_segment_tx.send(event).is_err() {
-                                break;
+                .spawn(move || {
+                    loop {
+                        match segment_rx.recv_timeout(std::time::Duration::from_millis(20)) {
+                            Ok(event) => {
+                                if async_segment_tx.send(event).is_err() {
+                                    break;
+                                }
                             }
-                        }
-                        Err(std::sync::mpsc::RecvTimeoutError::Timeout) => {
-                            if let Some(ref done_rx) = recording_done
-                                && done_rx.try_recv().is_ok()
-                            {
+                            Err(std::sync::mpsc::RecvTimeoutError::Timeout) => {
+                                if let Some(ref done_rx) = recording_done
+                                    && done_rx.try_recv().is_ok()
+                                {
+                                    while let Ok(event) = segment_rx.try_recv() {
+                                        if async_segment_tx.send(event).is_err() {
+                                            return;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                            Err(std::sync::mpsc::RecvTimeoutError::Disconnected) => {
                                 while let Ok(event) = segment_rx.try_recv() {
                                     if async_segment_tx.send(event).is_err() {
                                         return;
@@ -1215,14 +1225,6 @@ impl SegmentUploader {
                                 }
                                 break;
                             }
-                        }
-                        Err(std::sync::mpsc::RecvTimeoutError::Disconnected) => {
-                            while let Ok(event) = segment_rx.try_recv() {
-                                if async_segment_tx.send(event).is_err() {
-                                    return;
-                                }
-                            }
-                            break;
                         }
                     }
                 })

@@ -1,16 +1,16 @@
-use std::sync::atomic::{AtomicU8, AtomicUsize, Ordering};
 use std::sync::Arc;
+use std::sync::atomic::{AtomicU8, AtomicUsize, Ordering};
 use std::time::{Duration, Instant};
 
 use cap_recording::FFmpegVideoFrame;
 #[cfg(target_os = "macos")]
-use cap_utils::macos_qos::{set_current_thread_qos, MacOsQosClass};
+use cap_utils::macos_qos::{MacOsQosClass, set_current_thread_qos};
 use flume::Sender;
 use tokio::sync::watch;
 use tokio_util::sync::CancellationToken;
 
-use crate::camera::{is_low_spec_preview, CameraPreviewState, MAX_CAMERA_SIZE, MIN_CAMERA_SIZE};
-use crate::frame_ws::{create_watch_frame_ws_with_instant_tracking, WSFrame, WSFrameFormat};
+use crate::camera::{CameraPreviewState, MAX_CAMERA_SIZE, MIN_CAMERA_SIZE, is_low_spec_preview};
+use crate::frame_ws::{WSFrame, WSFrameFormat, create_watch_frame_ws_with_instant_tracking};
 
 const WS_READBACK_PENDING: u8 = 0;
 const WS_READBACK_READY_OK: u8 = 1;

@@ -366,11 +366,7 @@ impl GeneralSettingsStore {
             .and_then(|s| s.recordings_path)
             .and_then(|p| {
                 let path = std::path::PathBuf::from(&p);
-                if path.is_absolute() {
-                    Some(path)
-                } else {
-                    None
-                }
+                if path.is_absolute() { Some(path) } else { None }
             });
 
         // A custom folder can become unavailable (unplugged drive, deleted
@@ -593,9 +589,11 @@ mod tests {
         let changed = append_missing_default_excluded_windows(&mut excluded_windows);
 
         assert!(changed);
-        assert!(default_excluded_windows()
-            .iter()
-            .all(|default| excluded_windows.contains(default)));
+        assert!(
+            default_excluded_windows()
+                .iter()
+                .all(|default| excluded_windows.contains(default))
+        );
         assert!(excluded_windows.iter().any(|entry| {
             entry.owner_name.as_deref() == Some("Preview")
                 && entry.window_title.as_deref() == Some("隐私预览")

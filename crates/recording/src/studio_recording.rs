@@ -1,16 +1,17 @@
 #[cfg(target_os = "macos")]
+use crate::SendableShareableContent;
+#[cfg(target_os = "macos")]
 use crate::output_pipeline::{
     AVFoundationCameraMuxer, AVFoundationCameraMuxerConfig, MacOSFragmentedM4SCameraMuxer,
     MacOSFragmentedM4SCameraMuxerConfig,
 };
-#[cfg(target_os = "macos")]
-use crate::SendableShareableContent;
 use crate::{
-    calculate_gpu_compatible_size,
+    ActorError, H264_MAX_DIMENSION, MediaError, RecordingBaseInputs, RecordingError,
+    SharedPauseState, calculate_gpu_compatible_size,
     capture_pipeline::{
-        target_to_display_and_crop, MakeCapturePipeline, ScreenCaptureMethod, Stop,
+        MakeCapturePipeline, ScreenCaptureMethod, Stop, target_to_display_and_crop,
     },
-    cursor::{spawn_cursor_recorder, CursorActor, Cursors, IncrementalCaptureOutputs},
+    cursor::{CursorActor, Cursors, IncrementalCaptureOutputs, spawn_cursor_recorder},
     feeds::{camera::CameraFeedLock, microphone::MicrophoneFeedLock},
     ffmpeg::{FragmentedAudioMuxer, FragmentedAudioMuxerConfig, OggMuxer},
     output_pipeline::{
@@ -19,8 +20,6 @@ use crate::{
     },
     screen_capture::ScreenCaptureConfig,
     sources::{self, screen_capture},
-    ActorError, MediaError, RecordingBaseInputs, RecordingError, SharedPauseState,
-    H264_MAX_DIMENSION,
 };
 
 #[cfg(windows)]
@@ -28,15 +27,15 @@ use crate::output_pipeline::{
     WindowsCameraMuxer, WindowsCameraMuxerConfig, WindowsFragmentedM4SCameraMuxer,
     WindowsFragmentedM4SCameraMuxerConfig,
 };
-use anyhow::{anyhow, bail, Context as _};
+use anyhow::{Context as _, anyhow, bail};
 use cap_media_info::VideoInfo;
 use cap_project::{
     CursorEvents, KeyboardEvents, MultipleSegment, MultipleSegments, Platform, RecordingMeta,
     RecordingMetaInner, StudioRecordingMeta, StudioRecordingStatus,
 };
 use cap_timestamp::{Timestamp, Timestamps};
-use futures::{future::OptionFuture, stream::FuturesUnordered, FutureExt, StreamExt};
-use kameo::{prelude::*, Actor as _};
+use futures::{FutureExt, StreamExt, future::OptionFuture, stream::FuturesUnordered};
+use kameo::{Actor as _, prelude::*};
 use relative_path::RelativePathBuf;
 use serde::Serialize;
 use std::{
@@ -46,7 +45,7 @@ use std::{
     time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
 use tokio::{sync::watch, task::JoinHandle};
-use tracing::{debug, error_span, info, trace, warn, Instrument};
+use tracing::{Instrument, debug, error_span, info, trace, warn};
 
 const COMPATIBILITY_CAMERA_ACTIVE_MAX_SCREEN_WIDTH: u32 = 1600;
 const COMPATIBILITY_CAMERA_ACTIVE_MAX_SCREEN_HEIGHT: u32 = 1000;

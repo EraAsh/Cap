@@ -1,10 +1,10 @@
 use cap_recording::{
+    RecordingMode,
     feeds::{
         camera::{CameraDeviceSettings, DeviceOrModelID},
         microphone::MicrophoneDeviceSettings,
     },
     sources::screen_capture::ScreenCaptureTarget,
-    RecordingMode,
 };
 use std::collections::HashMap;
 use tauri::{AppHandle, Wry};

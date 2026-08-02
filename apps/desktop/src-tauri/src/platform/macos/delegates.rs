@@ -86,7 +86,7 @@ pub fn position_window_controls(
 
 pub fn setup<R: Runtime>(window: Window<R>, controls_inset: LogicalPosition<f64>) {
     use cocoa::appkit::NSWindow;
-    use cocoa::base::{id, BOOL};
+    use cocoa::base::{BOOL, id};
     use cocoa::foundation::NSUInteger;
     use objc::declare::ClassDecl;
     use objc::runtime::{Class, Object, Sel};

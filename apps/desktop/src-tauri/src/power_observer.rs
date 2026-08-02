@@ -57,13 +57,12 @@ pub fn uninstall(app: &AppHandle) {
 mod macos {
     use super::{on_system_did_wake, on_system_will_sleep};
     use objc2::{
-        define_class, msg_send,
-        rc::{autoreleasepool, Retained},
+        AnyThread, DeclaredClass, define_class, msg_send,
+        rc::{Retained, autoreleasepool},
         runtime::{AnyObject, NSObject},
-        AnyThread, DeclaredClass,
     };
     use objc2_app_kit::NSWorkspace;
-    use objc2_foundation::{ns_string, NSNotification};
+    use objc2_foundation::{NSNotification, ns_string};
     use std::sync::{Mutex, OnceLock};
     use tauri::AppHandle;
     use tracing::warn;
@@ -185,8 +184,8 @@ mod windows {
     use super::{on_system_did_wake, on_system_will_sleep};
     use ::windows::Win32::Foundation::{HANDLE, WIN32_ERROR};
     use ::windows::Win32::System::Power::{
-        PowerRegisterSuspendResumeNotification, PowerUnregisterSuspendResumeNotification,
-        DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS, HPOWERNOTIFY,
+        DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS, HPOWERNOTIFY, PowerRegisterSuspendResumeNotification,
+        PowerUnregisterSuspendResumeNotification,
     };
     use ::windows::Win32::UI::WindowsAndMessaging::{
         DEVICE_NOTIFY_CALLBACK, PBT_APMRESUMEAUTOMATIC, PBT_APMSUSPEND,

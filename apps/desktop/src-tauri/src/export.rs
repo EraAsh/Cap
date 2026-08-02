@@ -1,6 +1,6 @@
 use crate::editor_window::{OptionalWindowEditorInstance, WindowEditorInstance};
-use crate::{get_video_metadata, FramesRendered};
-use cap_export::{make_cursor_only_project, ExporterBase};
+use crate::{FramesRendered, get_video_metadata};
+use cap_export::{ExporterBase, make_cursor_only_project};
 use cap_project::{RecordingMeta, TimelineFrameMapping, XY};
 use cap_rendering::{
     FrameRenderer, ProjectRecordingsMeta, ProjectUniforms, RenderSegment, RenderVideoConstants,
@@ -18,8 +18,8 @@ use std::{
     path::{Path, PathBuf},
     process::Stdio,
     sync::{
-        atomic::{AtomicBool, AtomicUsize, Ordering},
         Arc, LazyLock, Mutex, MutexGuard,
+        atomic::{AtomicBool, AtomicUsize, Ordering},
     },
 };
 use tauri::Manager;
@@ -1463,7 +1463,7 @@ async fn generate_export_preview_inner(
     frame_time: f64,
     settings: ExportPreviewSettings,
 ) -> Result<ExportPreviewResult, String> {
-    use base64::{engine::general_purpose::STANDARD, Engine};
+    use base64::{Engine, engine::general_purpose::STANDARD};
     use cap_editor::create_segments;
     use std::time::Instant;
 
@@ -1826,7 +1826,7 @@ async fn generate_export_preview_fast_inner(
         return Err("Export is in progress - preview generation skipped".to_string());
     }
 
-    use base64::{engine::general_purpose::STANDARD, Engine};
+    use base64::{Engine, engine::general_purpose::STANDARD};
     use std::time::Instant;
 
     let _preview_guard = ExportPreviewActiveGuard::try_new(&editor.export_preview_active)?;

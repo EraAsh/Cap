@@ -7,8 +7,8 @@
 //! APIs, so an excluded window becomes invisible to the user and DRM
 //! detectors flag it as protected content (e.g. Shadow error S:102).
 
-use winreg::enums::HKEY_LOCAL_MACHINE;
 use winreg::RegKey;
+use winreg::enums::HKEY_LOCAL_MACHINE;
 
 /// Environment override (case-insensitive): `off`/`never`/`0` forces
 /// exclusion off, `on`/`always`/`1` forces it on (skips detection),
@@ -143,10 +143,10 @@ fn smbios_virtual_machine_marker() -> Option<String> {
 }
 
 fn virtual_display_adapter() -> Option<String> {
-    use windows::core::PCWSTR;
     use windows::Win32::Graphics::Gdi::{
-        EnumDisplayDevicesW, DISPLAY_DEVICEW, DISPLAY_DEVICE_ATTACHED_TO_DESKTOP,
+        DISPLAY_DEVICE_ATTACHED_TO_DESKTOP, DISPLAY_DEVICEW, EnumDisplayDevicesW,
     };
+    use windows::core::PCWSTR;
 
     let mut index = 0u32;
     loop {

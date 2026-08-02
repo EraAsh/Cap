@@ -1,14 +1,14 @@
-use anyhow::{anyhow, Context};
-use cap_recording::feeds::{self, camera::CameraFeed};
+use anyhow::{Context, anyhow};
 #[cfg(not(target_os = "macos"))]
 use cap_recording::FFmpegVideoFrame;
 #[cfg(target_os = "macos")]
 use cap_recording::NativeCameraFrame;
+use cap_recording::feeds::{self, camera::CameraFeed};
 #[cfg(target_os = "macos")]
-use cap_utils::macos_qos::{set_current_thread_qos, MacOsQosClass};
+use cap_utils::macos_qos::{MacOsQosClass, set_current_thread_qos};
 
 #[cfg(target_os = "macos")]
-use crate::camera_native::{classify_frame, NativeFrameConverter};
+use crate::camera_native::{NativeFrameConverter, classify_frame};
 use ffmpeg::{
     format::{self, Pixel},
     frame,
@@ -19,8 +19,8 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 use std::{
     sync::{
-        atomic::{AtomicU64, Ordering},
         Arc,
+        atomic::{AtomicU64, Ordering},
     },
     thread,
 };
@@ -1790,8 +1790,8 @@ async fn resize_window(
 #[cfg(test)]
 mod tests {
     use super::{
-        camera_preview_texture_dimensions, preferred_alpha_mode, wait_for_shutdown_signal,
         CAMERA_PREVIEW_MAX_TEXTURE_HEIGHT, CAMERA_PREVIEW_MAX_TEXTURE_WIDTH,
+        camera_preview_texture_dimensions, preferred_alpha_mode, wait_for_shutdown_signal,
     };
     use std::thread;
     use tokio::{runtime::Runtime, sync::oneshot, time::Duration};

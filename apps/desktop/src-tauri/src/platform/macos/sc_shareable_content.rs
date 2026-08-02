@@ -62,8 +62,8 @@ async fn prewarm_shareable_content_inner(force_refresh: bool) -> Result<(), arc:
     })
 }
 
-pub async fn get_shareable_content(
-) -> Result<Option<arc::R<sc::ShareableContent>>, arc::R<ns::Error>> {
+pub async fn get_shareable_content()
+-> Result<Option<arc::R<sc::ShareableContent>>, arc::R<ns::Error>> {
     if let Some(content) = state()
         .cache
         .read()

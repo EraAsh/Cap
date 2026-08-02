@@ -4,8 +4,9 @@ use thiserror::Error;
 use tracing::{debug, error, warn};
 
 use crate::{
+    ArcLock,
     auth::{AuthSecret, AuthStore},
-    http_client, ArcLock,
+    http_client,
 };
 
 #[derive(Error, Debug)]

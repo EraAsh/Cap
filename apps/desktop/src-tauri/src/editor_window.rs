@@ -1,15 +1,14 @@
 use std::{collections::HashMap, ops::Deref, path::PathBuf, sync::Arc, time::Instant};
-use tauri::{ipc::CommandArg, AppHandle, Listener, Manager, Runtime, Window};
-use tokio::sync::{watch, RwLock};
+use tauri::{AppHandle, Listener, Manager, Runtime, Window, ipc::CommandArg};
+use tokio::sync::{RwLock, watch};
 use tokio_util::sync::CancellationToken;
 
 use cap_rendering::GpuOutputFormat;
 use tauri_specta::Event;
 
 use crate::{
-    create_editor_instance_impl,
-    frame_ws::{create_watch_frame_ws, WSFrame, WSFrameFormat},
-    FrameLayoutEvent,
+    FrameLayoutEvent, create_editor_instance_impl,
+    frame_ws::{WSFrame, WSFrameFormat, create_watch_frame_ws},
 };
 
 /// Forwards rendered frames to the preview websocket and mirrors each frame's

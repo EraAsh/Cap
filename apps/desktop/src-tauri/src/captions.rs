@@ -1,10 +1,9 @@
 use anyhow::Result;
 use cap_audio::AudioData;
 use ffmpeg::{
-    codec as avcodec,
+    ChannelLayout, codec as avcodec,
     format::{self as avformat},
     software::resampling,
-    ChannelLayout,
 };
 use futures::StreamExt;
 #[cfg(not(all(target_os = "macos", target_arch = "x86_64")))]
@@ -2725,9 +2724,8 @@ fn mix_samples(dest: &mut [f32], source: &[f32]) -> usize {
 #[cfg(test)]
 mod tests {
     use super::{
-        caption_text_from_words, caption_word_chunks, normalize_caption_words,
-        resolve_audio_extraction_source, resolve_path_with_base, AudioExtractionSource,
-        CaptionWord,
+        AudioExtractionSource, CaptionWord, caption_text_from_words, caption_word_chunks,
+        normalize_caption_words, resolve_audio_extraction_source, resolve_path_with_base,
     };
     use tempfile::tempdir;
 

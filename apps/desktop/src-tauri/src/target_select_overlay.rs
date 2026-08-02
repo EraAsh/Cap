@@ -10,15 +10,14 @@ use cap_recording::screen_capture::ScreenCaptureTarget;
 
 use crate::exit_shutdown::{abort_join_handles, read_target_under_cursor};
 use crate::{
-    general_settings,
+    App, ArcLock, general_settings,
     recording_settings::RecordingTargetMode,
     window_exclusion::WindowExclusion,
-    windows::{hide_overlay, show_overlay, CapWindowId, ShowCapWindow},
-    App, ArcLock,
+    windows::{CapWindowId, ShowCapWindow, hide_overlay, show_overlay},
 };
 use scap_targets::{
-    bounds::{LogicalBounds, LogicalSize, PhysicalSize},
     Display, DisplayId, Window, WindowId,
+    bounds::{LogicalBounds, LogicalSize, PhysicalSize},
 };
 use serde::Serialize;
 use specta::Type;
@@ -400,8 +399,8 @@ pub async fn focus_window(window_id: WindowId) -> Result<(), String> {
     #[cfg(target_os = "windows")]
     {
         use windows::Win32::UI::WindowsAndMessaging::{
-            GetWindowPlacement, IsIconic, SetForegroundWindow, SetWindowPlacement, ShowWindow,
-            SW_RESTORE, WINDOWPLACEMENT,
+            GetWindowPlacement, IsIconic, SW_RESTORE, SetForegroundWindow, SetWindowPlacement,
+            ShowWindow, WINDOWPLACEMENT,
         };
 
         let hwnd = window.raw_handle().inner();

@@ -1,20 +1,21 @@
 use anyhow::anyhow;
 use cap_fail::fail;
 use cap_media_info::ffmpeg_sample_format_for;
-use cap_project::cursor::SHORT_CURSOR_SHAPE_DEBOUNCE_MS;
 use cap_project::CursorMoveEvent;
+use cap_project::cursor::SHORT_CURSOR_SHAPE_DEBOUNCE_MS;
 use cap_project::{
-    cursor::CursorEvents, CameraShape, CursorClickEvent, GlideDirection, InstantRecordingMeta,
-    MultipleSegments, Platform, ProjectConfiguration, RecordingMeta, RecordingMetaInner,
-    SharingMeta, StudioRecordingMeta, StudioRecordingStatus, TimelineConfiguration,
-    TimelineSegment, ZoomMode, ZoomSegment,
+    CameraShape, CursorClickEvent, GlideDirection, InstantRecordingMeta, MultipleSegments,
+    Platform, ProjectConfiguration, RecordingMeta, RecordingMetaInner, SharingMeta,
+    StudioRecordingMeta, StudioRecordingStatus, TimelineConfiguration, TimelineSegment, ZoomMode,
+    ZoomSegment, cursor::CursorEvents,
 };
+#[cfg(target_os = "macos")]
+use cap_recording::SendableShareableContent;
 use cap_recording::feeds::camera::CameraFeedLock;
 #[cfg(target_os = "macos")]
 use cap_recording::sources::screen_capture::SourceError;
-#[cfg(target_os = "macos")]
-use cap_recording::SendableShareableContent;
 use cap_recording::{
+    RecordingMode,
     feeds::{camera, microphone},
     instant_recording,
     recovery::RecoveryManager,
@@ -23,12 +24,12 @@ use cap_recording::{
         screen_capture,
         screen_capture::{CaptureDisplay, CaptureWindow, ScreenCaptureTarget},
     },
-    studio_recording, RecordingMode,
+    studio_recording,
 };
 use cap_rendering::ProjectRecordingsMeta;
 use cap_utils::{ensure_dir, moment_format_to_chrono, spawn_actor};
 use cpal::traits::DeviceTrait;
-use futures::{stream, FutureExt};
+use futures::{FutureExt, stream};
 use lazy_static::lazy_static;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
@@ -45,7 +46,7 @@ use std::{
     sync::Arc,
     time::Duration,
 };
-use tauri::{path::BaseDirectory, AppHandle, Manager};
+use tauri::{AppHandle, Manager, path::BaseDirectory};
 use tauri_plugin_dialog::{DialogExt, MessageDialogBuilder};
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
 use tauri_specta::Event;
@@ -59,6 +60,9 @@ use crate::web_api::AuthedApiError;
 #[cfg(target_os = "macos")]
 use crate::window_exclusion::WindowExclusion;
 use crate::{
+    App, CameraWindowOperationLock, CurrentRecordingChanged, EditorRecordingAdded,
+    FinalizingRecordings, MutableState, NewStudioRecordingAdded, RecordingStarted, RecordingState,
+    RecordingStopped, VideoUploadInfo,
     api::PresignedS3PutRequestMethod,
     audio::AppSounds,
     auth::AuthStore,
@@ -67,14 +71,11 @@ use crate::{
     open_external_link,
     presets::PresetsStore,
     thumbnails::*,
-    upload::{compress_image, InstantMultipartUpload, SegmentUploader},
+    upload::{InstantMultipartUpload, SegmentUploader, compress_image},
     web_api::ManagerExt,
     windows::{
-        editor_window_for_path, hide_overlay, CapWindowId, EditorRecordingTarget, ShowCapWindow,
+        CapWindowId, EditorRecordingTarget, ShowCapWindow, editor_window_for_path, hide_overlay,
     },
-    App, CameraWindowOperationLock, CurrentRecordingChanged, EditorRecordingAdded,
-    FinalizingRecordings, MutableState, NewStudioRecordingAdded, RecordingStarted, RecordingState,
-    RecordingStopped, VideoUploadInfo,
 };
 
 fn recording_stopped_share_url(link: &str) -> String {
@@ -345,7 +346,7 @@ fn macos_screen_for_display_id(display_id: Option<&str>) -> Option<cocoa::base::
 fn current_desktop_background_source_path(_display_id: Option<&str>) -> Option<PathBuf> {
     use std::{ffi::OsString, os::windows::ffi::OsStringExt};
     use windows::Win32::UI::WindowsAndMessaging::{
-        SystemParametersInfoW, SPI_GETDESKWALLPAPER, SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS,
+        SPI_GETDESKWALLPAPER, SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS, SystemParametersInfoW,
     };
 
     let mut buffer = vec![0u16; 32_768];
@@ -2183,8 +2184,8 @@ pub async fn start_recording(
                     if let Some((health, mode)) = accumulator_mode.as_ref()
                         && let Some((reason_text, critical)) = health.record_event(&event)
                     {
-                        use crate::posthog::{async_capture_event, PostHogEvent};
-                        use crate::recording_telemetry::{mode_label, CriticalEvent};
+                        use crate::posthog::{PostHogEvent, async_capture_event};
+                        use crate::recording_telemetry::{CriticalEvent, mode_label};
                         match critical {
                             CriticalEvent::MuxerCrashed {
                                 seconds_into_recording,
@@ -2216,7 +2217,7 @@ pub async fn start_recording(
                     }
 
                     if let Some((_, mode)) = accumulator_mode.as_ref() {
-                        use crate::posthog::{async_capture_event, PostHogEvent};
+                        use crate::posthog::{PostHogEvent, async_capture_event};
                         use crate::recording_telemetry::mode_label;
                         let mode_str = mode_label(*mode);
                         match &event {
@@ -2800,8 +2801,8 @@ pub async fn take_screenshot(
     app: AppHandle,
     target: ScreenCaptureTarget,
 ) -> Result<PathBuf, String> {
-    use crate::notifications;
     use crate::NewScreenshotAdded;
+    use crate::notifications;
     use crate::{PendingScreenshot, PendingScreenshots};
     use cap_recording::screenshot::capture_screenshot;
     use image::ImageEncoder;
@@ -4083,7 +4084,7 @@ fn classify_error_message(error: &str) -> String {
 }
 
 async fn emit_recording_started_telemetry(app: &AppHandle, state_mtx: &MutableState<'_, App>) {
-    use crate::posthog::{async_capture_event, PostHogEvent};
+    use crate::posthog::{PostHogEvent, async_capture_event};
     use crate::recording_telemetry::{mode_label, target_kind_label};
 
     let (mode, recording_mode, target_kind, has_camera, has_mic, has_system_audio) = {

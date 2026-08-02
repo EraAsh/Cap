@@ -1,9 +1,8 @@
 use crate::{
-    recording,
+    NewScreenshotAdded, NewStudioRecordingAdded, RecordingStarted, RecordingStopped,
+    RequestOpenSettings, recording,
     recording_settings::{RecordingSettingsStore, RecordingTargetMode},
     windows::ShowCapWindow,
-    NewScreenshotAdded, NewStudioRecordingAdded, RecordingStarted, RecordingStopped,
-    RequestOpenSettings,
 };
 use cap_recording::RecordingMode;
 
@@ -13,13 +12,13 @@ use std::{
     path::PathBuf,
     sync::{Arc, Mutex},
 };
-use tauri::menu::{IconMenuItem, MenuId, PredefinedMenuItem, Submenu};
 use tauri::Manager;
+use tauri::menu::{IconMenuItem, MenuId, PredefinedMenuItem, Submenu};
 use tauri::{
+    AppHandle,
     image::Image,
     menu::{Menu, MenuItem},
     tray::{TrayIcon, TrayIconBuilder},
-    AppHandle,
 };
 use tauri_plugin_dialog::DialogExt;
 use tauri_plugin_opener::OpenerExt;

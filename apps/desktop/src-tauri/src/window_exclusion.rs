@@ -291,18 +291,26 @@ mod tests {
         let filtered = filter_for_instant_mode(exclusions, "Cap Camera");
 
         assert_eq!(filtered.len(), 3);
-        assert!(filtered
-            .iter()
-            .all(|e| e.window_title.as_deref() != Some("Cap Camera")));
-        assert!(filtered
-            .iter()
-            .any(|e| e.window_title.as_deref() == Some("Cap")));
-        assert!(filtered
-            .iter()
-            .any(|e| e.window_title.as_deref() == Some("Cap Settings")));
-        assert!(filtered
-            .iter()
-            .any(|e| e.window_title.as_deref() == Some("Cap Recording Controls")));
+        assert!(
+            filtered
+                .iter()
+                .all(|e| e.window_title.as_deref() != Some("Cap Camera"))
+        );
+        assert!(
+            filtered
+                .iter()
+                .any(|e| e.window_title.as_deref() == Some("Cap"))
+        );
+        assert!(
+            filtered
+                .iter()
+                .any(|e| e.window_title.as_deref() == Some("Cap Settings"))
+        );
+        assert!(
+            filtered
+                .iter()
+                .any(|e| e.window_title.as_deref() == Some("Cap Recording Controls"))
+        );
     }
 
     #[test]

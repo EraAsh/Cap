@@ -1,11 +1,11 @@
 use cap_automation::{
-    sanitize_filename_component, AutomationExportCompression, AutomationHost,
-    AutomationRecordingMode, AutomationsStore, Capability, CaptureTargetKind, ClipboardSource,
-    ExportDestination, ExportFormat, ExportProfile, Trigger, TriggerContext,
+    AutomationExportCompression, AutomationHost, AutomationRecordingMode, AutomationsStore,
+    Capability, CaptureTargetKind, ClipboardSource, ExportDestination, ExportFormat, ExportProfile,
+    Trigger, TriggerContext, sanitize_filename_component,
 };
 use cap_recording::sources::screen_capture::ScreenCaptureTarget;
-use clipboard_rs::common::RustImage;
 use clipboard_rs::Clipboard;
+use clipboard_rs::common::RustImage;
 use serde_json::json;
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
@@ -15,8 +15,8 @@ use tauri_plugin_store::StoreExt;
 use tokio::sync::RwLock;
 use tracing::{error, info, warn};
 
-use crate::general_settings::PostStudioRecordingBehaviour;
 use crate::ClipboardContext;
+use crate::general_settings::PostStudioRecordingBehaviour;
 
 const WEBHOOK_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(30);
 const COMMAND_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(300);

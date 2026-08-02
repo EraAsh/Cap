@@ -1,12 +1,12 @@
 use cap_recording::{
-    feeds::camera::DeviceOrModelID, sources::screen_capture::ScreenCaptureTarget, RecordingMode,
+    RecordingMode, feeds::camera::DeviceOrModelID, sources::screen_capture::ScreenCaptureTarget,
 };
 use serde::{Deserialize, Serialize};
 use std::path::{Path, PathBuf};
 use tauri::{AppHandle, Manager, Url};
 use tracing::trace;
 
-use crate::{recording::StartRecordingInputs, windows::ShowCapWindow, App, ArcLock};
+use crate::{App, ArcLock, recording::StartRecordingInputs, windows::ShowCapWindow};
 
 #[cfg(debug_assertions)]
 use tauri::Emitter;

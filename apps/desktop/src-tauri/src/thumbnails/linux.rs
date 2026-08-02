@@ -1,6 +1,6 @@
 use cap_recording::screenshot::capture_screenshot;
 use cap_recording::sources::screen_capture::ScreenCaptureTarget;
-use image::{codecs::png::PngEncoder, ImageEncoder};
+use image::{ImageEncoder, codecs::png::PngEncoder};
 use std::io::Cursor;
 
 use super::*;
