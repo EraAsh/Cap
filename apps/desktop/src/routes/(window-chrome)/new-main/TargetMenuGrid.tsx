@@ -225,9 +225,7 @@ export default function TargetMenuGrid(props: TargetMenuGridProps) {
 		return (
 			<div class="col-span-2 py-6 text-sm text-center text-gray-11">
 				{props.emptyMessage ??
-					(props.variant === "display"
-						? "未找到显示器"
-						: "未找到窗口")}
+					(props.variant === "display" ? "未找到显示器" : "未找到窗口")}
 			</div>
 		);
 	};

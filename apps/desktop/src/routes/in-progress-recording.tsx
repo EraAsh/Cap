@@ -147,13 +147,9 @@ function InProgressRecordingInner() {
 	const issueMessages = createMemo(() => {
 		const issues: string[] = [];
 		if (disconnectedInputs.microphone)
-			issues.push(
-				"麦克风已断开，重新连接前将使用静音",
-			);
+			issues.push("麦克风已断开，重新连接前将使用静音");
 		if (disconnectedInputs.camera)
-			issues.push(
-				"摄像头已断开。录制将继续，无摄像头画面。",
-			);
+			issues.push("摄像头已断开。录制将继续，无摄像头画面。");
 		const failure = recordingFailure();
 		if (failure) issues.push(failure);
 		return issues;
@@ -534,10 +530,11 @@ function InProgressRecordingInner() {
 
 	const deleteRecording = createMutation(() => ({
 		mutationFn: async () => {
-			const shouldDelete = await dialog.confirm(
-				"确定要删除此录制吗？",
-				{ title: "确认删除", okLabel: "删除", cancelLabel: "取消" },
-			);
+			const shouldDelete = await dialog.confirm("确定要删除此录制吗？", {
+				title: "确认删除",
+				okLabel: "删除",
+				cancelLabel: "取消",
+			});
 
 			if (!shouldDelete) return;
 
@@ -643,9 +640,7 @@ function InProgressRecordingInner() {
 			items.push(await PredefinedMenuItem.new({ item: "Separator" }));
 			items.push(
 				await MenuItem.new({
-					text: startedWithMicrophone
-						? "麦克风"
-						: "麦克风（本次录制已锁定）",
+					text: startedWithMicrophone ? "麦克风" : "麦克风（本次录制已锁定）",
 					enabled: false,
 				}),
 			);
@@ -670,9 +665,7 @@ function InProgressRecordingInner() {
 			items.push(await PredefinedMenuItem.new({ item: "Separator" }));
 			items.push(
 				await MenuItem.new({
-					text: startedWithCameraInput
-						? "摄像头"
-						: "摄像头（本次录制已锁定）",
+					text: startedWithCameraInput ? "摄像头" : "摄像头（本次录制已锁定）",
 					enabled: false,
 				}),
 			);
@@ -917,13 +910,9 @@ function InProgressRecordingInner() {
 											class="relative flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-100 hover:bg-gray-12/6 active:bg-gray-12/10 disabled:opacity-50 disabled:hover:bg-transparent dark:hover:bg-white/8 dark:active:bg-white/12"
 											disabled={toggleMicMute.isPending}
 											onClick={() => toggleMicMute.mutate()}
-											title={
-												micMuted() ? "取消静音" : "静音麦克风"
-											}
+											title={micMuted() ? "取消静音" : "静音麦克风"}
 											aria-pressed={micMuted() ? "true" : "false"}
-											aria-label={
-												micMuted() ? "取消静音" : "静音麦克风"
-											}
+											aria-label={micMuted() ? "取消静音" : "静音麦克风"}
 										>
 											{micMuted() ? (
 												<IconLucideMicOff class="size-5 text-red-9" />
@@ -998,14 +987,10 @@ function InProgressRecordingInner() {
 												disabled={togglePause.isPending || isCountdown()}
 												onClick={() => togglePause.mutate()}
 												title={
-													state().variant === "paused"
-														? "继续录制"
-														: "暂停录制"
+													state().variant === "paused" ? "继续录制" : "暂停录制"
 												}
 												aria-label={
-													state().variant === "paused"
-														? "继续录制"
-														: "暂停录制"
+													state().variant === "paused" ? "继续录制" : "暂停录制"
 												}
 											>
 												{state().variant === "paused" ? (

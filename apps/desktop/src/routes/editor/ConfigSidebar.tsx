@@ -612,10 +612,7 @@ export function ConfigSidebar() {
 					value="audio"
 					class="flex flex-col flex-1 gap-6 p-4 min-h-0"
 				>
-					<Field
-						name="音频控制"
-						icon={<IconLucideVolume2 class="size-4" />}
-					>
+					<Field name="音频控制" icon={<IconLucideVolume2 class="size-4" />}>
 						<Subfield name="静音">
 							<Toggle
 								checked={project.audio.mute}
@@ -2201,9 +2198,7 @@ function BackgroundConfig(props: {
 											disabled={importingDesktopBackground()}
 											leftIcon={<IconLucideMonitor />}
 										>
-											{importingDesktopBackground()
-												? "导入中..."
-												: "重新导入"}
+											{importingDesktopBackground() ? "导入中..." : "重新导入"}
 										</EditorButton>
 									</div>
 								</div>
@@ -2651,10 +2646,7 @@ function BackgroundConfig(props: {
 								/>
 							</div>
 						</Field>
-						<Field
-							name="边框不透明度"
-							icon={<IconCapShadow class="size-4" />}
-						>
+						<Field name="边框不透明度" icon={<IconCapShadow class="size-4" />}>
 							<Slider
 								value={[project.background.border?.opacity ?? 50.0]}
 								onChange={(v) =>

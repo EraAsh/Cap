@@ -265,8 +265,7 @@ const TEMPLATES: Template[] = [
 	{
 		id: "upload-share",
 		name: "上传并获取分享链接",
-		description:
-			"录制一结束，链接就会出现在剪贴板中",
+		description: "录制一结束，链接就会出现在剪贴板中",
 		icon: IconLucideLink,
 		build: () =>
 			buildRule({
@@ -557,10 +556,7 @@ export default function AutomationsSettings() {
 					</Suspense>
 				</Section>
 
-				<Section
-					title="模板"
-					description="一键添加现成自动化，之后可随意调整"
-				>
+				<Section title="模板" description="一键添加现成自动化，之后可随意调整">
 					<div class="grid grid-cols-2 gap-2.5">
 						<For each={TEMPLATES}>
 							{(template) => (

@@ -242,10 +242,7 @@ export function useScreenshotExport() {
 		} catch (err) {
 			console.error(err);
 			const message = err instanceof Error ? err.message : String(err);
-			toast.error(
-				message || "导出失败",
-				toastId ? { id: toastId } : {},
-			);
+			toast.error(message || "导出失败", toastId ? { id: toastId } : {});
 		} finally {
 			setExportStatus("idle");
 			setIsExporting(false);

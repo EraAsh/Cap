@@ -894,9 +894,7 @@ export function Timeline(props: {
 			);
 
 			if (result.segments.length < 1) {
-				toast.error(
-					"未生成字幕，音频可能太安静或不清晰",
-				);
+				toast.error("未生成字幕，音频可能太安静或不清晰");
 				return;
 			}
 

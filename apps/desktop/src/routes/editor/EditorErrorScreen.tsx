@@ -56,9 +56,7 @@ export function EditorErrorScreen(props: {
 							<IconAlertTriangle class="size-8 text-red-9" />
 						</div>
 						<h2 class="text-xl font-semibold text-gray-12">
-							{needsRecovery()
-								? "录制需要恢复"
-								: "无法打开录制"}
+							{needsRecovery() ? "录制需要恢复" : "无法打开录制"}
 						</h2>
 						<p class="text-sm text-gray-11">{props.error}</p>
 					</div>
@@ -132,8 +130,8 @@ export function EditorErrorScreen(props: {
 									}
 								>
 									<p class="text-xs text-gray-10 italic">
-										Tip: Right-click and select "显示所在文件夹" to see
-										the .cap bundle contents.
+										Tip: Right-click and select "显示所在文件夹" to see the .cap
+										bundle contents.
 									</p>
 								</Show>
 							</div>

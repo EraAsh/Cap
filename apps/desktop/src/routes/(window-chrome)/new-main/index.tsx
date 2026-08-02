@@ -1485,9 +1485,7 @@ function TargetMenuPanel(props: TargetMenuPanelProps & SharedTargetMenuProps) {
 								handleSettingsTargetChange(camera)
 							}
 							disabled={cameraProps.disabled}
-							emptyMessage={
-								trimmedSearch() ? noResultsMessage : "未找到摄像头"
-							}
+							emptyMessage={trimmedSearch() ? noResultsMessage : "未找到摄像头"}
 							permissions={cameraProps.permissions}
 							deviceSettings={cameraProps.deviceSettings}
 						/>
@@ -1543,9 +1541,7 @@ function TargetMenuPanel(props: TargetMenuPanelProps & SharedTargetMenuProps) {
 							onSelect={micProps.onSelect}
 							onSettingsRequested={(mic) => handleSettingsTargetChange(mic)}
 							disabled={micProps.disabled}
-							emptyMessage={
-								trimmedSearch() ? noResultsMessage : "未找到麦克风"
-							}
+							emptyMessage={trimmedSearch() ? noResultsMessage : "未找到麦克风"}
 							permissions={micProps.permissions}
 							deviceSettings={micProps.deviceSettings}
 						/>
@@ -3114,9 +3110,7 @@ function Page() {
 					<MainWindowHelpButton />
 					<div class="flex-1 min-h-9 min-w-0" data-tauri-drag-region />
 					<div class="flex gap-1 items-center shrink-0" data-tauri-drag-region>
-						<Tooltip
-							content={<span>{isExpanded() ? "收起" : "展开"}</span>}
-						>
+						<Tooltip content={<span>{isExpanded() ? "收起" : "展开"}</span>}>
 							<button
 								type="button"
 								disabled={isWindowResizing()}
@@ -3316,9 +3310,7 @@ function Page() {
 									variant="recording"
 									targets={recordingsData()}
 									isLoading={recordings.isPending}
-									errorMessage={
-										recordings.error ? "加载录制失败" : undefined
-									}
+									errorMessage={recordings.error ? "加载录制失败" : undefined}
 									onSelect={openRecording}
 									disabled={isRecording()}
 									onBack={() => {
@@ -3340,9 +3332,7 @@ function Page() {
 									variant="screenshot"
 									targets={screenshotsData()}
 									isLoading={screenshots.isPending}
-									errorMessage={
-										screenshots.error ? "加载截图失败" : undefined
-									}
+									errorMessage={screenshots.error ? "加载截图失败" : undefined}
 									onSelect={openScreenshot}
 									disabled={isRecording()}
 									onBack={() => {

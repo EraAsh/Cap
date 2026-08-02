@@ -247,10 +247,7 @@ export function BackgroundSettingsPopover() {
 						ref={scrollRef}
 						class="max-h-[600px] overflow-y-auto p-4 flex flex-col gap-6"
 					>
-						<Field
-							icon={<IconCapImage class="size-4" />}
-							name="背景图片"
-						>
+						<Field icon={<IconCapImage class="size-4" />} name="背景图片">
 							<KTabs
 								value={project.background.source.type}
 								onChange={(v) => {

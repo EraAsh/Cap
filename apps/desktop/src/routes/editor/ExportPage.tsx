@@ -191,8 +191,7 @@ export function ExportPage() {
 		error === "导出已取消" ||
 		error === "保存对话框已取消" ||
 		(error instanceof Error &&
-			(error.message === "导出已取消" ||
-				error.message === "保存对话框已取消"));
+			(error.message === "导出已取消" || error.message === "保存对话框已取消"));
 
 	const [_settings, setSettings] = makePersisted(
 		createStore<Settings>({
@@ -1081,10 +1080,7 @@ export function ExportPage() {
 							</div>
 						</Field>
 
-						<Field
-							name="分辨率"
-							icon={<IconLucideMonitor class="size-4" />}
-						>
+						<Field name="分辨率" icon={<IconLucideMonitor class="size-4" />}>
 							<div class="flex gap-1.5">
 								<For
 									each={
@@ -1142,10 +1138,7 @@ export function ExportPage() {
 						</Field>
 
 						<Show when={settings.format === "Mp4" && !cursorOnly()}>
-							<Field
-								name="质量"
-								icon={<IconLucideSparkles class="size-4" />}
-							>
+							<Field name="质量" icon={<IconLucideSparkles class="size-4" />}>
 								<div class="grid grid-cols-4 gap-1.5">
 									<For each={[...COMPRESSION_OPTIONS].reverse()}>
 										{(option) => {
@@ -1218,10 +1211,7 @@ export function ExportPage() {
 							</Field>
 						</Show>
 
-						<Field
-							name="高级选项"
-							icon={<IconLucideSparkles class="size-4" />}
-						>
+						<Field name="高级选项" icon={<IconLucideSparkles class="size-4" />}>
 							<button
 								type="button"
 								class={cx(

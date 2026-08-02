@@ -100,10 +100,7 @@ function Inner(props: { initialStore: HotkeysStore | null }) {
 	return (
 		<div class="cap-settings-page flex flex-col h-full custom-scroll">
 			<SettingsPageContent>
-				<Section
-					title="快捷键"
-					description="配置全局快捷键以控制 Cap"
-				>
+				<Section title="快捷键" description="配置全局快捷键以控制 Cap">
 					<SectionCard class="flex flex-col gap-3 p-4">
 						<Index each={actions()}>
 							{(item, idx) => {

@@ -443,10 +443,7 @@ export function KeyboardTab(props: {
 
 					<Show when={selectedSegment()}>
 						{(seg) => (
-							<Field
-								name="选中的片段覆盖"
-								icon={<IconLucideKeyboard />}
-							>
+							<Field name="选中的片段覆盖" icon={<IconLucideKeyboard />}>
 								<div class="space-y-3">
 									<Subfield name="开始时间">
 										<Input
@@ -542,8 +539,8 @@ export function KeyboardTab(props: {
 						<div class="text-center text-sm text-gray-11 py-4">
 							<p>No keyboard segments yet.</p>
 							<p class="text-xs mt-1 text-gray-10">
-								Click "生成键盘片段" to create segments from
-								recorded keyboard presses.
+								Click "生成键盘片段" to create segments from recorded keyboard
+								presses.
 							</p>
 						</div>
 					</Show>

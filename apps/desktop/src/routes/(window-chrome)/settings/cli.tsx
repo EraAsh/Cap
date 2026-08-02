@@ -113,9 +113,7 @@ export default function CliSettings() {
 									<div class="flex items-start justify-between gap-4">
 										<div class="flex flex-col gap-1 min-w-0">
 											<p class="text-[13px] text-gray-12">
-												{currentStatus().installed
-													? "已安装"
-													: "未安装"}
+												{currentStatus().installed ? "已安装" : "未安装"}
 											</p>
 											<p class="text-xs leading-snug text-gray-10">
 												The desktop app installs a local{" "}
@@ -147,10 +145,7 @@ export default function CliSettings() {
 
 									<div class="grid gap-2 text-xs">
 										<PathRow label="命令" value={currentStatus().shimPath} />
-										<PathRow
-											label="目标"
-											value={currentStatus().targetPath}
-										/>
+										<PathRow label="目标" value={currentStatus().targetPath} />
 									</div>
 
 									<Show when={currentStatus().conflict}>

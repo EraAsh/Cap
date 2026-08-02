@@ -192,11 +192,7 @@ export function Header() {
 									</DropdownItem>
 									<DropdownItem
 										onSelect={async () => {
-											if (
-												await ask(
-													"确定要删除此截图吗？",
-												)
-											) {
+											if (await ask("确定要删除此截图吗？")) {
 												await remove(path());
 												await getCurrentWindow().close();
 											}

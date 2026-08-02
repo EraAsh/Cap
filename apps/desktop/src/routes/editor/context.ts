@@ -1291,15 +1291,11 @@ export const [EditorContextProvider, useEditorContext] = createContextProvider(
 			commands
 				.getMicWaveforms()
 				.then(setMicWaveforms)
-				.catch((error) =>
-					console.error("加载麦克风波形失败：", error),
-				);
+				.catch((error) => console.error("加载麦克风波形失败：", error));
 			commands
 				.getSystemAudioWaveforms()
 				.then(setSystemAudioWaveforms)
-				.catch((error) =>
-					console.error("加载系统音频波形失败：", error),
-				);
+				.catch((error) => console.error("加载系统音频波形失败：", error));
 		});
 		const customDomain = createCustomDomainQuery();
 		const hasRecordedKeyboardEvents = createMemo(() => {
@@ -1455,10 +1451,7 @@ export const [EditorContextProvider, useEditorContext] = createContextProvider(
 								previewResolutionBase(),
 							)
 							.catch((error) => {
-								console.error(
-									"刷新字幕预览配置失败",
-									error,
-								);
+								console.error("刷新字幕预览配置失败", error);
 							});
 					}
 				},

@@ -262,9 +262,7 @@ export function AudioLibraryPanel(props: {
 										<button
 											type="button"
 											class="absolute inset-0 w-full h-full"
-											aria-label={
-												isPreviewing() ? "暂停预览" : "播放预览"
-											}
+											aria-label={isPreviewing() ? "暂停预览" : "播放预览"}
 											onClick={() => togglePreview(track.id)}
 										>
 											<Show when={!isPreviewing()}>

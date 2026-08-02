@@ -101,8 +101,7 @@ export function Header() {
 					onClick={async () => {
 						clearTimelineSelection();
 
-						if (!(await ask("确定要删除此录制吗？")))
-							return;
+						if (!(await ask("确定要删除此录制吗？"))) return;
 
 						await commands.editorDeleteProject();
 					}}

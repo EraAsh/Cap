@@ -91,7 +91,10 @@ export function BorderPopover() {
 											}
 										/>
 									</Field>
-									<Field name="不透明度" icon={<IconCapShadow class="size-4" />}>
+									<Field
+										name="不透明度"
+										icon={<IconCapShadow class="size-4" />}
+									>
 										<Slider
 											value={[project.background.border?.opacity ?? 50.0]}
 											onChange={(v) =>

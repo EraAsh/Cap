@@ -1,4 +1,3 @@
-import { Button } from "@cap/ui-solid";
 import { A, type RouteSectionProps, useNavigate } from "@solidjs/router";
 import { createQuery, useQueryClient } from "@tanstack/solid-query";
 import { getVersion } from "@tauri-apps/api/app";
@@ -22,7 +21,6 @@ import { CapErrorBoundary } from "~/components/CapErrorBoundary";
 import { SignInButton } from "~/components/SignInButton";
 
 import { authStore, userProfileStore } from "~/store";
-import { trackEvent } from "~/utils/analytics";
 import { createSignInMutation } from "~/utils/auth";
 import { commands } from "~/utils/tauri";
 import {
@@ -181,8 +179,7 @@ export default function Settings(props: RouteSectionProps) {
 				return null;
 			}
 
-			if (response.status !== 200)
-				throw new Error("加载账号资料失败");
+			if (response.status !== 200) throw new Error("加载账号资料失败");
 
 			await userProfileStore.set({
 				userId: currentAuth.user_id,
@@ -391,9 +388,7 @@ export default function Settings(props: RouteSectionProps) {
 				}
 				stopAuthListening = unlisten;
 			})
-			.catch((error) =>
-				console.error("监听登录状态失败：", error),
-			);
+			.catch((error) => console.error("监听登录状态失败：", error));
 	});
 
 	onCleanup(() => {
@@ -401,12 +396,6 @@ export default function Settings(props: RouteSectionProps) {
 		stopAuthListening?.();
 	});
 
-	const handleAuth = async () => {
-		if (auth()) {
-			trackEvent("user_signed_out", { platform: "desktop" });
-			await clearLocalAuth();
-		}
-	};
 	const copyVersion = async (appVersion: string) => {
 		try {
 			await writeText(appVersion);
@@ -543,9 +532,7 @@ export default function Settings(props: RouteSectionProps) {
 										disabled={isCheckingForUpdates()}
 										onClick={checkForUpdates}
 									>
-										{isCheckingForUpdates()
-											? "Checking..."
-											: "检查更新"}
+										{isCheckingForUpdates() ? "Checking..." : "检查更新"}
 									</button>
 								</div>
 							</div>

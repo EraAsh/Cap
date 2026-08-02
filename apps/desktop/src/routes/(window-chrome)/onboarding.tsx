@@ -145,8 +145,7 @@ const setupPermissions: readonly SetupPermission[] = [
 	{
 		name: "摄像头",
 		key: "camera",
-		description:
-			"录制摄像头需要此权限",
+		description: "录制摄像头需要此权限",
 		requiresManualGrant: false,
 		optional: true,
 	},
@@ -1218,8 +1217,7 @@ function StartRecordingClickMock(props: {
 		});
 	});
 
-	const modeLabel = () =>
-		props.mode === "studio" ? "工作室模式" : "即时模式";
+	const modeLabel = () => (props.mode === "studio" ? "工作室模式" : "即时模式");
 
 	const cursorW = () => (ostype() === "windows" ? 24 : 22);
 	const cursorH = () => (ostype() === "windows" ? 34 : 32);

@@ -523,9 +523,7 @@ export default function TargetCard(props: TargetCardProps) {
 									<Show
 										when={hasProgress}
 										fallback={
-											<Tooltip
-												content={uploadFailed ? "重试上传" : "Reupload"}
-											>
+											<Tooltip content={uploadFailed ? "重试上传" : "Reupload"}>
 												<div
 													role="button"
 													tabIndex={-1}

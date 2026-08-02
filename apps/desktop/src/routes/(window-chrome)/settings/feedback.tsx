@@ -180,8 +180,7 @@ export default function FeedbackTab() {
 														: "bg-red-500/20 text-red-400"
 												}`}
 											>
-												Screen Capture:{" "}
-												{captureSupported ? "受支持" : "不支持"}
+												Screen Capture: {captureSupported ? "受支持" : "不支持"}
 											</span>
 										</div>
 									</div>

@@ -65,9 +65,7 @@ export function SystemAudioToggleRoot(
 		>
 			{props.icon}
 			<p class={DEVICE_ROW_LABEL_CLASS}>
-				{rawOptions.captureSystemAudio
-					? "录制系统音频"
-					: "无系统音频"}
+				{rawOptions.captureSystemAudio ? "录制系统音频" : "无系统音频"}
 			</p>
 			<div class={DEVICE_ROW_TRAILING_CLASS}>
 				<Dynamic

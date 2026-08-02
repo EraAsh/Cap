@@ -739,9 +739,7 @@ export function CaptionsTab(props: {
 
 				toast.success("字幕生成成功！");
 			} else {
-				toast.error(
-					"未生成字幕，音频可能太安静或不清晰",
-				);
+				toast.error("未生成字幕，音频可能太安静或不清晰");
 			}
 		} catch (error) {
 			console.error("生成字幕出错：", error);
@@ -906,9 +904,7 @@ export function CaptionsTab(props: {
 											const language = LANGUAGE_OPTIONS.find(
 												(l) => l.code === state.selectedOption(),
 											);
-											return (
-												<span>{language?.label || "选择语言"}</span>
-											);
+											return <span>{language?.label || "选择语言"}</span>;
 										}}
 									</KSelect.Value>
 									<KSelect.Icon>
@@ -1477,10 +1473,7 @@ export function CaptionsTab(props: {
 					>
 						{(() => {
 							return (
-								<Field
-									name="选中的字幕覆盖"
-									icon={<IconCapMessageBubble />}
-								>
+								<Field name="选中的字幕覆盖" icon={<IconCapMessageBubble />}>
 									<Show when={selectedCaptionSegment()}>
 										{(seg) => (
 											<div class="space-y-3">

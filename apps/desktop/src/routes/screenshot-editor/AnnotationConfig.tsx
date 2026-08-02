@@ -126,10 +126,7 @@ export function AnnotationConfigBar() {
 							</Show>
 
 							<Show when={type() === "mask"}>
-								<ConfigItem
-									label="强度"
-									value={`${Math.round(maskLevel())}`}
-								>
+								<ConfigItem label="强度" value={`${Math.round(maskLevel())}`}>
 									<Slider
 										value={[maskLevel()]}
 										onChange={(v) => update("maskLevel", v[0])}

@@ -202,9 +202,7 @@ function BrandSettingsDialog(props: {
 			props.onOpenChange(false);
 		} catch (error) {
 			toast.error(
-				error instanceof Error
-					? error.message
-					: "更新组织品牌设置失败",
+				error instanceof Error ? error.message : "更新组织品牌设置失败",
 			);
 		} finally {
 			setSaving(false);

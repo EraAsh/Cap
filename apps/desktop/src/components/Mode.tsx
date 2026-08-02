@@ -22,8 +22,7 @@ const MODE_BUTTONS: ModeButtonConfig[] = [
 	{
 		mode: "instant",
 		label: "即时模式",
-		description:
-			"无需渲染——边录边传，停止瞬间即可分享链接",
+		description: "无需渲染——边录边传，停止瞬间即可分享链接",
 		settingsSection: "instant-quality",
 		icon: (p) => <IconCapInstant {...p} />,
 		iconClass: "size-4 invert dark:invert-0",
@@ -31,8 +30,7 @@ const MODE_BUTTONS: ModeButtonConfig[] = [
 	{
 		mode: "studio",
 		label: "工作室模式",
-		description:
-			"以最高质量录制，稍后本地渲染。录制完成后打开 Cap 编辑器",
+		description: "以最高质量录制，稍后本地渲染。录制完成后打开 Cap 编辑器",
 		settingsSection: "studio-quality",
 		icon: (p) => <IconCapFilmCut {...p} />,
 		iconClass: "size-[0.9rem] invert dark:invert-0",

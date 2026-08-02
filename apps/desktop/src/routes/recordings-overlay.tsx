@@ -353,9 +353,7 @@ export default function () {
 													<TooltipIconButton
 														class="absolute top-3 right-3 z-20"
 														tooltipText={
-															copy.isPending
-																? "复制到剪贴板中"
-																: "复制到剪贴板"
+															copy.isPending ? "复制到剪贴板中" : "复制到剪贴板"
 														}
 														tooltipPlacement="left"
 														onClick={() => copy.mutate()}
@@ -743,9 +741,7 @@ function createRecordingMutations(
 			if (!canShare.allowed) {
 				if (canShare.reason === "upgrade_required") {
 					await commands.showWindow("Upgrade");
-					throw new Error(
-						"分享超过 5 分钟的录制需要升级",
-					);
+					throw new Error("分享超过 5 分钟的录制需要升级");
 				}
 			}
 

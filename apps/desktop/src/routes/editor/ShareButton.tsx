@@ -53,9 +53,7 @@ function ShareButton() {
 			if (!canShare.allowed) {
 				if (canShare.reason === "upgrade_required") {
 					await commands.showWindow("Upgrade");
-					throw new Error(
-						"分享超过 5 分钟的录制需要升级",
-					);
+					throw new Error("分享超过 5 分钟的录制需要升级");
 				}
 			}
 
@@ -122,8 +120,7 @@ function ShareButton() {
 				throw new Error("请登录以分享录制内容");
 			} else if (result === "PlanCheckFailed")
 				throw new Error("验证订阅状态失败");
-			else if (result === "UpgradeRequired")
-				throw new Error("此功能需要升级");
+			else if (result === "UpgradeRequired") throw new Error("此功能需要升级");
 
 			setUploadState({ type: "link-copied" });
 
@@ -198,9 +195,7 @@ function ShareButton() {
 					return (
 						<div class="flex gap-3 items-center">
 							<Tooltip
-								content={
-									upload.isPending ? "正在重新上传视频" : "重新上传视频"
-								}
+								content={upload.isPending ? "正在重新上传视频" : "重新上传视频"}
 							>
 								<Button
 									disabled={upload.isPending}

@@ -335,10 +335,7 @@ function ScreenshotItem(props: {
 				<TooltipIconButton
 					tooltipText="删除"
 					onClick={async () => {
-						if (
-							!(await ask("确定要删除此截图吗？"))
-						)
-							return;
+						if (!(await ask("确定要删除此截图吗？"))) return;
 						const parent = props.screenshot.path.replace(/[/\\][^/\\]+$/, "");
 						await remove(parent, { recursive: true });
 

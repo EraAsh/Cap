@@ -490,11 +490,7 @@ export function Preview(props: { zoom: number; setZoom: (z: number) => void }) {
 						onChange={([v]) => props.setZoom(v)}
 						formatTooltip={(v) => `${Math.round(v * 100)}%`}
 					/>
-					<EditorButton
-						tooltipText="放大"
-						kbd={["meta", "+"]}
-						onClick={zoomIn}
-					>
+					<EditorButton tooltipText="放大" kbd={["meta", "+"]} onClick={zoomIn}>
 						<IconCapZoomIn class="size-4" />
 					</EditorButton>
 				</div>

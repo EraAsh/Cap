@@ -330,9 +330,7 @@ export function PlayerContent() {
 								label: string;
 								value: EditorPreviewQuality;
 							}> class="flex-1 text-left truncate">
-								{(state) =>
-									state.selectedOption()?.label ?? "选择预览质量"
-								}
+								{(state) => state.selectedOption()?.label ?? "选择预览质量"}
 							</KSelect.Value>
 							<KSelect.Icon>
 								<IconCapChevronDown class="size-4 text-gray-11" />

@@ -15,12 +15,11 @@ export default function Page() {
 			<div class="flex flex-col items-center gap-2">
 				<h1 class="text-3xl font-semibold text-gray-12">全部功能已解锁</h1>
 				<p class="text-gray-11">
-					本版本为完全免费版，所有 Pro 功能（云存储、无水印、高清录制等）均已开放。
+					本版本为完全免费版，所有 Pro
+					功能（云存储、无水印、高清录制等）均已开放。
 				</p>
 			</div>
-			<Button onClick={() => navigate("/", { replace: true })}>
-				返回主页
-			</Button>
+			<Button onClick={() => navigate("/", { replace: true })}>返回主页</Button>
 		</div>
 	);
 }

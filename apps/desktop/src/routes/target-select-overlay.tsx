@@ -539,9 +539,7 @@ function Inner() {
 								height: window.bounds.size.height,
 							},
 							currentDisplayId,
-						).catch((e) =>
-							console.error("为窗口重新定位摄像头失败", e),
-						);
+						).catch((e) => console.error("为窗口重新定位摄像头失败", e));
 					});
 
 					async function revertCamera() {
@@ -2036,9 +2034,7 @@ function RecordingControls(props: {
 					msg.includes("no longer available") ||
 					msg.includes("DeviceNotFound")
 				) {
-					toast.error(
-						"选中的麦克风不可用，请在设置中选择其他麦克风",
-					);
+					toast.error("选中的麦克风不可用，请在设置中选择其他麦克风");
 				} else {
 					toast.error(`Failed to start recording: ${msg}`);
 				}
@@ -2184,8 +2180,7 @@ function RecordingControls(props: {
 												if (rawOptions.mode === "instant" && !auth.data)
 													return "登录以使用";
 												if (startLoading()) return "Preparing...";
-												if (rawOptions.mode === "screenshot")
-													return "截图";
+												if (rawOptions.mode === "screenshot") return "截图";
 												return "开始录制";
 											})()}
 										</span>

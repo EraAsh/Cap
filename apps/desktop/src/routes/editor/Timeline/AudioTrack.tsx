@@ -159,9 +159,7 @@ function FadeControl(props: {
 				</Show>
 				<div
 					role="slider"
-					aria-label={
-						props.edge === "in" ? "淡入时长" : "淡出时长"
-					}
+					aria-label={props.edge === "in" ? "淡入时长" : "淡出时长"}
 					aria-valuenow={Math.round(props.fadeSeconds * 1000)}
 					tabindex={-1}
 					class="timeline-fade-cursor absolute inset-y-0 z-40 w-5 -translate-x-1/2 pointer-events-auto"
@@ -186,9 +184,7 @@ function FadeControl(props: {
 			>
 				<div
 					role="slider"
-					aria-label={
-						props.edge === "in" ? "淡入圆角" : "淡出圆角"
-					}
+					aria-label={props.edge === "in" ? "淡入圆角" : "淡出圆角"}
 					aria-valuenow={Math.round(props.fadeSeconds * 1000)}
 					tabindex={-1}
 					class="timeline-fade-cursor relative p-2 -m-2"

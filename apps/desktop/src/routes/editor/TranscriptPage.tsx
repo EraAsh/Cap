@@ -391,9 +391,7 @@ export function TranscriptPanel() {
 					),
 			)
 		) {
-			toast.error(
-				"删除此转录范围前，请先移除相邻的转场",
-			);
+			toast.error("删除此转录范围前，请先移除相邻的转场");
 			return;
 		}
 

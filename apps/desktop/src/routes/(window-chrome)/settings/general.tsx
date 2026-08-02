@@ -167,10 +167,7 @@ function AppearanceSection(props: {
 	};
 
 	return (
-		<Section
-			title="外观"
-			description="匹配系统主题或选择固定外观"
-		>
+		<Section title="外观" description="匹配系统主题或选择固定外观">
 			<SectionCard padded>
 				<div
 					class="grid grid-cols-3 gap-3"
@@ -523,10 +520,7 @@ function Inner(props: {
 				/>
 
 				{ostype === "macos" && (
-					<Section
-						title="应用"
-						description="选择 Cap 在系统中的显示方式"
-					>
+					<Section title="应用" description="选择 Cap 在系统中的显示方式">
 						<SectionRows>
 							<ToggleSettingItem
 								label="始终显示托盘图标"
@@ -572,10 +566,7 @@ function Inner(props: {
 					}
 				/>
 
-				<Section
-					title="录制"
-					description="录制时和停止后的行为"
-				>
+				<Section title="录制" description="录制时和停止后的行为">
 					<SectionRows>
 						<SelectSettingItem
 							label="Countdown"
@@ -1105,9 +1096,7 @@ function InstantQualitySetting(props: {
 			id="settings-section-instant-quality"
 			label="即时模式质量"
 			description={
-				props.hasCapPro
-					? "选择即时录制的最大上传分辨率"
-					: "即时录制锁定 720p"
+				props.hasCapPro ? "选择即时录制的最大上传分辨率" : "即时录制锁定 720p"
 			}
 		>
 			<div class="flex flex-col items-end gap-1.5">
@@ -1148,11 +1137,7 @@ function CapProSection(props: {
 	onAutoOpenShareableLinksChange: (value: boolean) => void;
 }) {
 	return (
-		<Section
-			title="Cap 专业版"
-			description="需要 Cap Pro 授权可用的设置"
-			pro
-		>
+		<Section title="Cap 专业版" description="需要 Cap Pro 授权可用的设置" pro>
 			<SectionRows>
 				<InstantQualitySetting
 					hasCapPro={props.hasCapPro}
@@ -1175,10 +1160,7 @@ function QualitySection(props: {
 	onStudioQualityChange: (value: StudioRecordingQuality) => void;
 }) {
 	return (
-		<Section
-			title="质量"
-			description="为本地工作室录制选择合适的配置文件"
-		>
+		<Section title="质量" description="为本地工作室录制选择合适的配置文件">
 			<SectionCard>
 				<StudioQualitySubsection
 					value={props.studioQuality}
@@ -1392,8 +1374,8 @@ function DefaultProjectNameCard(props: {
 							<div class="space-y-1">
 								<p class="font-medium text-gray-12">Recording mode</p>
 								<p>
-									<CodeView>{"{recording_mode}"}</CodeView> → "工作室",
-									"即时", or "截图"
+									<CodeView>{"{recording_mode}"}</CodeView> → "工作室", "即时",
+									or "截图"
 								</p>
 								<p>
 									<CodeView>{"{mode}"}</CodeView> → "studio", "instant", or
@@ -1404,8 +1386,8 @@ function DefaultProjectNameCard(props: {
 							<div class="space-y-1">
 								<p class="font-medium text-gray-12">Target</p>
 								<p>
-									<CodeView>{"{target_kind}"}</CodeView> → "显示器", "窗口",
-									or "区域"
+									<CodeView>{"{target_kind}"}</CodeView> → "显示器", "窗口", or
+									"区域"
 								</p>
 								<p>
 									<CodeView>{"{target_name}"}</CodeView> → Monitor name or

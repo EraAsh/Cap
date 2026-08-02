@@ -618,9 +618,7 @@ export function getCaptionGenerationErrorMessage(error: unknown) {
 		return "加载字幕模型失败，请重新下载";
 	}
 
-	if (
-		message.includes("Intel Mac 上不支持 Parakeet 转写")
-	) {
+	if (message.includes("Intel Mac 上不支持 Parakeet 转写")) {
 		return "Intel Mac 不支持 Parakeet 模型，请改用 Whisper 模型";
 	}
 

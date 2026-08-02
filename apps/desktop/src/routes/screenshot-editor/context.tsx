@@ -270,10 +270,7 @@ function createScreenshotEditorContext() {
 						);
 						setIsRenderReady(true);
 					} catch (e: unknown) {
-						console.error(
-							"从后备图片创建 ImageBitmap 失败：",
-							e,
-						);
+						console.error("从后备图片创建 ImageBitmap 失败：", e);
 					}
 				};
 				img.onerror = () => {

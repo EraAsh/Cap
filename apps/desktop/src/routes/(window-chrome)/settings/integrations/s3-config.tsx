@@ -70,8 +70,7 @@ export default function S3ConfigPage() {
 				headers: await protectedHeaders(),
 			});
 
-			if (response.status !== 200)
-				throw new Error("删除 S3 配置失败");
+			if (response.status !== 200) throw new Error("删除 S3 配置失败");
 			return response;
 		},
 		onSuccess: async () => {
@@ -244,11 +243,7 @@ export default function S3ConfigPage() {
 									"PL31OADSQNK",
 									"password",
 								)}
-								{renderInput(
-									"端点",
-									"endpoint",
-									"https://s3.amazonaws.com",
-								)}
+								{renderInput("端点", "endpoint", "https://s3.amazonaws.com")}
 								{renderInput("存储桶名称", "bucketName", "my-bucket")}
 								{renderInput("区域", "region", "us-east-1")}
 							</div>

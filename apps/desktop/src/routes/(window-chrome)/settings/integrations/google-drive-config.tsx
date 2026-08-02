@@ -59,8 +59,7 @@ const fetchStorageIntegrations = async (
 		headers: await protectedHeaders(),
 	});
 
-	if (response.status !== 200)
-		throw new Error("获取存储集成失败");
+	if (response.status !== 200) throw new Error("获取存储集成失败");
 
 	return response.body;
 };
@@ -214,8 +213,7 @@ export default function GoogleDriveConfigPage() {
 				headers: await protectedHeaders(),
 			});
 
-			if (response.status !== 200)
-				throw new Error("Google Drive 连接测试失败");
+			if (response.status !== 200) throw new Error("Google Drive 连接测试失败");
 
 			return response.body;
 		},
@@ -235,8 +233,7 @@ export default function GoogleDriveConfigPage() {
 				headers: await protectedHeaders(),
 			});
 
-			if (response.status !== 200)
-				throw new Error("更新当前存储提供商失败");
+			if (response.status !== 200) throw new Error("更新当前存储提供商失败");
 
 			return response.body;
 		},
@@ -251,8 +248,7 @@ export default function GoogleDriveConfigPage() {
 				headers: await protectedHeaders(),
 			});
 
-			if (response.status !== 200)
-				throw new Error("断开 Google Drive 失败");
+			if (response.status !== 200) throw new Error("断开 Google Drive 失败");
 
 			return response.body;
 		},

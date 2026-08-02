@@ -299,9 +299,7 @@ function createThemeListener(currentWindow: WebviewWindow) {
 			.then((settings) => {
 				if (!disposed) setAppTheme(settings?.theme ?? null);
 			})
-			.catch((error) =>
-				console.error("加载常规设置失败：", error),
-			);
+			.catch((error) => console.error("加载常规设置失败：", error));
 
 		void generalSettingsStore
 			.listen((settings) => {
@@ -314,9 +312,7 @@ function createThemeListener(currentWindow: WebviewWindow) {
 				}
 				stopSettingsListening = unlisten;
 			})
-			.catch((error) =>
-				console.error("监听常规设置失败：", error),
-			);
+			.catch((error) => console.error("监听常规设置失败：", error));
 
 		void currentWindow
 			.onThemeChanged(() => update(appTheme()))
@@ -327,9 +323,7 @@ function createThemeListener(currentWindow: WebviewWindow) {
 				}
 				stopThemeListening = unlisten;
 			})
-			.catch((error) =>
-				console.error("监听窗口主题变化失败：", error),
-			);
+			.catch((error) => console.error("监听窗口主题变化失败：", error));
 	});
 
 	onCleanup(() => {

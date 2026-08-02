@@ -519,8 +519,7 @@ function RecordingItem(props: {
 				<TooltipIconButton
 					tooltipText="删除"
 					onClick={async () => {
-						if (!(await ask("确定要删除此录制吗？")))
-							return;
+						if (!(await ask("确定要删除此录制吗？"))) return;
 						await remove(props.recording.path, { recursive: true });
 
 						queryClient.refetchQueries(recordingsQuery);

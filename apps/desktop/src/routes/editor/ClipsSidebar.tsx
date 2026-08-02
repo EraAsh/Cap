@@ -1178,9 +1178,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 													targets={filteredDisplayTargets()}
 													isLoading={displayTargets.isPending}
 													errorMessage={
-														displayTargets.error
-															? "无法加载显示器"
-															: undefined
+														displayTargets.error ? "无法加载显示器" : undefined
 													}
 													onSelect={(target) =>
 														void selectDisplayTarget(target)
@@ -1199,16 +1197,12 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 													targets={filteredWindowTargets()}
 													isLoading={windowTargets.isPending}
 													errorMessage={
-														windowTargets.error
-															? "无法加载窗口"
-															: undefined
+														windowTargets.error ? "无法加载窗口" : undefined
 													}
 													onSelect={(target) => void selectWindowTarget(target)}
 													highlightQuery={targetSearch().trim()}
 													emptyMessage={
-														targetSearch().trim()
-															? "没有匹配的窗口"
-															: undefined
+														targetSearch().trim() ? "没有匹配的窗口" : undefined
 													}
 												/>
 											</Show>
