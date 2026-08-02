@@ -26,7 +26,7 @@ fn is_recording_after_cutoff(pretty_name: &str) -> bool {
         RECOVERY_CUTOFF_DATE.1,
         RECOVERY_CUTOFF_DATE.2,
     )
-    .expect("Invalid cutoff date");
+    .expect("无效的截止日期");
     recording_date > cutoff
 }
 
@@ -76,10 +76,10 @@ pub async fn recover_recording(app: AppHandle, project_path: String) -> Result<S
     let recording = tokio::task::spawn_blocking(move || RecoveryManager::inspect_recording(&path))
         .await
         .map_err(|e| format!("Recovery scan task failed: {e}"))?
-        .ok_or_else(|| "No recoverable segments found".to_string())?;
+        .ok_or_else(|| "未找到可恢复的片段".to_string())?;
 
     if recording.recoverable_segments.is_empty() {
-        return Err("No recoverable segments found".to_string());
+        return Err("未找到可恢复的片段".to_string());
     }
 
     let estimated_duration_secs = recording.estimated_duration.as_secs();
@@ -150,7 +150,7 @@ pub async fn discard_incomplete_recording(project_path: String) -> Result<(), St
     let path = PathBuf::from(&project_path);
 
     if !path.exists() {
-        return Err("Recording path does not exist".to_string());
+        return Err("录制路径不存在".to_string());
     }
 
     std::fs::remove_dir_all(&path).map_err(|e| e.to_string())?;

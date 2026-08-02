@@ -233,7 +233,7 @@ pub async fn updates_download_and_install(app: AppHandle) -> Result<(), String> 
         Some(pending) => pending,
         None => {
             let Some(update) = check(&app).await? else {
-                return Err("No update available".to_string());
+                return Err("暂无可用更新".to_string());
             };
             PendingUpdate {
                 version: update.version.clone(),

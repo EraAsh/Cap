@@ -60,7 +60,7 @@ impl AuthStore {
     pub async fn update_auth_plan(app: &AppHandle) -> Result<(), String> {
         let auth = Self::get(app)?;
         let Some(auth) = auth else {
-            return Err("User not authenticated".to_string());
+            return Err("用户未认证".to_string());
         };
 
         if let Some(plan) = &auth.plan
@@ -120,7 +120,7 @@ impl AuthStore {
 
     pub fn set(app: &AppHandle, value: Option<Self>) -> Result<(), String> {
         let Ok(store) = app.store("store") else {
-            return Err("Store not found".to_string());
+            return Err("未找到存储".to_string());
         };
 
         store.set("auth", json!(value));

@@ -114,7 +114,7 @@ async fn init_gpu_inner() -> Option<SharedGpuContext> {
         (adapter, is_software_adapter)
     } else {
         tracing::warn!(
-            "No hardware GPU adapter found, attempting software fallback for shared context"
+            "未找到硬件 GPU 适配器，正在尝试软件回退"
         );
         let software_adapter = instance
             .request_adapter(&wgpu::RequestAdapterOptions {

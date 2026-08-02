@@ -1409,10 +1409,10 @@ async fn create_segment_pipeline(
         {
             let camera_feed = base_inputs.camera_feed.clone().ok_or_else(|| {
                 anyhow!(
-                    "Camera-only recording requires a camera, but no camera is currently available. \
-                    Please select a camera in the recording settings before starting. \
-                    If you have already selected a camera, it may have been disconnected or \
-                    failed to initialize. Try reconnecting your camera or selecting a different one."
+                    "仅摄像头录制需要摄像头，但当前没有可用摄像头。\
+                    请在开始前于录制设置中选择摄像头。\
+                    如果你已选择摄像头，它可能已断开或初始化失败。\
+                    请尝试重新连接摄像头或选择其他摄像头。"
                 )
             })?;
 
@@ -1450,10 +1450,10 @@ async fn create_segment_pipeline(
         {
             let camera_feed = base_inputs.camera_feed.clone().ok_or_else(|| {
                 anyhow!(
-                    "Camera-only recording requires a camera, but no camera is currently available. \
-                    Please select a camera in the recording settings before starting. \
-                    If you have already selected a camera, it may have been disconnected or \
-                    failed to initialize. Try reconnecting your camera or selecting a different one."
+                    "仅摄像头录制需要摄像头，但当前没有可用摄像头。\
+                    请在开始前于录制设置中选择摄像头。\
+                    如果你已选择摄像头，它可能已断开或初始化失败。\
+                    请尝试重新连接摄像头或选择其他摄像头。"
                 )
             })?;
 

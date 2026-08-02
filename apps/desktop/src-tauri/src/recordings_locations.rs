@@ -334,7 +334,7 @@ pub fn move_project_dir(src: &Path, dest_dir: &Path) -> Result<PathBuf, String> 
     let name = src
         .file_name()
         .and_then(|n| n.to_str())
-        .ok_or_else(|| "Invalid project directory name".to_string())?;
+        .ok_or_else(|| "无效的项目目录名称".to_string())?;
 
     // A destination inside the source would make the recursive copy descend
     // into its own output and never terminate. Refuse outright.
@@ -343,7 +343,7 @@ pub fn move_project_dir(src: &Path, dest_dir: &Path) -> Result<PathBuf, String> 
         .canonicalize()
         .unwrap_or_else(|_| dest_dir.to_path_buf());
     if dest_key.starts_with(&src_key) {
-        return Err("Destination folder is inside this recording".to_string());
+        return Err("目标文件夹位于本次录制内部".to_string());
     }
 
     let unique = cap_utils::ensure_unique_filename(name, dest_dir)?;

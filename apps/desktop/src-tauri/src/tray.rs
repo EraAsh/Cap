@@ -324,7 +324,7 @@ fn create_previous_submenu(
         submenu.append(&MenuItem::with_id(
             app,
             "previous_empty",
-            "No recent items",
+            "暂无最近项目",
             false,
             None::<&str>,
         )?)?;
@@ -419,7 +419,7 @@ fn build_tray_menu(app: &AppHandle, cache: &PreviousItemsCache) -> tauri::Result
                 &MenuItem::with_id(
                     app,
                     TrayItem::RequestPermissions,
-                    "Request Permissions",
+                    "请求权限",
                     true,
                     None::<&str>,
                 )?,
@@ -446,7 +446,7 @@ fn build_tray_menu(app: &AppHandle, cache: &PreviousItemsCache) -> tauri::Result
     menu.append(&MenuItem::with_id(
         app,
         TrayItem::OpenCap,
-        "Open Main Window",
+        "打开主窗口",
         true,
         None::<&str>,
     )?)?;
@@ -455,21 +455,21 @@ fn build_tray_menu(app: &AppHandle, cache: &PreviousItemsCache) -> tauri::Result
         menu.append(&MenuItem::with_id(
             app,
             TrayItem::RecordDisplay,
-            "Screenshot Display",
+            "截图显示器",
             true,
             None::<&str>,
         )?)?;
         menu.append(&MenuItem::with_id(
             app,
             TrayItem::RecordWindow,
-            "Screenshot Window",
+            "截图窗口",
             true,
             None::<&str>,
         )?)?;
         menu.append(&MenuItem::with_id(
             app,
             TrayItem::RecordArea,
-            "Screenshot Area",
+            "截图区域",
             true,
             None::<&str>,
         )?)?;
@@ -498,7 +498,7 @@ fn build_tray_menu(app: &AppHandle, cache: &PreviousItemsCache) -> tauri::Result
         menu.append(&MenuItem::with_id(
             app,
             TrayItem::TakeScreenshot,
-            "Take a Screenshot",
+            "截取截图",
             true,
             None::<&str>,
         )?)?;
@@ -507,7 +507,7 @@ fn build_tray_menu(app: &AppHandle, cache: &PreviousItemsCache) -> tauri::Result
     menu.append(&MenuItem::with_id(
         app,
         TrayItem::ImportVideo,
-        "Import Media...",
+        "导入媒体...",
         true,
         None::<&str>,
     )?)?;
@@ -520,14 +520,14 @@ fn build_tray_menu(app: &AppHandle, cache: &PreviousItemsCache) -> tauri::Result
     menu.append(&MenuItem::with_id(
         app,
         TrayItem::ViewAllRecordings,
-        "View all recordings",
+        "查看全部录制",
         true,
         None::<&str>,
     )?)?;
     menu.append(&MenuItem::with_id(
         app,
         TrayItem::ViewAllScreenshots,
-        "View all screenshots",
+        "查看全部截图",
         true,
         None::<&str>,
     )?)?;
@@ -902,7 +902,7 @@ pub fn create_tray(app: &AppHandle) -> tauri::Result<()> {
                             } else {
                                 tracing::error!("Unsupported media import path: {:?}", path);
                                 app.dialog()
-                                    .message("Unsupported media file.")
+                                    .message("不支持的媒体文件。")
                                     .title("Import Error")
                                     .kind(tauri_plugin_dialog::MessageDialogKind::Error)
                                     .blocking_show();
@@ -933,14 +933,14 @@ pub fn create_tray(app: &AppHandle) -> tauri::Result<()> {
                     tokio::spawn(async move {
                         match crate::logging::upload_log_file(&app).await {
                             Ok(_) => {
-                                tracing::info!("Successfully uploaded logs");
+                                tracing::info!("日志上传成功");
                                 app.dialog()
-                                    .message("Logs uploaded successfully")
+                                    .message("日志上传成功")
                                     .show(|_| {});
                             }
                             Err(e) => {
-                                tracing::error!("Failed to upload logs: {e:#}");
-                                app.dialog().message("Failed to upload logs").show(|_| {});
+                                tracing::error!("日志上传失败: {e:#}");
+                                app.dialog().message("日志上传失败").show(|_| {});
                             }
                         }
                     });

@@ -52,7 +52,7 @@ pub fn perform_haptic_feedback(
     }
 
     #[cfg(not(target_os = "macos"))]
-    Err("Haptics are only supported on macOS.".into())
+    Err("触感反馈仅支持 macOS。".into())
 }
 
 /// Check if system audio capture is supported on the current platform and OS version.

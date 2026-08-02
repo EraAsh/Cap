@@ -68,7 +68,7 @@ impl PresetsStore {
     #[allow(unused)]
     pub fn update(app: &AppHandle, update: impl FnOnce(&mut Self)) -> Result<(), String> {
         let Ok(store) = app.store("store") else {
-            return Err("Store not found".to_string());
+            return Err("未找到存储".to_string());
         };
 
         let mut settings = Self::get(app)?.unwrap_or_default();

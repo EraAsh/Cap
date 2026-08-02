@@ -168,7 +168,7 @@ fn main() {
         .enable_all()
         .thread_stack_size(TOKIO_WORKER_THREAD_STACK_SIZE)
         .build()
-        .expect("Failed to build multi threaded tokio runtime")
+        .expect("构建多线程 Tokio 运行时失败")
         .block_on(cap_desktop_lib::run(handle, logs_dir));
 }
 

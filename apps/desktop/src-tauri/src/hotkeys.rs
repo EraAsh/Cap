@@ -141,11 +141,11 @@ async fn confirm_direct_recording_without_microphone(app: &AppHandle) -> bool {
 
     let (sender, receiver) = tokio::sync::oneshot::channel();
     app.dialog()
-        .message("This recording will not include your voice.")
-        .title("No microphone detected")
+        .message("本次录制将不包含你的声音。")
+        .title("未检测到麦克风")
         .kind(MessageDialogKind::Warning)
         .buttons(MessageDialogButtons::OkCancelCustom(
-            "Record without microphone".to_string(),
+            "无麦克风录制".to_string(),
             "Cancel".to_string(),
         ))
         .show(move |confirmed| {
@@ -306,7 +306,7 @@ async fn handle_hotkey(app: AppHandle, action: HotkeyAction) -> Result<(), Strin
 
             let target = {
                 let window = Window::get_topmost_at_cursor()
-                    .ok_or_else(|| "No window found under cursor".to_string())?;
+                    .ok_or_else(|| "光标下未找到窗口".to_string())?;
                 ScreenCaptureTarget::Window { id: window.id() }
             };
 

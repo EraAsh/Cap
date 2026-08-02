@@ -11,9 +11,9 @@ use crate::{
 
 #[derive(Error, Debug)]
 pub enum AuthedApiError {
-    #[error("User is not authenticated or credentials have expired!")]
+    #[error("用户未认证或凭据已过期！")]
     InvalidAuthentication,
-    #[error("User needs to upgrade their account to use this feature!")]
+    #[error("使用此功能需要升级账户！")]
     UpgradeRequired,
     #[error("App state is still initializing")]
     AppStateUnavailable,
@@ -23,7 +23,7 @@ pub enum AuthedApiError {
     Request(reqwest::Error),
     #[error("AuthedApiError/Deserialization: {0}")]
     Deserialization(#[from] serde_json::Error),
-    #[error("The request has timed out")]
+    #[error("请求已超时")]
     Timeout,
     #[error("AuthedApiError/Other: {0}")]
     Other(String),
@@ -138,7 +138,7 @@ impl<T: Manager<R> + Emitter<R>, R: Runtime> ManagerExt<R> for T {
             do_authed_request(&self.state::<http_client::HttpClient>(), &auth, build, url).await?;
 
         if response.status() == StatusCode::UNAUTHORIZED {
-            error!("Authentication expired. Please log in again.");
+            error!("认证已过期，请重新登录。");
             return Err(AuthedApiError::InvalidAuthentication);
         }
 

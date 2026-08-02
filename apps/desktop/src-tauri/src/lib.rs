@@ -753,22 +753,22 @@ struct CameraPreviewErrorPayload {
 
 fn camera_preview_error_message(err: &str) -> String {
     if err.contains("DeviceNotFound") {
-        return "This camera is no longer available. Check that it is connected and allowed by system permissions.".to_string();
+        return "此摄像头已不可用。请检查它是否已连接并已获得系统权限。".to_string();
     }
 
     if err.contains("CameraTimeout") {
-        return "No frames were received from this camera. It may be closed, disconnected, covered, or in use by another app.".to_string();
+        return "未从该摄像头收到画面。它可能已被关闭、断开、遮挡或被其他应用占用。".to_string();
     }
 
     if err.contains("StartCapturing") {
-        return "The system could not start this camera. It may be unavailable or in use by another app.".to_string();
+        return "系统无法启动此摄像头。它可能不可用或被其他应用占用。".to_string();
     }
 
     if err.contains("InvalidFormat") {
-        return "This camera did not report a usable capture format.".to_string();
+        return "此摄像头未报告可用的采集格式。".to_string();
     }
 
-    "The selected camera could not be started. Choose another camera or reconnect this one."
+    "所选摄像头无法启动。请选择其他摄像头或重新连接此摄像头。"
         .to_string()
 }
 
@@ -776,7 +776,7 @@ fn emit_camera_preview_error(app_handle: &AppHandle, message: String) {
     let _ = app_handle.emit(
         CAMERA_PREVIEW_ERROR_EVENT,
         CameraPreviewErrorPayload {
-            title: "Camera unavailable".to_string(),
+            title: "摄像头不可用".to_string(),
             message,
         },
     );
@@ -846,7 +846,7 @@ impl App {
         target: ScreenCaptureTarget,
     ) -> Result<(), String> {
         if !matches!(self.recording_state, RecordingState::None) {
-            return Err("Recording already in progress".to_string());
+            return Err("已有录制正在进行".to_string());
         }
 
         self.recording_state = RecordingState::Pending { mode, target };
@@ -1012,12 +1012,12 @@ impl App {
 
         let (title, body) = match kind {
             RecordingInputKind::Microphone => (
-                "Microphone disconnected",
-                "Recording continues. Silence will be used until the microphone reconnects.",
+                "麦克风已断开",
+                "录制继续。麦克风重新连接前将使用静音。",
             ),
             RecordingInputKind::Camera => (
-                "Camera disconnected",
-                "Recording continues without camera. Camera overlay will resume when the device reconnects.",
+                "摄像头已断开",
+                "录制在无摄像头情况下继续。设备重新连接后摄像头浮层将恢复。",
             ),
         };
 
@@ -1044,10 +1044,10 @@ impl App {
             }
             RecordingInputKind::Camera => match self.ensure_selected_camera_ready().await {
                 Ok(()) => {
-                    info!("Camera reconnected and reinitialized successfully");
+                    info!("摄像头已重新连接 and reinitialized successfully");
                     let _ = NewNotification {
-                        title: "Camera reconnected".to_string(),
-                        body: "Camera overlay has been restored.".to_string(),
+                        title: "摄像头已重新连接".to_string(),
+                        body: "摄像头浮层已恢复。".to_string(),
                         is_error: false,
                     }
                     .emit(&self.handle);
@@ -1409,7 +1409,7 @@ async fn set_camera_input(
                 }
                 emit_camera_preview_error(&app_handle, message.clone());
                 let _ = NewNotification {
-                    title: "Camera unavailable".to_string(),
+                    title: "摄像头不可用".to_string(),
                     body: message,
                     is_error: true,
                 }
@@ -2526,7 +2526,7 @@ pub(crate) async fn create_screenshot(
         let input_stream = ictx
             .streams()
             .best(ffmpeg::media::Type::Video)
-            .ok_or("No video stream found")?;
+            .ok_or("未找到视频流")?;
         let video_stream_index = input_stream.index();
 
         let mut decoder =
@@ -4475,7 +4475,7 @@ async fn pick_recordings_folder(app: AppHandle) -> Result<Option<String>, String
 
     app.dialog()
         .file()
-        .set_title("Choose Recordings Folder")
+        .set_title("选择录制文件夹")
         .pick_folder(move |path| {
             let _ = tx.send(
                 path.as_ref()
@@ -6254,14 +6254,14 @@ async fn resume_uploads(app: AppHandle) -> Result<(), String> {
                             && let Some(StudioRecordingStatus::InProgress) = &inner.status
                         {
                             inner.status = Some(StudioRecordingStatus::Failed {
-                                error: "Recording crashed".to_string(),
+                                error: "录制已崩溃".to_string(),
                             });
                             needs_save = true;
                         }
                     }
                     RecordingMetaInner::Instant(InstantRecordingMeta::InProgress { .. }) => {
                         meta.inner = RecordingMetaInner::Instant(InstantRecordingMeta::Failed {
-                            error: "Recording crashed".to_string(),
+                            error: "录制已崩溃".to_string(),
                         });
                         needs_save = true;
                     }
@@ -6771,7 +6771,7 @@ fn open_project_from_path(path: &Path, app: AppHandle) -> Result<(), String> {
         RecordingMetaInner::Studio(meta) => {
             let status = meta.status();
             if let StudioRecordingStatus::Failed { .. } = status {
-                return Err("Unable to open failed recording".to_string());
+                return Err("无法打开失败的录制".to_string());
             } else if let StudioRecordingStatus::InProgress = status {
                 return Err("Recording in progress".to_string());
             }

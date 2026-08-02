@@ -49,7 +49,7 @@ fn export_panic_error(panic: Box<dyn Any + Send>) -> String {
         &format!("Export command panicked: {panic_msg}"),
         sentry::Level::Error,
     );
-    "Export failed unexpectedly".to_string()
+    "导出意外失败".to_string()
 }
 
 #[cfg(all(windows, not(debug_assertions)))]
@@ -129,7 +129,7 @@ async fn run_protected_export(
                 &format!("Export task panicked: {panic_msg}"),
                 sentry::Level::Error,
             );
-            Err("Export failed unexpectedly".to_string())
+            Err("导出意外失败".to_string())
         }
     }
 }
@@ -495,7 +495,7 @@ async fn run_out_of_process_export(
     .await
     {
         Ok(path) => Ok(path),
-        Err(e) if e != "Export cancelled" && !mode.is_software_safe() => {
+        Err(e) if e != "导出已取消" && !mode.is_software_safe() => {
             error!(
                 error = %e,
                 "Export worker failed, retrying with software rendering and encoding"
@@ -531,7 +531,7 @@ async fn run_out_of_process_export_attempt(
     cancel_token: CancellationToken,
 ) -> Result<PathBuf, String> {
     if cancel_token.is_cancelled() {
-        return Err("Export cancelled".to_string());
+        return Err("导出已取消".to_string());
     }
 
     let bin_path = resolve_exporter_binary()?;
@@ -600,7 +600,7 @@ async fn run_out_of_process_export_attempt(
             let _ = child.kill().await;
             let _ = child.wait().await;
             let _ = stderr_task.await;
-            return Err("Export cancelled".to_string());
+            return Err("导出已取消".to_string());
         }
     } {
         match serde_json::from_str::<ExportSidecarMessage>(&line) {
@@ -610,7 +610,7 @@ async fn run_out_of_process_export_attempt(
             }) => {
                 if !progress_forwarder.send(rendered_count, total_frames) {
                     let _ = child.kill().await;
-                    return Err("Export cancelled".to_string());
+                    return Err("导出已取消".to_string());
                 }
             }
             Ok(ExportSidecarMessage::Completed { path }) => {
@@ -634,7 +634,7 @@ async fn run_out_of_process_export_attempt(
             let _ = child.kill().await;
             let _ = child.wait().await;
             let _ = stderr_task.await;
-            return Err("Export cancelled".to_string());
+            return Err("导出已取消".to_string());
         }
     };
     let stderr_tail = stderr_task.await.unwrap_or_default();
@@ -862,7 +862,7 @@ async fn wait_for_export_preview_idle_or_cancel(
     while flag.load(Ordering::Acquire) {
         tokio::select! {
             _ = tokio::time::sleep(std::time::Duration::from_millis(20)) => {}
-            _ = cancel_token.cancelled() => return Err("Export cancelled".to_string()),
+            _ = cancel_token.cancelled() => return Err("导出已取消".to_string()),
         }
     }
 
@@ -920,7 +920,7 @@ async fn do_export(
     cancel_token: CancellationToken,
 ) -> Result<PathBuf, String> {
     if cancel_token.is_cancelled() {
-        return Err("Export cancelled".to_string());
+        return Err("导出已取消".to_string());
     }
 
     let mut exporter_builder =
@@ -940,7 +940,7 @@ async fn do_export(
         rendered_count: 0,
         total_frames,
     }) {
-        return Err("Export cancelled".to_string());
+        return Err("导出已取消".to_string());
     }
 
     match settings {
@@ -1123,7 +1123,7 @@ async fn export_video_to_file_inner(
         return Err("Save dialog cancelled".to_string());
     };
 
-    info!(path = %save_path.display(), "Export save path selected");
+    info!(path = %save_path.display(), "已选择导出保存路径");
 
     let output_path =
         export_video_inner(project_path, settings, editor, progress, cancel_token).await?;
@@ -1186,7 +1186,7 @@ async fn export_video_inner(
         }
         Err(e) if !force_ffmpeg && is_frame_decode_error(&e) => {
             if cancel_token.is_cancelled() {
-                return Err("Export cancelled".to_string());
+                return Err("导出已取消".to_string());
             }
 
             info!(
@@ -1223,8 +1223,8 @@ async fn export_video_inner(
                     Ok(path)
                 }
                 Err(retry_e) => {
-                    if cancel_token.is_cancelled() || retry_e == "Export cancelled" {
-                        return Err("Export cancelled".to_string());
+                    if cancel_token.is_cancelled() || retry_e == "导出已取消" {
+                        return Err("导出已取消".to_string());
                     }
 
                     sentry::capture_message(&retry_e, sentry::Level::Error);
@@ -1232,8 +1232,8 @@ async fn export_video_inner(
                 }
             }
         }
-        Err(e) if cancel_token.is_cancelled() || e == "Export cancelled" => {
-            Err("Export cancelled".to_string())
+        Err(e) if cancel_token.is_cancelled() || e == "导出已取消" => {
+            Err("导出已取消".to_string())
         }
         Err(e) => {
             sentry::capture_message(&e, sentry::Level::Error);
@@ -1280,7 +1280,7 @@ async fn copy_export_to_path(src: &Path, dst: &Path) -> Result<(), String> {
     info!(
         src = %src.display(),
         dst = %dst.display(),
-        "Copying exported video to selected path"
+        "正在将导出的视频复制到所选路径"
     );
 
     if let Some(parent) = dst.parent() {
@@ -1305,7 +1305,7 @@ async fn copy_export_to_path(src: &Path, dst: &Path) -> Result<(), String> {
         ));
     }
 
-    info!(bytes, dst = %dst.display(), "Copied exported video to selected path");
+    info!(bytes, dst = %dst.display(), "已将导出的视频复制到所选路径");
     Ok(())
 }
 
@@ -1471,7 +1471,7 @@ async fn generate_export_preview_inner(
         .map_err(|e| format!("Failed to load recording meta: {e}"))?;
 
     let cap_project::RecordingMetaInner::Studio(studio_meta) = &recording_meta.inner else {
-        return Err("Cannot preview non-studio recordings".to_string());
+        return Err("无法预览非工作室模式录制".to_string());
     };
 
     let project_config =

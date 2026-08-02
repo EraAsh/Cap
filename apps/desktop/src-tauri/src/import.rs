@@ -64,7 +64,7 @@ pub struct VideoImportProgress {
 pub enum ImportError {
     #[error("Failed to open video file: {0}")]
     OpenFailed(String),
-    #[error("No video stream found in file")]
+    #[error("未找到视频流 in file")]
     NoVideoStream,
     #[error("Failed to create decoder: {0}")]
     DecoderFailed(String),
@@ -248,20 +248,20 @@ fn editor_project_path_from_window(window: &Window) -> Result<PathBuf, String> {
     let CapWindowId::Editor { id } =
         CapWindowId::from_str(window.label()).map_err(|e| e.to_string())?
     else {
-        return Err("Import can only be started from an editor window".to_string());
+        return Err("导入只能从编辑器窗口启动".to_string());
     };
 
     let window_ids = EditorWindowIds::get(window.app_handle());
     let window_ids = window_ids
         .ids
         .lock()
-        .map_err(|_| "Editor window registry unavailable".to_string())?;
+        .map_err(|_| "编辑器窗口注册表不可用".to_string())?;
 
     window_ids
         .iter()
         .find(|(_, window_id)| *window_id == id)
         .map(|(path, _)| path.clone())
-        .ok_or_else(|| "Editor project path not found".to_string())
+        .ok_or_else(|| "未找到编辑器项目路径".to_string())
 }
 
 fn same_project_path(a: &Path, b: &Path) -> bool {
@@ -272,7 +272,7 @@ fn same_project_path(a: &Path, b: &Path) -> bool {
 
 fn ensure_multiple_segments(meta: &mut RecordingMeta) -> Result<&mut MultipleSegments, String> {
     let RecordingMetaInner::Studio(studio_meta) = &mut meta.inner else {
-        return Err("Instant mode recordings cannot be edited".to_string());
+        return Err("即时模式录制无法编辑".to_string());
     };
 
     if let StudioRecordingMeta::SingleSegment { segment } = studio_meta.as_ref() {
@@ -296,7 +296,7 @@ fn ensure_multiple_segments(meta: &mut RecordingMeta) -> Result<&mut MultipleSeg
     match studio_meta.as_mut() {
         StudioRecordingMeta::MultipleSegments { inner } => Ok(inner),
         StudioRecordingMeta::SingleSegment { .. } => {
-            Err("Failed to normalize project recording segments".to_string())
+            Err("规范化项目录制片段失败".to_string())
         }
     }
 }
@@ -384,7 +384,7 @@ fn ensure_project_timeline<'a>(
     config
         .timeline
         .as_mut()
-        .ok_or_else(|| "Failed to prepare project timeline".to_string())
+        .ok_or_else(|| "准备项目时间轴失败".to_string())
 }
 
 fn add_clip_configs(
@@ -942,7 +942,7 @@ fn copy_source_segment(
         "display",
         true,
     )?
-    .ok_or_else(|| "Missing display video".to_string())?;
+    .ok_or_else(|| "缺少显示器视频".to_string())?;
 
     let camera = source_segment
         .camera
@@ -1225,7 +1225,7 @@ fn transcode_video(
                         unsafe { ffmpeg::ffi::av_frame_get_buffer(scaled_frame.as_mut_ptr(), 0) };
                     if ret < 0 {
                         return Err(ImportError::TranscodeFailed(
-                            "Failed to allocate frame buffer".to_string(),
+                            "分配帧缓冲区失败".to_string(),
                         ));
                     }
 
@@ -1247,8 +1247,8 @@ fn transcode_video(
                     last_progress = progress;
 
                     if !check_project_exists(project_path) {
-                        info!("Import cancelled: project directory was deleted");
-                        return Err(ImportError::TranscodeFailed("Import cancelled".to_string()));
+                        info!("导入已取消: project directory was deleted");
+                        return Err(ImportError::TranscodeFailed("导入已取消".to_string()));
                     }
 
                     emit_progress(
@@ -1292,7 +1292,7 @@ fn transcode_video(
                 let ret = unsafe { ffmpeg::ffi::av_frame_get_buffer(scaled_frame.as_mut_ptr(), 0) };
                 if ret < 0 {
                     return Err(ImportError::TranscodeFailed(
-                        "Failed to allocate frame buffer".to_string(),
+                        "分配帧缓冲区失败".to_string(),
                     ));
                 }
                 scaler.run(&video_frame, &mut scaled_frame)?;
@@ -1378,7 +1378,7 @@ pub async fn start_video_import(app: AppHandle, source_path: PathBuf) -> Result<
         &project_path_str,
         ImportStage::Probing,
         0.0,
-        "Analyzing video file...",
+        "正在分析视频文件...",
     );
 
     let can_decode =
@@ -1390,9 +1390,9 @@ pub async fn start_video_import(app: AppHandle, source_path: PathBuf) -> Result<
             &project_path_str,
             ImportStage::Failed,
             0.0,
-            "Video format not supported",
+            "不支持此视频格式",
         );
-        return Err("Video format not supported or file is corrupted".to_string());
+        return Err("不支持此视频格式 or file is corrupted".to_string());
     }
 
     std::fs::create_dir_all(&project_path).map_err(|e| e.to_string())?;
@@ -1442,7 +1442,7 @@ pub async fn start_video_import(app: AppHandle, source_path: PathBuf) -> Result<
         &project_path_str,
         ImportStage::Converting,
         0.0,
-        "Starting conversion...",
+        "正在开始转换...",
     );
 
     let return_path = project_path.clone();
@@ -1479,7 +1479,7 @@ pub async fn start_video_import(app: AppHandle, source_path: PathBuf) -> Result<
                     &project_path_str,
                     ImportStage::Finalizing,
                     0.95,
-                    "Creating project metadata...",
+                    "正在创建项目元数据...",
                 );
 
                 let audio_file_size = std::fs::metadata(&output_audio_path)
@@ -1561,7 +1561,7 @@ pub async fn start_video_import(app: AppHandle, source_path: PathBuf) -> Result<
                     &project_path_str,
                     ImportStage::Complete,
                     1.0,
-                    "Import complete!",
+                    "导入完成！",
                 );
 
                 info!("Video import complete: {:?}", project_path);
@@ -1598,7 +1598,7 @@ async fn append_mp4_to_editor_project(
     source_path: PathBuf,
 ) -> Result<usize, String> {
     if !is_mp4_import_path(&source_path) {
-        return Err("Select an MP4 video file to import".to_string());
+        return Err("选择要导入的 MP4 视频文件".to_string());
     }
 
     let mut target_meta = RecordingMeta::load_for_project(&target_project_path)
@@ -1628,13 +1628,13 @@ async fn append_mp4_to_editor_project(
         &project_path_str,
         ImportStage::Probing,
         0.0,
-        "Analyzing video file...",
+        "正在分析视频文件...",
     );
 
     let can_decode =
         probe_video_can_decode(&source_path).map_err(|e| format!("Cannot decode video: {e}"))?;
     if !can_decode {
-        return Err("Video format not supported or file is corrupted".to_string());
+        return Err("不支持此视频格式 or file is corrupted".to_string());
     }
 
     emit_progress(
@@ -1642,7 +1642,7 @@ async fn append_mp4_to_editor_project(
         &project_path_str,
         ImportStage::Converting,
         0.0,
-        "Starting conversion...",
+        "正在开始转换...",
     );
 
     let app_for_transcode = app.clone();
@@ -1730,7 +1730,7 @@ async fn append_mp4_to_editor_project(
         &project_path_str,
         ImportStage::Complete,
         1.0,
-        "Import complete!",
+        "导入完成！",
     );
 
     Ok(1)
@@ -1751,7 +1751,7 @@ async fn append_cap_project_to_editor_project(
                     .await
             }
             RecordingMetaInner::Instant(InstantRecordingMeta::InProgress { .. }) => {
-                Err("Source Cap project is still recording".to_string())
+                Err("源 Cap 项目仍在录制中".to_string())
             }
             RecordingMetaInner::Instant(InstantRecordingMeta::Failed { error }) => {
                 Err(format!("Source Cap project failed: {error}"))
@@ -1762,7 +1762,7 @@ async fn append_cap_project_to_editor_project(
 
     let source_segments = studio_segments_for_import(source_studio_meta);
     if source_segments.is_empty() {
-        return Err("Source Cap project has no recording segments".to_string());
+        return Err("源 Cap 项目没有录制片段".to_string());
     }
 
     let source_timeline = source_timeline_segments_for_import(&source_meta, &source_segments)?;
@@ -1823,7 +1823,7 @@ async fn append_cap_project_to_editor_project(
     };
 
     if copied_segments.is_empty() {
-        return Err("Source Cap project has no importable recording segments".to_string());
+        return Err("源 Cap 项目没有可导入的录制片段".to_string());
     }
 
     {
@@ -1867,7 +1867,7 @@ pub async fn add_existing_recording_to_editor(
     let target_project_path = editor_project_path_from_window(&window)?;
 
     if same_project_path(&target_project_path, &source_path) {
-        return Err("Cannot import a recording into itself".to_string());
+        return Err("不能将录制导入到其自身".to_string());
     }
 
     let app = window.app_handle().clone();
@@ -1877,10 +1877,10 @@ pub async fn add_existing_recording_to_editor(
         crate::wait_for_recording_ready(&app, &source_path).await?;
         append_cap_project_to_editor_project(app, target_project_path, source_path).await?
     } else {
-        return Err("Select an MP4 file or a Cap project folder".to_string());
+        return Err("选择 MP4 文件或 Cap 项目文件夹".to_string());
     };
     let imported_count =
-        u32::try_from(imported_count).map_err(|_| "Too many recordings imported".to_string())?;
+        u32::try_from(imported_count).map_err(|_| "导入的录制过多".to_string())?;
 
     EditorInstances::remove(window).await;
 
@@ -1893,7 +1893,7 @@ pub async fn start_image_import(app: AppHandle, source_path: PathBuf) -> Result<
     info!("Starting image import from: {:?}", source_path);
 
     if !source_path.is_file() {
-        return Err("Image file does not exist".to_string());
+        return Err("图片文件不存在".to_string());
     }
 
     let source_path_for_decode = source_path.clone();
@@ -2131,7 +2131,7 @@ mod tests {
         )
         .unwrap_err();
 
-        assert!(error.contains("Invalid video path"));
+        assert!(error.contains("无效的视频路径"));
     }
 
     #[test]
@@ -2147,7 +2147,7 @@ mod tests {
         )
         .unwrap_err();
 
-        assert!(error.contains("Invalid video path"));
+        assert!(error.contains("无效的视频路径"));
     }
 
     #[test]
@@ -2170,7 +2170,7 @@ mod tests {
         )
         .unwrap_err();
 
-        assert!(error.contains("Unsupported video file type"));
+        assert!(error.contains("不支持的视频文件类型"));
     }
 
     #[cfg(unix)]

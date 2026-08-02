@@ -62,12 +62,12 @@ impl AutomationHost for DesktopAutomationHost {
                 .image_path
                 .as_ref()
                 .or(ctx.output_path.as_ref())
-                .ok_or("No image or output path available for clipboard copy")?,
+                .ok_or("没有可用于复制到剪贴板的图像或输出路径")?,
             ClipboardSource::Rendered => ctx
                 .output_path
                 .as_ref()
                 .or(ctx.image_path.as_ref())
-                .ok_or("No output path available for clipboard copy")?,
+                .ok_or("没有可用于复制到剪贴板的输出路径")?,
         };
 
         let path_str = path.to_string_lossy().to_string();
@@ -94,7 +94,7 @@ impl AutomationHost for DesktopAutomationHost {
             .image_path
             .as_ref()
             .or(ctx.output_path.as_ref())
-            .ok_or("No file path available for save")?;
+            .ok_or("没有可用于保存的文件路径")?;
 
         let filename = if let Some(tmpl) = filename_template {
             apply_filename_template(tmpl, ctx)
@@ -129,7 +129,7 @@ impl AutomationHost for DesktopAutomationHost {
         let project_path = ctx
             .project_path
             .as_ref()
-            .ok_or("No project path available for export")?;
+            .ok_or("没有可用于导出的项目路径")?;
 
         info!(
             project = %project_path.display(),
@@ -225,17 +225,17 @@ impl AutomationHost for DesktopAutomationHost {
             match result {
                 crate::UploadResult::Success(link) => link,
                 crate::UploadResult::NotAuthenticated => {
-                    return Err("Not authenticated for upload".to_string());
+                    return Err("未认证，无法上传".to_string());
                 }
                 crate::UploadResult::UpgradeRequired => {
-                    return Err("Upgrade required for upload".to_string());
+                    return Err("上传需要升级".to_string());
                 }
                 crate::UploadResult::PlanCheckFailed => {
-                    return Err("Plan check failed for upload".to_string());
+                    return Err("上传计划检查失败".to_string());
                 }
             }
         } else {
-            return Err("No image or project path available for upload".to_string());
+            return Err("没有可用于上传的图像或项目路径".to_string());
         };
 
         if copy_link {
@@ -259,7 +259,7 @@ impl AutomationHost for DesktopAutomationHost {
             .as_ref()
             .or(ctx.output_path.as_ref())
             .or(ctx.project_path.as_ref())
-            .ok_or("No path available to reveal")?;
+            .ok_or("没有可用于显示的路径")?;
 
         reveal_path(path)
     }
@@ -271,7 +271,7 @@ impl AutomationHost for DesktopAutomationHost {
             .image_path
             .as_ref()
             .or(ctx.output_path.as_ref())
-            .ok_or("No file path available to open")?;
+            .ok_or("没有可用于打开的文件路径")?;
 
         let path_str = path.to_str().ok_or("Invalid path")?;
         self.app
@@ -362,7 +362,7 @@ impl AutomationHost for DesktopAutomationHost {
         let client = reqwest::Client::builder()
             .timeout(WEBHOOK_TIMEOUT)
             .build()
-            .map_err(|e| format!("Failed to build HTTP client: {e}"))?;
+            .map_err(|e| format!("构建 HTTP 客户端失败: {e}"))?;
         let method = method
             .parse::<reqwest::Method>()
             .map_err(|e| format!("Invalid HTTP method: {e}"))?;
@@ -401,14 +401,14 @@ impl AutomationHost for DesktopAutomationHost {
             .image_path
             .as_ref()
             .or(ctx.output_path.as_ref())
-            .ok_or("No image path available for OCR")?;
+            .ok_or("没有可用于 OCR 的图像路径")?;
 
         info!(path = %path.display(), "Automation: recognizing text");
 
         let text = crate::screenshot_editor::recognize_text_from_image_path(path).await?;
 
         if text.trim().is_empty() {
-            return Err("No text recognized in image".to_string());
+            return Err("图像中未识别到文字".to_string());
         }
 
         self.clipboard
@@ -478,7 +478,7 @@ impl AutomationHost for DesktopAutomationHost {
         let project_path = ctx
             .project_path
             .as_ref()
-            .ok_or("No project path for preset")?;
+            .ok_or("没有可用于预设的项目路径")?;
 
         let preset = crate::presets::PresetsStore::get_by_name(&self.app, name)?
             .ok_or_else(|| format!("Preset '{name}' not found"))?;
@@ -505,7 +505,7 @@ impl AutomationHost for DesktopAutomationHost {
         let path = ctx
             .project_path
             .as_ref()
-            .ok_or("No project path for deletion")?;
+            .ok_or("没有可用于删除的项目路径")?;
 
         info!(path = %path.display(), "Automation: deleting local files");
         tokio::fs::remove_dir_all(path)
@@ -658,7 +658,7 @@ pub async fn run_trigger(app: &AppHandle, trigger: Trigger, ctx: TriggerContext)
                 warn!(
                     rule_id = %result.rule_id,
                     error = %error,
-                    "Automation action did not complete"
+                    "自动化操作未完成"
                 );
             }
         }

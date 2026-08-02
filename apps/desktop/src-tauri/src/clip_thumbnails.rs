@@ -23,7 +23,7 @@ pub async fn get_clip_thumbnail(
     let meta = editor_instance.meta();
 
     let RecordingMetaInner::Studio(studio) = &meta.inner else {
-        return Err("Clip thumbnails are only available for studio recordings".to_string());
+        return Err("片段缩略图仅适用于工作室模式录制".to_string());
     };
 
     let display_path = match studio.as_ref() {
@@ -73,7 +73,7 @@ fn decode_clip_thumbnail(input: &Path, time: f64, output: &Path) -> Result<(), S
     let stream = ictx
         .streams()
         .best(ffmpeg::media::Type::Video)
-        .ok_or("No video stream found")?;
+        .ok_or("未找到视频流")?;
     let stream_index = stream.index();
 
     let mut decoder = ffmpeg::codec::context::Context::from_parameters(stream.parameters())
@@ -85,7 +85,7 @@ fn decode_clip_thumbnail(input: &Path, time: f64, output: &Path) -> Result<(), S
     let src_width = decoder.width();
     let src_height = decoder.height();
     if src_width == 0 || src_height == 0 {
-        return Err("Invalid video dimensions".to_string());
+        return Err("无效的视频尺寸".to_string());
     }
 
     let scale = (THUMB_MAX_WIDTH as f32 / src_width as f32).min(1.0);
@@ -166,7 +166,7 @@ fn decode_clip_thumbnail(input: &Path, time: f64, output: &Path) -> Result<(), S
     }
 
     if !got_frame {
-        return Err("No decodable frames found".to_string());
+        return Err("未找到可解码的帧".to_string());
     }
 
     let mut rgb_frame = ffmpeg::frame::Video::empty();

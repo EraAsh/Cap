@@ -175,7 +175,7 @@ fn collect_diagnostics_for_upload(
 }
 
 pub async fn upload_log_file(app: &AppHandle) -> Result<(), String> {
-    let log_file = get_latest_log_file(app).await.ok_or("No log file found")?;
+    let log_file = get_latest_log_file(app).await.ok_or("未找到日志文件")?;
 
     let metadata =
         fs::metadata(&log_file).map_err(|e| format!("Failed to read log file metadata: {e}"))?;
@@ -236,7 +236,7 @@ pub async fn upload_log_file(app: &AppHandle) -> Result<(), String> {
             client.post(url).multipart(form)
         })
         .await
-        .map_err(|e| format!("Failed to upload logs: {e}"))?;
+        .map_err(|e| format!("日志上传失败: {e}"))?;
 
     if !response.status().is_success() {
         return Err(format!("Upload failed with status: {}", response.status()));

@@ -288,7 +288,7 @@ impl ScreenshotEditorInstances {
                         compatible_surface: None,
                     })
                     .await
-                    .map_err(|_| "No GPU adapter found".to_string())?,
+                    .map_err(|_| "未找到 GPU 适配器".to_string())?,
             };
             let adapter_info = adapter.get_info();
             let is_software_adapter = cap_rendering::is_software_wgpu_adapter(&adapter_info);
@@ -1028,7 +1028,7 @@ fn clamp_screenshot_ocr_region(
     let height = region.height.min(image_height.saturating_sub(y));
 
     if width < 4 || height < 4 {
-        return Err("Select a larger text area".to_string());
+        return Err("请选择更大的文字区域".to_string());
     }
 
     Ok(ScreenshotOcrRegion {
@@ -1046,9 +1046,9 @@ fn create_screenshot_ocr_image(
     region: ScreenshotOcrRegion,
 ) -> Result<ScreenshotOcrImage, String> {
     let image_width = usize::try_from(image_width)
-        .map_err(|_| "Screenshot width is too large for OCR".to_string())?;
+        .map_err(|_| "截图宽度超出 OCR 限制".to_string())?;
     let image_height = usize::try_from(image_height)
-        .map_err(|_| "Screenshot height is too large for OCR".to_string())?;
+        .map_err(|_| "截图高度超出 OCR 限制".to_string())?;
     let region_x =
         usize::try_from(region.x).map_err(|_| "OCR region x is too large".to_string())?;
     let region_y =
@@ -1061,10 +1061,10 @@ fn create_screenshot_ocr_image(
     let expected_len = image_width
         .checked_mul(image_height)
         .and_then(|pixels| pixels.checked_mul(4))
-        .ok_or_else(|| "Screenshot image is too large for OCR".to_string())?;
+        .ok_or_else(|| "截图图像超出 OCR 限制".to_string())?;
 
     if source_rgba.len() != expected_len {
-        return Err("Screenshot image data is invalid for OCR".to_string());
+        return Err("截图图像数据无效，无法进行 OCR".to_string());
     }
 
     let output_len = region_width
@@ -1074,7 +1074,7 @@ fn create_screenshot_ocr_image(
     let mut bgra = vec![0; output_len];
     let source_row_bytes = image_width
         .checked_mul(4)
-        .ok_or_else(|| "Screenshot row is too large for OCR".to_string())?;
+        .ok_or_else(|| "截图行超出 OCR 限制".to_string())?;
     let region_row_bytes = region_width
         .checked_mul(4)
         .ok_or_else(|| "OCR row is too large".to_string())?;
@@ -1572,7 +1572,7 @@ pub async fn render_screenshot_png(instance: &ScreenshotEditorInstance) -> Resul
                     compatible_surface: None,
                 })
                 .await
-                .map_err(|_| "No GPU adapter found".to_string())?,
+                .map_err(|_| "未找到 GPU 适配器".to_string())?,
         };
         let adapter_info = adapter.get_info();
         let is_software_adapter = cap_rendering::is_software_wgpu_adapter(&adapter_info);

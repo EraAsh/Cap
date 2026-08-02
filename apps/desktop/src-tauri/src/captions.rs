@@ -29,7 +29,7 @@ pub use cap_project::{CaptionSegment, CaptionSettings, CaptionWord};
 use crate::{general_settings::GeneralSettingsStore, http_client};
 
 #[cfg(all(target_os = "macos", target_arch = "x86_64"))]
-const PARAKEET_UNSUPPORTED_MESSAGE: &str = "Parakeet transcription is not available on Intel macOS";
+const PARAKEET_UNSUPPORTED_MESSAGE: &str = "Parakeet 转写不支持 Intel 版 macOS";
 
 #[derive(Debug, Serialize, Deserialize, Type, Clone)]
 pub enum TranscriptionEngine {
@@ -289,7 +289,7 @@ async fn extract_audio_from_video(video_path: &str, output_path: &PathBuf) -> Re
             }
 
             if segment_audios.is_empty() {
-                return Err("No audio sources found in the recording metadata".to_string());
+                return Err("录制元数据中未找到音频源".to_string());
             }
 
             log::info!("Found {} segments with audio sources", segment_audios.len());
@@ -348,8 +348,8 @@ async fn extract_audio_from_video(video_path: &str, output_path: &PathBuf) -> Re
             let channel_count = 1_usize;
 
             if mixed_samples.is_empty() {
-                log::error!("No audio samples after processing all sources");
-                return Err("Failed to process any audio sources".to_string());
+                log::error!("处理完所有源后没有音频样本");
+                return Err("未能处理任何音频源".to_string());
             }
 
             let gain = normalize_audio_for_transcription(&mut mixed_samples);
@@ -523,7 +523,7 @@ async fn extract_audio_from_video(video_path: &str, output_path: &PathBuf) -> Re
             let stream = input
                 .streams()
                 .best(ffmpeg::media::Type::Audio)
-                .ok_or_else(|| "No audio stream found".to_string())?;
+                .ok_or_else(|| "未找到音频流".to_string())?;
 
             let codec_params = stream.parameters();
 
@@ -1270,7 +1270,7 @@ fn process_with_parakeet(
 
     if words.is_empty() {
         tracing::warn!("Parakeet produced no words");
-        return Err("No speech detected in the audio".to_string());
+        return Err("音频中未检测到语音".to_string());
     }
 
     let mut segments = Vec::new();
@@ -1352,7 +1352,7 @@ pub async fn transcribe_audio(
 
     if !audio_path.exists() {
         log::error!("Audio file was not created at {audio_path:?}");
-        return Err("Failed to create audio file for transcription".to_string());
+        return Err("创建转写音频文件失败".to_string());
     }
 
     let audio_metadata = std::fs::metadata(&audio_path).ok();
@@ -1423,8 +1423,8 @@ pub async fn transcribe_audio(
             }
 
             if captions.segments.is_empty() {
-                log::warn!("No caption segments were generated");
-                return Err("No speech detected in the audio".to_string());
+                log::warn!("未生成字幕片段");
+                return Err("音频中未检测到语音".to_string());
             }
 
             log::info!("=== TRANSCRIBE AUDIO COMMAND END (success) ===");
@@ -1834,7 +1834,7 @@ pub fn parse_captions_json(json: &str) -> Result<cap_project::CaptionsData, Stri
                     ..Default::default()
                 })
             } else {
-                Err("Missing or invalid segments array in captions file".to_string())
+                Err("字幕文件中片段数组缺失或无效".to_string())
             }
         }
         Err(e) => Err(format!("Failed to parse captions JSON: {e}")),
@@ -1913,7 +1913,7 @@ fn app_captions_dir(app: &AppHandle, video_id: &str) -> Result<PathBuf, String> 
     let app_dir = app
         .path()
         .app_data_dir()
-        .map_err(|_| "Failed to get app data directory".to_string())?;
+        .map_err(|_| "获取应用数据目录失败".to_string())?;
 
     let clean_video_id = video_id.trim_end_matches(".cap");
     let captions_dir = app_dir.join("captions").join(clean_video_id);
@@ -2088,7 +2088,7 @@ pub async fn download_whisper_model(
             Ok(_) => model_download_status(
                 ModelDownloadState::Completed,
                 100.0,
-                "Download complete".to_string(),
+                "下载完成".to_string(),
             ),
             Err(error) => model_download_status(
                 ModelDownloadState::Failed,
@@ -2438,7 +2438,7 @@ pub async fn download_parakeet_model(app: AppHandle, output_dir: String) -> Resu
             Ok(_) => model_download_status(
                 ModelDownloadState::Completed,
                 100.0,
-                "Download complete".to_string(),
+                "下载完成".to_string(),
             ),
             Err(error) => model_download_status(
                 ModelDownloadState::Failed,
@@ -2554,7 +2554,7 @@ async fn download_parakeet_model_to_dir(
 
     if !parakeet_model_files_match(&staging_dir, &expected_file_sizes) {
         let _ = std::fs::remove_dir_all(&staging_dir);
-        return Err("Downloaded model files did not match expected sizes".to_string());
+        return Err("下载的模型文件与预期大小不符".to_string());
     }
 
     finalize_parakeet_model_download(validated_dir, &staging_dir, model_files)?;

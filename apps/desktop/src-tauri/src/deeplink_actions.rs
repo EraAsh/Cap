@@ -211,7 +211,7 @@ impl DeepLinkAction {
                     #[cfg(debug_assertions)]
                     CaptureMode::Area(area) => {
                         if area.width <= 0.0 || area.height <= 0.0 {
-                            return Err("Area width and height must be positive".to_string());
+                            return Err("区域宽度和高度必须为正数".to_string());
                         }
                         let screen = cap_recording::screen_capture::list_displays()
                             .into_iter()

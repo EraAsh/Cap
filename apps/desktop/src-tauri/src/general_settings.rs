@@ -99,18 +99,18 @@ impl MainWindowRecordingStartBehaviour {
     }
 }
 
-// NOTE: Do not add "Cap Target Select" here — on Windows, WDA_EXCLUDEFROMCAPTURE applied to that
+// NOTE: Do not add "Cap 目标选择" here — on Windows, WDA_EXCLUDEFROMCAPTURE applied to that
 // hidden window causes it to reappear as a ghost overlay after recording ends.
 const DEFAULT_EXCLUDED_WINDOW_TITLES: &[&str] = &[
     "Cap",
     "Cap Settings",
-    "Cap Recording Controls",
+    "Cap 录制控制",
     "Cap Camera",
-    "Cap Window Capture Occluder",
-    "Cap Capture Area",
-    "Cap Mode Selection",
-    "Cap Recordings Overlay",
-    "Cap Teleprompter",
+    "Cap 窗口捕获遮罩",
+    "Cap 捕获区域",
+    "Cap 模式选择",
+    "Cap 录制浮层",
+    "Cap 提词器",
 ];
 
 pub fn default_excluded_windows() -> Vec<WindowExclusion> {
@@ -387,7 +387,7 @@ impl GeneralSettingsStore {
 
         let path = app.path().app_data_dir().unwrap().join("recordings");
         if let Err(e) = std::fs::create_dir_all(&path) {
-            tracing::warn!(?path, %e, "Failed to create recordings directory");
+            tracing::warn!(?path, %e, "创建录制目录失败");
         }
         path
     }
@@ -422,7 +422,7 @@ impl GeneralSettingsStore {
     // i don't trust anyone to not overwrite the whole store lols
     pub fn update(app: &AppHandle, update: impl FnOnce(&mut Self)) -> Result<(), String> {
         let Ok(store) = app.store("store") else {
-            return Err("Store not found".to_string());
+            return Err("未找到存储".to_string());
         };
 
         let mut settings = Self::get(app)?.unwrap_or_default();
@@ -440,7 +440,7 @@ impl GeneralSettingsStore {
 
     fn save(&self, app: &AppHandle) -> Result<(), String> {
         let Ok(store) = app.store("store") else {
-            return Err("Store not found".to_string());
+            return Err("未找到存储".to_string());
         };
 
         store.set("general_settings", json!(self));
@@ -488,7 +488,7 @@ pub fn init(app: &AppHandle) {
     {
         store
             .excluded_windows
-            .retain(|w| w.window_title.as_deref() != Some("Cap Target Select"));
+            .retain(|w| w.window_title.as_deref() != Some("Cap 目标选择"));
         raw_store.set(REMOVE_TARGET_SELECT_MIGRATION_KEY, json!(true));
     }
 
@@ -582,7 +582,7 @@ mod tests {
             WindowExclusion {
                 bundle_identifier: None,
                 owner_name: Some("Preview".to_string()),
-                window_title: Some("Private Preview".to_string()),
+                window_title: Some("隐私预览".to_string()),
             },
         ];
 
@@ -596,7 +596,7 @@ mod tests {
         );
         assert!(excluded_windows.iter().any(|entry| {
             entry.owner_name.as_deref() == Some("Preview")
-                && entry.window_title.as_deref() == Some("Private Preview")
+                && entry.window_title.as_deref() == Some("隐私预览")
         }));
     }
 

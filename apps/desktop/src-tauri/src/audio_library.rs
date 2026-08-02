@@ -127,7 +127,7 @@ pub async fn import_audio_track_file(
         .extension()
         .and_then(|ext| ext.to_str())
         .map(|ext| ext.to_lowercase())
-        .ok_or_else(|| "Audio file has no extension".to_string())?;
+        .ok_or_else(|| "音频文件没有扩展名".to_string())?;
 
     if !AUDIO_IMPORT_EXTENSIONS.contains(&extension.as_str()) {
         return Err(format!("Unsupported audio format: .{extension}"));

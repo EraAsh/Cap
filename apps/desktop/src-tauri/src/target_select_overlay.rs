@@ -271,7 +271,7 @@ pub async fn update_camera_overlay_bounds(
 ) -> Result<(), String> {
     let window = CapWindowId::Camera
         .get(&app)
-        .ok_or("Camera window not found")?;
+        .ok_or("未找到摄像头窗口")?;
 
     let width_u32 = width as u32;
     let height_u32 = height as u32;
@@ -351,7 +351,7 @@ pub async fn get_window_icon(window_id: &str) -> Result<Option<String>, String> 
         .map_err(|err| format!("Invalid window ID: {err}"))?;
 
     Ok(Window::from_id(&window_id)
-        .ok_or("Window not found")?
+        .ok_or("未找到窗口")?
         .app_icon()
         .map(|bytes| format!("data:image/png;base64,{}", BASE64_STANDARD.encode(&bytes))))
 }
@@ -363,7 +363,7 @@ pub async fn display_information(display_id: &str) -> Result<DisplayInformation,
     let display_id = display_id
         .parse::<DisplayId>()
         .map_err(|err| format!("Invalid display ID: {err}"))?;
-    let display = Display::from_id(&display_id).ok_or("Display not found")?;
+    let display = Display::from_id(&display_id).ok_or("未找到显示器")?;
 
     Ok(DisplayInformation {
         name: display.name(),
@@ -378,7 +378,7 @@ pub async fn display_information(display_id: &str) -> Result<DisplayInformation,
 #[tauri::command]
 #[instrument]
 pub async fn focus_window(window_id: WindowId) -> Result<(), String> {
-    let window = Window::from_id(&window_id).ok_or("Window not found")?;
+    let window = Window::from_id(&window_id).ok_or("未找到窗口")?;
 
     #[cfg(target_os = "macos")]
     {
@@ -387,7 +387,7 @@ pub async fn focus_window(window_id: WindowId) -> Result<(), String> {
         let pid = window
             .raw_handle()
             .owner_pid()
-            .ok_or("Could not get window owner PID")?;
+            .ok_or("无法获取窗口所有者 PID")?;
 
         if let Some(app) =
             unsafe { NSRunningApplication::runningApplicationWithProcessIdentifier(pid) }

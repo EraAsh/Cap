@@ -98,7 +98,7 @@ pub fn init(logs_dir: &Path, app_version: &str) -> Option<UnexpectedTermination>
                 });
             }
             Err(error) => {
-                tracing::warn!(%error, "Found unreadable crash sentinel from previous session")
+                tracing::warn!(%error, "发现上次会话的不可读崩溃标记")
             }
         }
         let _ = std::fs::remove_file(&path);
@@ -301,7 +301,7 @@ fn report_unexpected_termination(prev: &SessionRecord) {
         prev_graphics_recovery = prev.graphics_recovery,
         prev_blur_active = prev.blur_active,
         prev_blur_recovery = prev.blur_recovery,
-        "Previous Cap session terminated without a clean shutdown"
+        "上一次 Cap 会话未正常关闭"
     );
 
     sentry::with_scope(
@@ -338,9 +338,9 @@ fn write_record(path: &Path, record: &SessionRecord) {
     match serde_json::to_string(record) {
         Ok(json) => {
             if let Err(error) = std::fs::write(path, json) {
-                tracing::warn!(%error, "Failed to write crash sentinel");
+                tracing::warn!(%error, "写入崩溃标记失败");
             }
         }
-        Err(error) => tracing::warn!(%error, "Failed to serialize crash sentinel"),
+        Err(error) => tracing::warn!(%error, "序列化崩溃标记失败"),
     }
 }

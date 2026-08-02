@@ -1147,7 +1147,7 @@ pub enum RecordingEvent {
 /// command is often already closed (or being torn down) when the error comes back, so
 /// an error returned to the caller alone can vanish without a trace.
 fn notify_recording_start_failed(app: &AppHandle, error: &str) {
-    error!(%error, "Recording failed to start");
+    error!(%error, "录制启动失败");
     let _ = RecordingEvent::StartFailed {
         error: error.to_string(),
     }
@@ -1291,7 +1291,7 @@ async fn lock_selected_camera(
     let Some(id) = selected_id else {
         if matches!(capture_target, ScreenCaptureTarget::CameraOnly) {
             return Err(anyhow!(
-                "Camera-only recording requires a selected camera. Please select a camera before starting."
+                "仅摄像头录制需要先选择摄像头，请先选择后再开始。"
             ));
         }
 
@@ -1569,7 +1569,7 @@ pub async fn start_recording(
     let recordings_base_dir = GeneralSettingsStore::recordings_dir(&app);
 
     pending_try!(ensure_dir(&recordings_base_dir), |e| format!(
-        "Failed to create recordings directory: {e}"
+        "创建录制目录失败: {e}"
     ));
 
     match cap_utils::disk_space::free_bytes_for_path(&recordings_base_dir) {
@@ -1632,7 +1632,7 @@ pub async fn start_recording(
     let (video_upload_info, instant_mode_max_resolution) = match inputs.mode {
         RecordingMode::Instant => {
             let Some(auth) = AuthStore::get(&app).ok().flatten() else {
-                let error = "Please sign in to use instant recording".to_string();
+                let error = "请登录后使用即时录制".to_string();
                 state_mtx.write().await.clear_pending_recording();
                 notify_recording_start_failed(&app, &error);
                 return Err(error);
@@ -1669,7 +1669,7 @@ pub async fn start_recording(
                     // invoked us may already be gone — surface it as a start failure too.
                     notify_recording_start_failed(
                         &app,
-                        "Your session has expired. Please sign in again to use instant recording.",
+                        "会话已过期，请重新登录后使用即时录制。",
                     );
                     return Ok(RecordingAction::InvalidAuthentication);
                 }
@@ -1677,7 +1677,7 @@ pub async fn start_recording(
                     state_mtx.write().await.clear_pending_recording();
                     notify_recording_start_failed(
                         &app,
-                        "Instant recording requires an upgraded plan.",
+                        "即时录制需要升级套餐。",
                     );
                     return Ok(RecordingAction::UpgradeRequired);
                 }
@@ -2157,7 +2157,7 @@ pub async fn start_recording(
 
                     let mut dialog = MessageDialogBuilder::new(
                         app.dialog().clone(),
-                        "An error occurred".to_string(),
+                        "发生错误".to_string(),
                         error.clone(),
                     )
                     .kind(tauri_plugin_dialog::MessageDialogKind::Error);
@@ -2409,7 +2409,7 @@ pub async fn set_mic_recording_muted(
     let state = state.read().await;
 
     let Some(recording) = state.current_recording() else {
-        return Err("No recording in progress".to_string());
+        return Err("当前没有进行中的录制".to_string());
     };
 
     let mic_feed = match recording {
@@ -2419,7 +2419,7 @@ pub async fn set_mic_recording_muted(
         // enforce the same contract here so no future caller can corrupt a
         // studio track.
         InProgressRecording::Studio { .. } => {
-            return Err("Mic mute is only available for instant recordings".to_string());
+            return Err("麦克风静音仅适用于即时录制".to_string());
         }
     };
 
@@ -2479,7 +2479,7 @@ async fn handle_spawn_failure(
     if !is_device_not_found {
         let mut dialog = MessageDialogBuilder::new(
             app.dialog().clone(),
-            "An error occurred".to_string(),
+            "发生错误".to_string(),
             message.clone(),
         )
         .kind(tauri_plugin_dialog::MessageDialogKind::Error);
@@ -2588,7 +2588,7 @@ where
 {
     match result {
         Ok(()) if recording_still_active => ActorDoneDisposition::UnexpectedStop {
-            error: "Recording stopped unexpectedly before it was ended.".to_string(),
+            error: "录制意外停止。".to_string(),
         },
         Ok(()) => ActorDoneDisposition::UserInitiatedStop,
         Err(error) => ActorDoneDisposition::Failed {
@@ -2734,7 +2734,7 @@ pub async fn restart_recording(
     state: MutableState<'_, App>,
 ) -> Result<RecordingAction, String> {
     let Some(recording) = state.write().await.clear_current_recording() else {
-        return Err("No recording in progress".to_string());
+        return Err("当前没有进行中的录制".to_string());
     };
 
     let _ = CurrentRecordingChanged.emit(&app);
@@ -3417,7 +3417,7 @@ async fn handle_recording_finish(
             {
                 error!(
                     reason,
-                    "Instant recording is damaged and cannot be uploaded"
+                    "即时录制文件损坏，无法上传"
                 );
                 RecordingEvent::Failed {
                     error: format!("Recording output is damaged: {reason}"),
@@ -4398,7 +4398,7 @@ mod tests {
         assert_eq!(
             disposition,
             ActorDoneDisposition::UnexpectedStop {
-                error: "Recording stopped unexpectedly before it was ended.".to_string()
+                error: "录制意外停止。".to_string()
             }
         );
     }
