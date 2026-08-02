@@ -5,39 +5,50 @@ on:
   push:
     branches: [main]
 
+env:
+  RUST_TARGET_TRIPLE: x86_64-pc-windows-msvc
+
 jobs:
   build:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.5.2
+      - uses: ./.github/actions/setup-js
 
       - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@1.88.0
+        with:
+          targets: x86_64-pc-windows-msvc
 
       - name: Cache Rust
         uses: Swatinem/rust-cache@v2
         with:
           workspaces: apps/desktop/src-tauri
 
-      - name: Install deps
+      - name: Create .env file in root
         shell: bash
-        run: pnpm install --no-frozen-lockfile
+        run: |
+          {
+            echo "appVersion=0.0.1"
+            echo "VITE_ENVIRONMENT=production"
+            echo "RUST_TARGET_TRIPLE=${{ env.RUST_TARGET_TRIPLE }}"
+          } >> .env
 
-      - name: Build desktop (Windows)
+      - name: Increase pagefile size (Windows)
+        uses: al-cheb/configure-pagefile-action@a3b6ebd6b634da88790d9c58d4b37a7f4a7b8708 # v1.4
+        with:
+          minimum-size: 16GB
+
+      - name: Run cap-setup
         shell: bash
-        run: pnpm --filter @cap/desktop exec tauri build --no-bundle
+        run: pnpm -w cap-setup
         env:
-          CI: "false"
+          RUST_TARGET_TRIPLE: ${{ env.RUST_TARGET_TRIPLE }}
+
+      - name: Build desktop binaries
+        shell: bash
+        run: ./scripts/build-desktop-binaries.sh ${{ env.RUST_TARGET_TRIPLE }}
 
       - name: Upload exe artifact
         uses: actions/upload-artifact@v4
