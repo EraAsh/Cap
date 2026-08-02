@@ -1,10 +1,10 @@
 use cap_recording::sources::screen_capture::ScreenCaptureTarget;
-use scap_targets::{Display, DisplayId, Window as ScapWindow, bounds::LogicalBounds};
+use scap_targets::{bounds::LogicalBounds, Display, DisplayId, Window as ScapWindow};
 use std::{
     collections::HashMap,
     sync::{
-        Arc, Mutex,
         atomic::{AtomicU64, Ordering},
+        Arc, Mutex,
     },
     time::Duration,
 };

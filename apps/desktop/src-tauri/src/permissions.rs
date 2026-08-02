@@ -44,7 +44,7 @@ impl Drop for MacosPanelWindowActivationGuard {
 unsafe extern "C" {
     fn AXIsProcessTrusted() -> bool;
     fn AXIsProcessTrustedWithOptions(options: core_foundation::dictionary::CFDictionaryRef)
-    -> bool;
+        -> bool;
 }
 
 #[cfg(target_os = "macos")]

@@ -10,7 +10,7 @@ use tauri_specta::Event;
 use tracing::{info, warn};
 
 use crate::{
-    ArcLock, RecordingState, editor_window::EditorInstances, general_settings::GeneralSettingsStore,
+    editor_window::EditorInstances, general_settings::GeneralSettingsStore, ArcLock, RecordingState,
 };
 
 /// Staging directory (inside the destination) used for cross-volume moves.
@@ -646,10 +646,8 @@ mod tests {
             remember_previous_recordings_path(&mut settings, Some(format!("/dir{i}")), None);
         }
         assert_eq!(settings.previous_recordings_paths.len(), MAX_PREVIOUS_PATHS);
-        assert!(
-            settings
-                .previous_recordings_paths
-                .contains(&format!("/dir{}", MAX_PREVIOUS_PATHS + 4))
-        );
+        assert!(settings
+            .previous_recordings_paths
+            .contains(&format!("/dir{}", MAX_PREVIOUS_PATHS + 4)));
     }
 }

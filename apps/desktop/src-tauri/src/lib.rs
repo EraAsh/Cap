@@ -56,16 +56,16 @@ use camera::{CameraPreviewManager, CameraPreviewSender, CameraPreviewState};
 use cap_editor::{EditorInstance, EditorState};
 use cap_project::{
     InstantRecordingMeta, ProjectConfiguration, RecordingMeta, RecordingMetaInner, SharingMeta,
-    StudioRecordingMeta, StudioRecordingStatus, UploadMeta, VideoUploadInfo, XY, ZoomSegment,
+    StudioRecordingMeta, StudioRecordingStatus, UploadMeta, VideoUploadInfo, ZoomSegment, XY,
 };
 use cap_recording::{
-    RecordingMode,
     feeds::{
         self,
         camera::{CameraFeed, DeviceOrModelID},
         microphone::{self, MicrophoneFeed},
     },
     sources::screen_capture::ScreenCaptureTarget,
+    RecordingMode,
 };
 use cap_rendering::ProjectRecordingsMeta;
 use clipboard_rs::common::RustImage;
@@ -74,15 +74,15 @@ use cpal::StreamError;
 use editor_window::{EditorInstances, PendingEditorInstances, WindowEditorInstance};
 use ffmpeg::ffi::AV_TIME_BASE;
 use general_settings::GeneralSettingsStore;
-use kameo::{Actor, actor::ActorRef};
+use kameo::{actor::ActorRef, Actor};
 use notifications::NotificationType;
 use recording::{InProgressRecording, RecordingEvent, RecordingInputKind};
-use scap_targets::{Display, DisplayId, WindowId, bounds::LogicalBounds};
+use scap_targets::{bounds::LogicalBounds, Display, DisplayId, WindowId};
 use screenshot_editor::{
-    PendingScreenshotEditorInstances, ScreenshotEditorInstances, WindowScreenshotEditorInstance,
     create_screenshot_editor_instance, prewarm_screenshot_background, recognize_screenshot_text,
     render_screenshot_for_export, render_screenshot_png, render_screenshot_project_for_export,
-    update_screenshot_config,
+    update_screenshot_config, PendingScreenshotEditorInstances, ScreenshotEditorInstances,
+    WindowScreenshotEditorInstance,
 };
 
 mod gpu_context;
@@ -98,13 +98,13 @@ use std::{
     process::Command,
     str::FromStr,
     sync::{
-        Arc,
         atomic::{AtomicBool, AtomicU64, Ordering},
+        Arc,
     },
     time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
 use tauri::Listener;
-use tauri::{AppHandle, Emitter, Manager, State, Window, WindowEvent, ipc::Channel};
+use tauri::{ipc::Channel, AppHandle, Emitter, Manager, State, Window, WindowEvent};
 use tauri_plugin_deep_link::DeepLinkExt;
 use tauri_plugin_dialog::DialogExt;
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
@@ -112,7 +112,7 @@ use tauri_plugin_notification::{NotificationExt, PermissionState};
 use tauri_plugin_opener::OpenerExt;
 use tauri_plugin_shell::ShellExt;
 use tauri_specta::Event;
-use tokio::sync::{Mutex, RwLock, oneshot, watch};
+use tokio::sync::{oneshot, watch, Mutex, RwLock};
 use tracing::*;
 use upload::{create_or_get_video, upload_screenshot_bytes, upload_screenshot_file, upload_video};
 use web_api::AuthedApiError;
@@ -120,8 +120,8 @@ use web_api::ManagerExt as WebManagerExt;
 #[cfg(target_os = "macos")]
 use windows::hide_overlay;
 use windows::{
-    CapWindowId, EditorRecordingTarget, EditorWindowIds, ScreenshotEditorWindowIds, ShowCapWindow,
-    set_window_transparent, show_overlay,
+    set_window_transparent, show_overlay, CapWindowId, EditorRecordingTarget, EditorWindowIds,
+    ScreenshotEditorWindowIds, ShowCapWindow,
 };
 
 use crate::{recording::start_recording, upload::build_video_meta};
@@ -130,14 +130,14 @@ use crate::{
     upload::InstantMultipartUpload,
 };
 use exit_shutdown::{
-    AppExitAction, ExitRequestDecision, app_exit_action, collect_device_inventory,
-    handle_exit_requested, run_while_active,
+    app_exit_action, collect_device_inventory, handle_exit_requested, run_while_active,
+    AppExitAction, ExitRequestDecision,
 };
 use futures::FutureExt;
 use std::panic::AssertUnwindSafe;
 #[cfg(target_os = "macos")]
 use tauri::menu::{
-    AboutMetadata, HELP_SUBMENU_ID, Menu, MenuItem, PredefinedMenuItem, Submenu, WINDOW_SUBMENU_ID,
+    AboutMetadata, Menu, MenuItem, PredefinedMenuItem, Submenu, HELP_SUBMENU_ID, WINDOW_SUBMENU_ID,
 };
 
 type FinalizingRecordingsMap =
@@ -768,8 +768,7 @@ fn camera_preview_error_message(err: &str) -> String {
         return "此摄像头未报告可用的采集格式。".to_string();
     }
 
-    "所选摄像头无法启动。请选择其他摄像头或重新连接此摄像头。"
-        .to_string()
+    "所选摄像头无法启动。请选择其他摄像头或重新连接此摄像头。".to_string()
 }
 
 fn emit_camera_preview_error(app_handle: &AppHandle, message: String) {
@@ -1011,10 +1010,9 @@ impl App {
         }
 
         let (title, body) = match kind {
-            RecordingInputKind::Microphone => (
-                "麦克风已断开",
-                "录制继续。麦克风重新连接前将使用静音。",
-            ),
+            RecordingInputKind::Microphone => {
+                ("麦克风已断开", "录制继续。麦克风重新连接前将使用静音。")
+            }
             RecordingInputKind::Camera => (
                 "摄像头已断开",
                 "录制在无摄像头情况下继续。设备重新连接后摄像头浮层将恢复。",
@@ -4156,8 +4154,8 @@ async fn get_display_frame_for_cropping(
     fps: u32,
 ) -> Result<Vec<u8>, String> {
     use cap_project::ClipOffsets;
-    use cap_rendering::{PixelFormat, cpu_yuv};
-    use image::{ImageEncoder, codecs::jpeg::JpegEncoder};
+    use cap_rendering::{cpu_yuv, PixelFormat};
+    use image::{codecs::jpeg::JpegEncoder, ImageEncoder};
     use std::io::Cursor;
     use std::time::Instant;
 

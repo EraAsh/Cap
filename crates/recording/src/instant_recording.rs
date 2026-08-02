@@ -1,21 +1,21 @@
 #[cfg(target_os = "macos")]
 use crate::SendableShareableContent;
 use crate::{
-    RecordingBaseInputs,
     capture_pipeline::{
-        MakeCapturePipeline, ScreenCaptureMethod, Stop, target_to_display_and_crop,
+        target_to_display_and_crop, MakeCapturePipeline, ScreenCaptureMethod, Stop,
     },
     feeds::microphone::MicrophoneFeedLock,
     output_pipeline::{self, OutputPipeline},
     resolution_limits::ensure_even,
     sources::screen_capture::{ScreenCaptureConfig, ScreenCaptureTarget},
+    RecordingBaseInputs,
 };
 use anyhow::Context as _;
 use cap_media_info::VideoInfo;
 use cap_project::InstantRecordingMeta;
 use cap_timestamp::Timestamps;
 use cap_utils::ensure_dir;
-use kameo::{Actor as _, prelude::*};
+use kameo::{prelude::*, Actor as _};
 use std::{
     path::PathBuf,
     sync::Arc,

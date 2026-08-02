@@ -1,8 +1,9 @@
 use crate::{
-    NewScreenshotAdded, NewStudioRecordingAdded, RecordingStarted, RecordingStopped,
-    RequestOpenSettings, recording,
+    recording,
     recording_settings::{RecordingSettingsStore, RecordingTargetMode},
     windows::ShowCapWindow,
+    NewScreenshotAdded, NewStudioRecordingAdded, RecordingStarted, RecordingStopped,
+    RequestOpenSettings,
 };
 use cap_recording::RecordingMode;
 
@@ -12,13 +13,13 @@ use std::{
     path::PathBuf,
     sync::{Arc, Mutex},
 };
-use tauri::Manager;
 use tauri::menu::{IconMenuItem, MenuId, PredefinedMenuItem, Submenu};
+use tauri::Manager;
 use tauri::{
-    AppHandle,
     image::Image,
     menu::{Menu, MenuItem},
     tray::{TrayIcon, TrayIconBuilder},
+    AppHandle,
 };
 use tauri_plugin_dialog::DialogExt;
 use tauri_plugin_opener::OpenerExt;
@@ -934,9 +935,7 @@ pub fn create_tray(app: &AppHandle) -> tauri::Result<()> {
                         match crate::logging::upload_log_file(&app).await {
                             Ok(_) => {
                                 tracing::info!("日志上传成功");
-                                app.dialog()
-                                    .message("日志上传成功")
-                                    .show(|_| {});
+                                app.dialog().message("日志上传成功").show(|_| {});
                             }
                             Err(e) => {
                                 tracing::error!("日志上传失败: {e:#}");

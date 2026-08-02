@@ -1,8 +1,9 @@
 use crate::{
-    App, ArcLock, RequestOpenRecordingPicker, RequestStartRecording, recording,
+    recording,
     recording_settings::{RecordingSettingsStore, RecordingTargetMode},
     tray,
     windows::ShowCapWindow,
+    App, ArcLock, RequestOpenRecordingPicker, RequestStartRecording,
 };
 use cap_recording::feeds::microphone::MicrophoneFeed;
 use cap_recording::screen_capture::ScreenCaptureTarget;

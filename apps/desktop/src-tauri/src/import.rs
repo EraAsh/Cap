@@ -1,10 +1,10 @@
 use cap_enc_ffmpeg::{
-    AudioEncoder,
     h264::{H264EncoderBuilder, H264Preset},
     opus::OpusEncoder,
     remux::{get_media_duration, probe_video_can_decode},
+    AudioEncoder,
 };
-use cap_media_info::{AudioInfo, FFRational, Pixel, VideoInfo, ensure_even};
+use cap_media_info::{ensure_even, AudioInfo, FFRational, Pixel, VideoInfo};
 use cap_project::{
     AudioMeta, ClipConfiguration, CursorEvents, CursorMeta, Cursors, InstantRecordingMeta,
     MultipleSegment, MultipleSegments, Platform, ProjectConfiguration, RecordingMeta,
@@ -12,9 +12,9 @@ use cap_project::{
     TimelineConfiguration, TimelineSegment, VideoMeta, XY,
 };
 use ffmpeg::{
-    ChannelLayout,
     codec::{self as avcodec},
     format::{self as avformat},
+    ChannelLayout,
 };
 use image::ImageEncoder;
 use relative_path::{Component as RelativeComponent, RelativePathBuf};
@@ -295,9 +295,7 @@ fn ensure_multiple_segments(meta: &mut RecordingMeta) -> Result<&mut MultipleSeg
 
     match studio_meta.as_mut() {
         StudioRecordingMeta::MultipleSegments { inner } => Ok(inner),
-        StudioRecordingMeta::SingleSegment { .. } => {
-            Err("规范化项目录制片段失败".to_string())
-        }
+        StudioRecordingMeta::SingleSegment { .. } => Err("规范化项目录制片段失败".to_string()),
     }
 }
 
@@ -1224,9 +1222,7 @@ fn transcode_video(
                     let ret =
                         unsafe { ffmpeg::ffi::av_frame_get_buffer(scaled_frame.as_mut_ptr(), 0) };
                     if ret < 0 {
-                        return Err(ImportError::TranscodeFailed(
-                            "分配帧缓冲区失败".to_string(),
-                        ));
+                        return Err(ImportError::TranscodeFailed("分配帧缓冲区失败".to_string()));
                     }
 
                     scaler.run(&video_frame, &mut scaled_frame)?;
@@ -1291,9 +1287,7 @@ fn transcode_video(
                 scaled_frame.set_height(output_height);
                 let ret = unsafe { ffmpeg::ffi::av_frame_get_buffer(scaled_frame.as_mut_ptr(), 0) };
                 if ret < 0 {
-                    return Err(ImportError::TranscodeFailed(
-                        "分配帧缓冲区失败".to_string(),
-                    ));
+                    return Err(ImportError::TranscodeFailed("分配帧缓冲区失败".to_string()));
                 }
                 scaler.run(&video_frame, &mut scaled_frame)?;
                 scaled_frame.set_pts(video_frame.pts());
@@ -1879,8 +1873,7 @@ pub async fn add_existing_recording_to_editor(
     } else {
         return Err("选择 MP4 文件或 Cap 项目文件夹".to_string());
     };
-    let imported_count =
-        u32::try_from(imported_count).map_err(|_| "导入的录制过多".to_string())?;
+    let imported_count = u32::try_from(imported_count).map_err(|_| "导入的录制过多".to_string())?;
 
     EditorInstances::remove(window).await;
 

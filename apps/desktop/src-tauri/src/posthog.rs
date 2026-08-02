@@ -1,7 +1,7 @@
 use std::{
     sync::{
-        OnceLock, PoisonError, RwLock,
         atomic::{AtomicBool, Ordering},
+        OnceLock, PoisonError, RwLock,
     },
     time::Duration,
 };

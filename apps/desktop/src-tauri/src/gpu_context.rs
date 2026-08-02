@@ -113,9 +113,7 @@ async fn init_gpu_inner() -> Option<SharedGpuContext> {
 
         (adapter, is_software_adapter)
     } else {
-        tracing::warn!(
-            "未找到硬件 GPU 适配器，正在尝试软件回退"
-        );
+        tracing::warn!("未找到硬件 GPU 适配器，正在尝试软件回退");
         let software_adapter = instance
             .request_adapter(&wgpu::RequestAdapterOptions {
                 power_preference: wgpu::PowerPreference::LowPower,

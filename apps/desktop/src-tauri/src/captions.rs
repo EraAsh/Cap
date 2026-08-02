@@ -1,9 +1,10 @@
 use anyhow::Result;
 use cap_audio::AudioData;
 use ffmpeg::{
-    ChannelLayout, codec as avcodec,
+    codec as avcodec,
     format::{self as avformat},
     software::resampling,
+    ChannelLayout,
 };
 use futures::StreamExt;
 #[cfg(not(all(target_os = "macos", target_arch = "x86_64")))]
@@ -2085,11 +2086,9 @@ pub async fn download_whisper_model(
         )
         .await;
         let final_status = match &result {
-            Ok(_) => model_download_status(
-                ModelDownloadState::Completed,
-                100.0,
-                "下载完成".to_string(),
-            ),
+            Ok(_) => {
+                model_download_status(ModelDownloadState::Completed, 100.0, "下载完成".to_string())
+            }
             Err(error) => model_download_status(
                 ModelDownloadState::Failed,
                 0.0,
@@ -2435,11 +2434,9 @@ pub async fn download_parakeet_model(app: AppHandle, output_dir: String) -> Resu
         let result =
             download_parakeet_model_to_dir(&download_app, &validated_dir, &download_key).await;
         let final_status = match &result {
-            Ok(_) => model_download_status(
-                ModelDownloadState::Completed,
-                100.0,
-                "下载完成".to_string(),
-            ),
+            Ok(_) => {
+                model_download_status(ModelDownloadState::Completed, 100.0, "下载完成".to_string())
+            }
             Err(error) => model_download_status(
                 ModelDownloadState::Failed,
                 0.0,
@@ -2728,8 +2725,9 @@ fn mix_samples(dest: &mut [f32], source: &[f32]) -> usize {
 #[cfg(test)]
 mod tests {
     use super::{
-        AudioExtractionSource, CaptionWord, caption_text_from_words, caption_word_chunks,
-        normalize_caption_words, resolve_audio_extraction_source, resolve_path_with_base,
+        caption_text_from_words, caption_word_chunks, normalize_caption_words,
+        resolve_audio_extraction_source, resolve_path_with_base, AudioExtractionSource,
+        CaptionWord,
     };
     use tempfile::tempdir;
 

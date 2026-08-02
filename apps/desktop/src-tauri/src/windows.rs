@@ -11,8 +11,8 @@ use std::{
     path::PathBuf,
     str::FromStr,
     sync::{
-        Arc, Mutex,
         atomic::{AtomicU32, AtomicU64, Ordering},
+        Arc, Mutex,
     },
     time::Duration,
 };
@@ -25,11 +25,10 @@ use tokio::sync::RwLock;
 use tracing::{debug, error, info, instrument, warn};
 
 #[cfg(target_os = "macos")]
-use crate::panel_manager::{PanelManager, PanelState, PanelWindowType, is_window_handle_valid};
+use crate::panel_manager::{is_window_handle_valid, PanelManager, PanelState, PanelWindowType};
 
 use crate::{
-    App, ArcLock, CameraWindowCloseGate, CameraWindowPositionGuard, MainWindowReadyState,
-    NewNotification, RequestSetTargetMode, camera_preview_error_message,
+    camera_preview_error_message,
     editor_window::PendingEditorInstances,
     emit_camera_preview_clear, emit_camera_preview_error, fake_window,
     general_settings::{self, AppTheme, GeneralSettingsStore},
@@ -39,6 +38,8 @@ use crate::{
     screenshot_editor::PendingScreenshotEditorInstances,
     target_select_overlay::WindowFocusManager,
     window_exclusion::WindowExclusion,
+    App, ArcLock, CameraWindowCloseGate, CameraWindowPositionGuard, MainWindowReadyState,
+    NewNotification, RequestSetTargetMode,
 };
 use cap_recording::{feeds, sources::screen_capture::ScreenCaptureTarget};
 
@@ -94,8 +95,8 @@ fn is_system_dark_mode() -> bool {
 
 #[cfg(target_os = "windows")]
 fn is_system_dark_mode() -> bool {
-    use winreg::RegKey;
     use winreg::enums::HKEY_CURRENT_USER;
+    use winreg::RegKey;
 
     let hkcu = RegKey::predef(HKEY_CURRENT_USER);
     if let Ok(key) =
@@ -2165,7 +2166,8 @@ impl ShowCapWindow {
                 };
 
                 #[cfg(target_os = "macos")]
-                let Some(mut create_guard) = create_guard else {
+                let Some(mut create_guard) = create_guard
+                else {
                     let panel_manager = app.state::<PanelManager>();
                     let state = panel_manager.get_state(PanelWindowType::Camera).await;
                     warn!("Camera window creation blocked, current state: {:?}", state);
@@ -3285,7 +3287,7 @@ fn position_traffic_lights_impl(
     window: &tauri::Window,
     controls_inset: Option<LogicalPosition<f64>>,
 ) {
-    use crate::platform::delegates::{UnsafeWindowHandle, position_window_controls};
+    use crate::platform::delegates::{position_window_controls, UnsafeWindowHandle};
     let c_win = window.clone();
     window
         .run_on_main_thread(move || {

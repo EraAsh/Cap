@@ -10,14 +10,15 @@ use cap_recording::screen_capture::ScreenCaptureTarget;
 
 use crate::exit_shutdown::{abort_join_handles, read_target_under_cursor};
 use crate::{
-    App, ArcLock, general_settings,
+    general_settings,
     recording_settings::RecordingTargetMode,
     window_exclusion::WindowExclusion,
-    windows::{CapWindowId, ShowCapWindow, hide_overlay, show_overlay},
+    windows::{hide_overlay, show_overlay, CapWindowId, ShowCapWindow},
+    App, ArcLock,
 };
 use scap_targets::{
-    Display, DisplayId, Window, WindowId,
     bounds::{LogicalBounds, LogicalSize, PhysicalSize},
+    Display, DisplayId, Window, WindowId,
 };
 use serde::Serialize;
 use specta::Type;
@@ -269,9 +270,7 @@ pub async fn update_camera_overlay_bounds(
     width: f64,
     height: f64,
 ) -> Result<(), String> {
-    let window = CapWindowId::Camera
-        .get(&app)
-        .ok_or("未找到摄像头窗口")?;
+    let window = CapWindowId::Camera.get(&app).ok_or("未找到摄像头窗口")?;
 
     let width_u32 = width as u32;
     let height_u32 = height as u32;
@@ -401,8 +400,8 @@ pub async fn focus_window(window_id: WindowId) -> Result<(), String> {
     #[cfg(target_os = "windows")]
     {
         use windows::Win32::UI::WindowsAndMessaging::{
-            GetWindowPlacement, IsIconic, SW_RESTORE, SetForegroundWindow, SetWindowPlacement,
-            ShowWindow, WINDOWPLACEMENT,
+            GetWindowPlacement, IsIconic, SetForegroundWindow, SetWindowPlacement, ShowWindow,
+            SW_RESTORE, WINDOWPLACEMENT,
         };
 
         let hwnd = window.raw_handle().inner();

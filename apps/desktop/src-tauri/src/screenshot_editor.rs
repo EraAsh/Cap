@@ -1,7 +1,7 @@
-use crate::PendingScreenshots;
-use crate::frame_ws::{WSFrame, create_watch_frame_ws};
+use crate::frame_ws::{create_watch_frame_ws, WSFrame};
 use crate::gpu_context;
 use crate::windows::{CapWindowId, ScreenshotEditorWindowIds};
+use crate::PendingScreenshots;
 use cap_project::{
     ProjectConfiguration, RecordingMeta, RecordingMetaInner, SingleSegment, StudioRecordingMeta,
     VideoMeta,
@@ -11,7 +11,7 @@ use cap_rendering::{
     RendererLayers, ZoomTransformTimeline,
 };
 use image::{
-    GenericImageView, ImageEncoder, RgbImage, buffer::ConvertBuffer, codecs::png::PngEncoder,
+    buffer::ConvertBuffer, codecs::png::PngEncoder, GenericImageView, ImageEncoder, RgbImage,
 };
 use relative_path::RelativePathBuf;
 use serde::{Deserialize, Serialize};
@@ -21,10 +21,10 @@ use std::str::FromStr;
 use std::time::Instant;
 use std::{collections::HashMap, ops::Deref, path::PathBuf, sync::Arc};
 use tauri::{
-    AppHandle, Manager, Runtime, Window,
     ipc::{CommandArg, InvokeError},
+    AppHandle, Manager, Runtime, Window,
 };
-use tokio::sync::{RwLock, watch};
+use tokio::sync::{watch, RwLock};
 use tokio_util::sync::CancellationToken;
 
 const MAX_DIMENSION: u32 = 16_384;
@@ -1045,10 +1045,10 @@ fn create_screenshot_ocr_image(
     image_height: u32,
     region: ScreenshotOcrRegion,
 ) -> Result<ScreenshotOcrImage, String> {
-    let image_width = usize::try_from(image_width)
-        .map_err(|_| "截图宽度超出 OCR 限制".to_string())?;
-    let image_height = usize::try_from(image_height)
-        .map_err(|_| "截图高度超出 OCR 限制".to_string())?;
+    let image_width =
+        usize::try_from(image_width).map_err(|_| "截图宽度超出 OCR 限制".to_string())?;
+    let image_height =
+        usize::try_from(image_height).map_err(|_| "截图高度超出 OCR 限制".to_string())?;
     let region_x =
         usize::try_from(region.x).map_err(|_| "OCR region x is too large".to_string())?;
     let region_y =
@@ -1305,7 +1305,7 @@ impl Drop for WindowsRuntimeGuard {
 
 #[cfg(target_os = "windows")]
 fn initialize_windows_runtime() -> Result<WindowsRuntimeGuard, String> {
-    use windows::Win32::System::WinRT::{RO_INIT_MULTITHREADED, RoInitialize};
+    use windows::Win32::System::WinRT::{RoInitialize, RO_INIT_MULTITHREADED};
 
     unsafe { RoInitialize(RO_INIT_MULTITHREADED) }
         .map_err(|e| format!("Windows OCR runtime failed: {e}"))?;

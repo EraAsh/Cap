@@ -1,6 +1,6 @@
 use serde::Deserialize;
-use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::Arc;
 use std::time::Instant;
 use std::time::{SystemTime, UNIX_EPOCH};
 use tokio::sync::{broadcast, watch};
@@ -193,8 +193,8 @@ async fn create_watch_frame_ws_inner(
 ) -> (u16, CancellationToken) {
     use axum::{
         extract::{
-            Query, State,
             ws::{Message, WebSocket, WebSocketUpgrade},
+            Query, State,
         },
         response::IntoResponse,
         routing::get,
@@ -393,8 +393,8 @@ async fn create_watch_frame_ws_inner(
 pub async fn create_frame_ws(frame_tx: broadcast::Sender<WSFrame>) -> (u16, CancellationToken) {
     use axum::{
         extract::{
-            State,
             ws::{Message, WebSocket, WebSocketUpgrade},
+            State,
         },
         response::IntoResponse,
         routing::get,

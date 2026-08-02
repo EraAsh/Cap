@@ -1,6 +1,6 @@
 use crate::{
-    ArcLock, feeds::microphone::MicrophoneFeed, general_settings::GeneralSettingsStore,
-    permissions, web_api::ManagerExt,
+    feeds::microphone::MicrophoneFeed, general_settings::GeneralSettingsStore, permissions,
+    web_api::ManagerExt, ArcLock,
 };
 use cap_recording::diagnostics::{
     CameraDiagnostics, CameraFormatInfo, DisplayDiagnostics, HardwareInfo, MicrophoneDiagnostics,

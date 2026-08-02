@@ -1,6 +1,6 @@
 use cap_recording::NativeCameraFrame;
 use cap_rendering::iosurface_texture::{
-    IOSurfaceTextureCache, IOSurfaceTextureError, import_metal_texture_to_wgpu,
+    import_metal_texture_to_wgpu, IOSurfaceTextureCache, IOSurfaceTextureError,
 };
 
 // Converts IOSurface-backed camera frames into an RGBA destination texture
