@@ -35,7 +35,7 @@ jobs:
 
       - name: Build desktop (Windows)
         shell: bash
-        run: pnpm --filter @cap/desktop tauri build -- --no-bundle
+        run: pnpm --filter @cap/desktop exec tauri build --no-bundle
         env:
           CI: "false"
 
