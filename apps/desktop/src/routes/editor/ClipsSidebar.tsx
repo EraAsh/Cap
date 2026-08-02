@@ -547,7 +547,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 					action: () => void pickCapRecording(),
 				}),
 				await MenuItem.new({
-					text: "MP4 Video…",
+					text: "MP4 视频…",
 					action: () => void pickMp4(),
 				}),
 			],

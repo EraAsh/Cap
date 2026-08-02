@@ -10,7 +10,6 @@ import {
 	type PhysicalPosition,
 	type PhysicalSize,
 } from "@tauri-apps/api/dpi";
-import { emit } from "@tauri-apps/api/event";
 import {
 	CheckMenuItem,
 	Menu,
@@ -1938,8 +1937,8 @@ function RecordingControls(props: {
 
 	const startRecording = async (confirmedWithoutMicrophone = false) => {
 		if (rawOptions.mode === "instant" && !auth.data) {
-			emit("start-sign-in");
-			return;
+			setOptions({ mode: "studio" });
+			commands.setRecordingMode("studio");
 		}
 		if (startDisabled()) return;
 
@@ -2060,14 +2059,7 @@ function RecordingControls(props: {
 					},
 					checked: rawOptions.mode === "studio",
 				}),
-				await CheckMenuItem.new({
-					text: "即时模式",
-					action: () => {
-						setOptions("mode", "instant");
-						commands.setRecordingMode("instant");
-					},
-					checked: rawOptions.mode === "instant",
-				}),
+
 				await CheckMenuItem.new({
 					text: "截图模式",
 					action: () => {
@@ -2088,17 +2080,17 @@ function RecordingControls(props: {
 				generalSetings.data?.recordingCountdown === 0,
 		}),
 		await CheckMenuItem.new({
-			text: "3 seconds",
+			text: "3 秒",
 			action: () => generalSettingsStore.set({ recordingCountdown: 3 }),
 			checked: generalSetings.data?.recordingCountdown === 3,
 		}),
 		await CheckMenuItem.new({
-			text: "5 seconds",
+			text: "5 秒",
 			action: () => generalSettingsStore.set({ recordingCountdown: 5 }),
 			checked: generalSetings.data?.recordingCountdown === 5,
 		}),
 		await CheckMenuItem.new({
-			text: "10 seconds",
+			text: "10 秒",
 			action: () => generalSettingsStore.set({ recordingCountdown: 10 }),
 			checked: generalSetings.data?.recordingCountdown === 10,
 		}),
@@ -2179,13 +2171,17 @@ function RecordingControls(props: {
 											{(() => {
 												if (rawOptions.mode === "instant" && !auth.data)
 													return "登录以使用";
-												if (startLoading()) return "Preparing...";
+												if (startLoading()) return "准备中...";
 												if (rawOptions.mode === "screenshot") return "截图";
 												return "开始录制";
 											})()}
 										</span>
 										<span class="text-[11px] flex items-center text-nowrap gap-1 transition-opacity duration-200 text-white/90 font-light -mt-0.5">
-											{`${capitalize(rawOptions.mode)} Mode`}
+											{(() => {
+												if (rawOptions.mode === "instant") return "即时模式";
+												if (rawOptions.mode === "studio") return "工作室模式";
+												return "截图模式";
+											})()}
 										</span>
 									</div>
 								</div>

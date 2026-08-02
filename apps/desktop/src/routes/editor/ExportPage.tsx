@@ -52,10 +52,10 @@ export const COMPRESSION_OPTIONS: Array<{
 	value: ExportCompression;
 	bpp: number;
 }> = [
-	{ label: "Maximum", value: "Maximum", bpp: 0.3 },
+	{ label: "最高质量", value: "Maximum", bpp: 0.3 },
 	{ label: "社交媒体", value: "Social", bpp: 0.15 },
-	{ label: "Web", value: "Web", bpp: 0.08 },
-	{ label: "Potato", value: "Potato", bpp: 0.04 },
+	{ label: "网页", value: "Web", bpp: 0.08 },
+	{ label: "极低质量", value: "Potato", bpp: 0.04 },
 ];
 
 const COMPRESSION_TO_BPP: Record<ExportCompression, number> = {

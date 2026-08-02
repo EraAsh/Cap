@@ -621,7 +621,7 @@ export function Timeline(props: {
 		const menu = await Menu.new({
 			items: [
 				await MenuItem.new({
-					text: `Delete ${type} track`,
+					text: `删除${type}轨道`,
 					action: () => handleDeleteTrackLane(type, laneIndex),
 				}),
 			],

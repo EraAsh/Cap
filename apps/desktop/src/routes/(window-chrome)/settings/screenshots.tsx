@@ -174,7 +174,7 @@ export default function Screenshots() {
 							onClick={handleImportImage}
 						>
 							<IconLucideImport class="size-3.5" />
-							<span>Import image</span>
+							<span>导入图片</span>
 						</Button>
 					}
 				>
@@ -182,9 +182,7 @@ export default function Screenshots() {
 						when={screenshots.data && screenshots.data.length > 0}
 						fallback={
 							<div class="flex flex-1 items-center justify-center">
-								<p class="text-center text-(--text-tertiary)">
-									No screenshots found
-								</p>
+								<p class="text-center text-(--text-tertiary)">暂无截图</p>
 							</div>
 						}
 					>

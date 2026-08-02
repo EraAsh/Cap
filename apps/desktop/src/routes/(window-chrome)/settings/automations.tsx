@@ -1373,8 +1373,8 @@ function ExportParams(props: {
 						value={a.profile.format}
 						options={[
 							{ value: "mp4", label: "MP4" },
-							{ value: "gif", label: "Gif" },
-							{ value: "mov", label: "Mov" },
+							{ value: "gif", label: "GIF" },
+							{ value: "mov", label: "MOV" },
 						]}
 						onChange={(v) =>
 							updateProfile((p) => {
@@ -1406,7 +1406,7 @@ function ExportParams(props: {
 						value={String(a.profile.fps)}
 						options={FPS_PRESETS.map((f) => ({
 							value: String(f),
-							label: `${f} FPS`,
+							label: `${f} 帧/秒`,
 						}))}
 						onChange={(v) =>
 							updateProfile((p) => {
@@ -1421,8 +1421,8 @@ function ExportParams(props: {
 							value={a.profile.compression ?? "web"}
 							options={[
 								{ value: "maximum", label: "最高" },
-								{ value: "social", label: "Social" },
-								{ value: "web", label: "Web" },
+								{ value: "social", label: "社交媒体" },
+								{ value: "web", label: "网页" },
 								{ value: "potato", label: "极低" },
 							]}
 							onChange={(v) =>

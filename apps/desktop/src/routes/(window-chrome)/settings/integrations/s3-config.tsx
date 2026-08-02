@@ -96,9 +96,7 @@ export default function S3ConfigPage() {
 				clearTimeout(timeoutId);
 
 				if (response.status !== 200)
-					throw new Error(
-						`S3 connection test failed. Check your config and network connection.`,
-					);
+					throw new Error(`S3 连接测试失败，请检查配置和网络连接。`);
 
 				return response;
 			} catch (error) {

@@ -3231,15 +3231,9 @@ function Page() {
 										</span>
 									}
 								>
-									<button
-										type="button"
-										onClick={() => {
-											void commands.showWindow("Upgrade");
-										}}
-										class="text-[0.6rem] ml-2 rounded-lg border border-gray-5 px-1 py-0.5 bg-gray-3 hover:bg-gray-5"
-									>
-										Personal
-									</button>
+									<span class="text-[0.6rem] ml-2 rounded-lg border border-gray-5 px-1 py-0.5 bg-gray-3">
+										本地版
+									</span>
 								</Show>
 							</Suspense>
 						</ErrorBoundary>
