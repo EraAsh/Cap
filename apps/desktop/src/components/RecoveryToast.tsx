@@ -94,7 +94,7 @@ export function RecoveryToast() {
 										const e = error();
 										if (e instanceof Error) return e.message;
 										if (typeof e === "string") return e;
-										return "Recovery failed. The recording may be corrupted.";
+										return "恢复失败，录制可能已损坏";
 									};
 									return (
 										<p class="text-red-11 text-[10px] mt-1">{errorMessage()}</p>

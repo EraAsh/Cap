@@ -8,7 +8,7 @@ export async function beginExportSessionGuard() {
 		if (released) return;
 		released = true;
 		await commands.endExportSession().catch((error) => {
-			console.error("Failed to release export session guard", error);
+			console.error("释放导出会话锁失败", error);
 		});
 	};
 }
@@ -45,7 +45,7 @@ export function createExportTask(
 
 async function cancelCurrentWindowExports() {
 	await commands.cancelCurrentWindowExports().catch((error) => {
-		console.error("Failed to cancel export", error);
+		console.error("取消导出失败", error);
 	});
 }
 
@@ -88,7 +88,7 @@ export function createExportToFileTask(
 	const promise = commands
 		.exportVideoToFile(projectPath, progress, settings, fileName, fileType)
 		.then((savePath) => {
-			if (cancelled) throw new Error("Export cancelled");
+			if (cancelled) throw new Error("导出已取消");
 			if (!copying) {
 				copying = true;
 				onCopying?.();

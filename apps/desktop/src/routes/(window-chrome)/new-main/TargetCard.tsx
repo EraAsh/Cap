@@ -145,7 +145,7 @@ export default function TargetCard(props: TargetCardProps) {
 		if (target) return target.owner_name;
 		const recording = recordingTarget();
 		if (recording) {
-			return recording.mode === "studio" ? "Studio Mode" : "Instant Mode";
+			return recording.mode === "studio" ? "工作室模式" : "即时模式";
 		}
 		return undefined;
 	});
@@ -231,10 +231,10 @@ export default function TargetCard(props: TargetCardProps) {
 		if (!screenshot) return;
 		try {
 			await commands.copyScreenshotToClipboard(screenshot.path);
-			toast.success("Screenshot copied to clipboard");
+			toast.success("截图已复制到剪贴板");
 		} catch (error) {
-			console.error("Failed to copy screenshot:", error);
-			toast.error("Failed to copy screenshot");
+			console.error("复制截图失败：", error);
+			toast.error("复制截图失败");
 		}
 	};
 
@@ -254,10 +254,10 @@ export default function TargetCard(props: TargetCardProps) {
 			});
 			if (!path) return;
 			await commands.copyFileToPath(screenshot.path, path);
-			toast.success("Screenshot saved");
+			toast.success("截图已保存");
 		} catch (error) {
-			console.error("Failed to save screenshot:", error);
-			toast.error("Failed to save screenshot");
+			console.error("保存截图失败：", error);
+			toast.error("保存截图失败");
 		}
 	};
 
@@ -282,11 +282,11 @@ export default function TargetCard(props: TargetCardProps) {
 					}
 				},
 			);
-			toast.success("Share link copied to clipboard", { id: toastId });
+			toast.success("分享链接已复制到剪贴板", { id: toastId });
 		} catch (error) {
-			console.error("Failed to create screenshot share link:", error);
+			console.error("创建截图分享链接失败：", error);
 			const message = error instanceof Error ? error.message : String(error);
-			toast.error(message || "Failed to create share link", { id: toastId });
+			toast.error(message || "创建分享链接失败", { id: toastId });
 		} finally {
 			setIsSharingScreenshot(false);
 			setScreenshotShareStatus("idle");
@@ -314,8 +314,8 @@ export default function TargetCard(props: TargetCardProps) {
 		const recording = recordingTarget();
 		if (!recording) return;
 		openRecordingFolder(recording.path, recording.mode).catch((error) => {
-			console.error("Failed to open recording folder:", error);
-			toast.error("Failed to open folder");
+			console.error("打开录制文件夹失败：", error);
+			toast.error("打开文件夹失败");
 		});
 	};
 
@@ -323,7 +323,7 @@ export default function TargetCard(props: TargetCardProps) {
 		e.stopPropagation();
 		const recording = recordingTarget();
 		if (!recording) return;
-		if (!(await ask("Are you sure you want to delete this recording?"))) return;
+		if (!(await ask("确定要删除此录制吗？"))) return;
 		await remove(recording.path, { recursive: true });
 		recordingProps()?.onRefetch?.();
 	};
@@ -409,7 +409,7 @@ export default function TargetCard(props: TargetCardProps) {
 						<div class="flex items-center gap-1 px-1.5 py-0.5 rounded-sm bg-red-9/20 text-red-11">
 							<IconPhWarningBold class="size-2.5" />
 							<span class="text-[10px] font-medium">
-								{recordingFailed() ? "Recording failed" : "Upload failed"}
+								{recordingFailed() ? "录制失败" : "上传失败"}
 							</span>
 						</div>
 					</div>
@@ -445,7 +445,7 @@ export default function TargetCard(props: TargetCardProps) {
 								<IconLucideEdit class="size-3.5" />
 							</div>
 						</Tooltip>
-						<Tooltip content="Copy to clipboard">
+						<Tooltip content="复制到剪贴板">
 							<div
 								role="button"
 								tabIndex={-1}
@@ -455,7 +455,7 @@ export default function TargetCard(props: TargetCardProps) {
 								<IconLucideCopy class="size-3.5" />
 							</div>
 						</Tooltip>
-						<Tooltip content="Save as...">
+						<Tooltip content="另存为...">
 							<div
 								role="button"
 								tabIndex={-1}
@@ -524,7 +524,7 @@ export default function TargetCard(props: TargetCardProps) {
 										when={hasProgress}
 										fallback={
 											<Tooltip
-												content={uploadFailed ? "Retry upload" : "Reupload"}
+												content={uploadFailed ? "重试上传" : "Reupload"}
 											>
 												<div
 													role="button"
@@ -558,7 +558,7 @@ export default function TargetCard(props: TargetCardProps) {
 										</div>
 									</Tooltip>
 								</Show>
-								<Tooltip content="Open folder">
+								<Tooltip content="打开文件夹">
 									<div
 										role="button"
 										tabIndex={-1}

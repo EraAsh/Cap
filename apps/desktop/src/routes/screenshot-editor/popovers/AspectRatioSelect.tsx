@@ -66,7 +66,7 @@ export function AspectRatioSelect() {
 			<EditorButton<typeof KSelect.Trigger>
 				as={KSelect.Trigger}
 				class="w-20"
-				tooltipText="Aspect Ratio"
+				tooltipText="宽高比"
 				leftIcon={<IconCapLayout class="size-4" />}
 				rightIcon={
 					<KSelect.Icon>

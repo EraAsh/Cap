@@ -26,7 +26,7 @@ describe("getTeleprompterWindowOptions", () => {
 
 	it("refuses to create a Windows window without the process browser arguments", () => {
 		expect(() => getTeleprompterWindowOptions("windows")).toThrow(
-			"Missing Windows WebView2 browser arguments",
+			"缺少 Windows WebView2 浏览器参数",
 		);
 	});
 });

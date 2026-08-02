@@ -1324,7 +1324,7 @@ export function Cropper(
 				<button
 					type="button"
 					class="absolute inset-0 z-20 bg-transparent p-0 m-0 border-0"
-					aria-label="Start selection"
+					aria-label="开始选择"
 					onPointerDown={onOverlayPointerDown}
 					style={{ cursor: cursorStyle() ?? "crosshair" }}
 				/>
@@ -1581,7 +1581,7 @@ export function createCropOptionsMenuItems(options: {
 		),
 		{ item: "Separator" } satisfies PredefinedMenuItemOptions,
 		{
-			text: "Snap to ratios",
+			text: "吸附比例",
 			checked: options.snapToRatioEnabled,
 			action: () => options.onSnapToRatioSet(!options.snapToRatioEnabled),
 		} satisfies CheckMenuItemOptions,

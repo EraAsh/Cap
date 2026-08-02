@@ -307,10 +307,10 @@ export function createCameraMutation() {
 				if (
 					message.includes("DeviceNotFound") ||
 					message.includes("CameraTimeout") ||
-					message.includes("Failed to initialize camera")
+					message.includes("初始化摄像头失败")
 				) {
 					setOptions("cameraID", null);
-					console.warn("Selected camera is unavailable.");
+					console.warn("选中的摄像头不可用");
 					return;
 				}
 
@@ -356,7 +356,7 @@ export function createCustomDomainQuery() {
 				});
 				if (response.status === 200) return response.body;
 			} catch (error) {
-				console.error("Error fetching custom domain:", error);
+				console.error("获取自定义域名出错：", error);
 				return { custom_domain: null, domain_verified: null };
 			}
 		},

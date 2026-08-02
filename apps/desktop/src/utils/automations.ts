@@ -49,39 +49,39 @@ export type AutomationRule = DeepRequired<AutomationRuleBinding>;
 export type AutomationsStore = DeepRequired<AutomationsStoreBinding>;
 
 export const TRIGGER_LABELS: Record<Trigger, string> = {
-	screenshotTaken: "On screenshot taken",
-	studioRecordingFinished: "On studio recording finished",
-	instantRecordingFinished: "On instant recording finished",
-	recordingStarted: "On recording started",
-	uploadCompleted: "On upload completed",
-	videoImported: "On video imported",
-	recordingDeleted: "On recording deleted",
+	screenshotTaken: "截图时",
+	studioRecordingFinished: "工作室录制完成时",
+	instantRecordingFinished: "即时录制完成时",
+	recordingStarted: "录制开始时",
+	uploadCompleted: "上传完成时",
+	videoImported: "视频导入时",
+	recordingDeleted: "录制删除时",
 };
 
 export const ACTION_LABELS: Record<ActionType, string> = {
-	copyToClipboard: "Copy to clipboard",
-	saveToLocation: "Save to location",
-	export: "Export with profile",
-	upload: "Upload + copy link",
-	revealInFileManager: "Reveal in file manager",
+	copyToClipboard: "复制到剪贴板",
+	saveToLocation: "保存到位置",
+	export: "使用配置文件导出",
+	upload: "上传并复制链接",
+	revealInFileManager: "在文件管理器中显示",
 	openFile: "Open file",
-	runCommand: "Run command",
-	webhook: "Send webhook",
-	recognizeTextToClipboard: "Recognize text (OCR) to clipboard",
-	notify: "Show notification",
-	openEditor: "Open editor",
-	skipEditor: "Skip editor (headless)",
-	applyPreset: "Apply editor preset",
-	deleteLocalFiles: "Delete local files",
+	runCommand: "运行命令",
+	webhook: "发送 Webhook",
+	recognizeTextToClipboard: "识别文字（OCR）到剪贴板",
+	notify: "显示通知",
+	openEditor: "打开编辑器",
+	skipEditor: "跳过编辑器（无界面）",
+	applyPreset: "应用编辑器预设",
+	deleteLocalFiles: "删除本地文件",
 };
 
 export const CONDITION_LABELS: Record<Condition["type"], string> = {
-	captureTargetIs: "Capture target is",
-	recordingModeIs: "Recording mode is",
-	durationAtLeast: "Duration at least (seconds)",
-	durationAtMost: "Duration at most (seconds)",
-	windowTitleContains: "Window title contains",
-	organizationIs: "Organization is",
+	captureTargetIs: "捕获目标是",
+	recordingModeIs: "录制模式是",
+	durationAtLeast: "最短时长（秒）",
+	durationAtMost: "最长时长（秒）",
+	windowTitleContains: "窗口标题包含",
+	organizationIs: "组织是",
 };
 
 export const DANGEROUS_ACTIONS: ActionType[] = ["runCommand", "webhook"];

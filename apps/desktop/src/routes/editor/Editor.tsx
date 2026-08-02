@@ -199,7 +199,7 @@ export function Editor() {
 			}
 		}
 		if (importAborted()) return;
-		console.error("Import verification timed out");
+		console.error("导入验证超时");
 		window.location.reload();
 	};
 
@@ -218,7 +218,7 @@ export function Editor() {
 					<ImportProgress
 						projectPath={path()}
 						onComplete={handleImportComplete}
-						onError={(error) => console.error("Import failed:", error)}
+						onError={(error) => console.error("导入失败：", error)}
 					/>
 				)}
 			</Match>
@@ -310,7 +310,7 @@ function Inner() {
 	});
 
 	const appendRecordedClip = async (recordingPath: string) => {
-		const toastId = toast.loading("Adding clip…");
+		const toastId = toast.loading("正在添加片段…");
 		try {
 			if (editorState.playing) {
 				await commands.stopPlayback();
@@ -319,7 +319,7 @@ function Inner() {
 			await commands.setProjectConfig(serializeProjectConfiguration(project));
 			await commands.addExistingRecordingToEditor(recordingPath);
 			await commands.deleteRecordingDirectory(recordingPath).catch(() => {});
-			toast.success("Clip added", { id: toastId });
+			toast.success("片段已添加", { id: toastId });
 			window.location.reload();
 		} catch (error) {
 			const message = error instanceof Error ? error.message : String(error);
@@ -380,10 +380,10 @@ function Inner() {
 				const resumeExport = await ask(
 					"An export is currently running. Keep this editor open to continue it, or quit the editor and cancel the export.",
 					{
-						title: "Export in Progress",
+						title: "导出进行中",
 						kind: "warning",
-						okLabel: "Resume Export",
-						cancelLabel: "Quit Editor",
+						okLabel: "继续导出",
+						cancelLabel: "退出编辑器",
 					},
 				);
 
@@ -701,7 +701,7 @@ function Inner() {
 											"bg-gray-3/55 dark:bg-gray-4/50": isResizingTimeline(),
 										}}
 										onMouseDown={handleTimelineResizeStart}
-										aria-label="Resize timeline height"
+										aria-label="调整时间轴高度"
 									>
 										<For each={TIMELINE_RESIZE_GRIP_MARKS}>
 											{() => (
@@ -743,7 +743,7 @@ function Inner() {
 									class="flex-none flex items-center justify-center cursor-col-resize select-none group z-10"
 									style={{ width: "12px" }}
 									onMouseDown={handleSplitResizeStart}
-									aria-label="Resize captions panel"
+									aria-label="调整字幕面板大小"
 									role="separator"
 									aria-orientation="vertical"
 								>
@@ -832,7 +832,7 @@ function Dialogs() {
 
 								return (
 									<DialogContent
-										title="Create Preset"
+										title="创建预设"
 										confirm={
 											<Dialog.ConfirmButton
 												disabled={createPreset.isPending}
@@ -846,10 +846,10 @@ function Dialogs() {
 										<Input
 											class="mt-2"
 											value={form.name}
-											placeholder="Enter preset name..."
+											placeholder="输入预设名称..."
 											onInput={(e) => setForm("name", e.currentTarget.value)}
 										/>
-										<Subfield name="Set as default" class="mt-4">
+										<Subfield name="设为默认" class="mt-4">
 											<Toggle
 												checked={form.default}
 												onChange={(checked) => setForm("default", checked)}
@@ -880,7 +880,7 @@ function Dialogs() {
 
 								return (
 									<DialogContent
-										title="Rename Preset"
+										title="重命名预设"
 										confirm={
 											<Dialog.ConfirmButton
 												disabled={renamePreset.isPending}
@@ -990,7 +990,7 @@ function Dialogs() {
 									})
 									.catch((error: unknown) => {
 										if (cancelled) return;
-										console.warn("Display frame fetch failed:", error);
+										console.warn("获取显示帧失败：", error);
 										setFrameError(true);
 									});
 
@@ -1310,7 +1310,7 @@ function Dialogs() {
 															>
 																<img
 																	class="block w-full h-full pointer-events-none select-none"
-																	alt="Current frame"
+																	alt="当前帧"
 																	onError={() => {
 																		const url = frameUrl();
 																		if (url) {

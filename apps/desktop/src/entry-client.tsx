@@ -8,7 +8,7 @@ function initPlatformClass() {
 			document.documentElement.classList.add(`platform-${osType}`);
 		})
 		.catch((error) => {
-			console.error("Failed to get OS type:", error);
+			console.error("获取系统类型失败：", error);
 		});
 }
 
@@ -23,7 +23,7 @@ async function initApp() {
 	}
 
 	const app = document.getElementById("app");
-	if (!app) throw new Error("App root element not found");
+	if (!app) throw new Error("未找到应用根元素");
 
 	mount(() => <StartClient />, app);
 	initPlatformClass();

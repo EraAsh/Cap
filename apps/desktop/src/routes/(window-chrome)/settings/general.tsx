@@ -633,8 +633,8 @@ function Inner(props: {
 							]}
 						/>
 						<ToggleSettingItem
-							label="Delete Instant recordings after upload"
-							description="Cap removes the local file once it has uploaded successfully."
+							label="上传后删除即时录制"
+							description="上传成功后 Cap 会删除本地文件"
 							value={settings.deleteInstantRecordingsAfterUpload ?? false}
 							onChange={(v) =>
 								handleChange("deleteInstantRecordingsAfterUpload", v)
@@ -649,31 +649,31 @@ function Inner(props: {
 							}
 						/>
 						<ToggleSettingItem
-							label="Custom cursor capture (Studio)"
-							description="Capture cursor state separately so you can adjust size and smoothing in the editor."
+							label="自定义光标捕获（工作室）"
+							description="单独捕获光标状态，以便在编辑器中调整大小和平滑度"
 							value={!!settings.custom_cursor_capture2}
 							onChange={(value) =>
 								handleChange("custom_cursor_capture2", value)
 							}
 						/>
 						<ToggleSettingItem
-							label="Auto zoom on clicks"
-							description="Automatically add zoom segments around mouse clicks in Studio recordings."
+							label="点击自动缩放"
+							description="在工作室录制中自动在鼠标点击处添加缩放片段"
 							value={!!settings.autoZoomOnClicks}
 							onChange={(value) => handleChange("autoZoomOnClicks", value)}
 						/>
 						<ToggleSettingItem
-							label="Capture keyboard presses"
-							description="Record key presses so you can add keyboard overlays in the editor."
+							label="捕获键盘按键"
+							description="录制按键，以便在编辑器中添加键盘覆盖层"
 							value={!!settings.captureKeyboardEvents}
 							onChange={(value) => handleChange("captureKeyboardEvents", value)}
 						/>
 						<SelectSettingItem
-							label="Max capture framerate"
+							label="最大捕获帧率"
 							description={
 								(settings.maxFps ?? 60) > 60
 									? "Maximum framerate for screen capture. Higher values may cause drops or increased CPU usage on some systems."
-									: "Maximum framerate for screen capture."
+									: "屏幕捕获的最大帧率"
 							}
 							value={settings.maxFps ?? 60}
 							onChange={(value) => handleChange("maxFps", value)}
@@ -739,7 +739,7 @@ function Inner(props: {
 						try {
 							await commands.updatesChannelChanged();
 						} catch (error) {
-							console.error("Failed to notify update channel change", error);
+							console.error("通知更新通道变更失败", error);
 						}
 					}}
 				/>
@@ -831,12 +831,12 @@ function StorageSection(props: {
 	onPick: () => Promise<void>;
 	onReset: () => Promise<void>;
 }) {
-	const defaultLabel = "Default (Application Support)";
+	const defaultLabel = "默认（应用程序支持目录）";
 	const displayPath = () => props.recordingsPath ?? defaultLabel;
 	const isCustom = () => props.recordingsPath !== null;
 
 	return (
-		<Section title="Storage" description="Where Cap saves your recordings.">
+		<Section title="Storage" description="Cap 保存录制的位置">
 			<SectionCard padded>
 				<div class="flex flex-col gap-3">
 					<div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-3 border border-gray-4 min-w-0">
@@ -868,7 +868,7 @@ function TelemetryCard(props: {
 		<Section title="Privacy">
 			<SectionRows>
 				<ToggleSettingItem
-					label="Share anonymous telemetry"
+					label="分享匿名遥测数据"
 					description="Cap uses anonymous telemetry to improve reliability and fix bugs. We never collect recording contents, window titles, file paths, or personal information."
 					value={props.value}
 					onChange={props.onChange}
@@ -888,7 +888,7 @@ const UPDATE_CHANNEL_OPTIONS: UpdateChannelOption[] = [
 	{
 		value: "stable",
 		label: "Stable",
-		description: "Versioned releases (recommended)",
+		description: "带版本号的发布（推荐）",
 	},
 	{
 		value: "nightly",
@@ -909,7 +909,7 @@ function UpdatesSection(props: {
 	);
 
 	return (
-		<Section title="Updates" description="Choose which Cap builds you receive.">
+		<Section title="Updates" description="选择接收哪个 Cap 版本">
 			<SectionCard>
 				<div class="flex flex-col gap-3 px-4 py-4">
 					<div class="flex justify-between items-start gap-4">
@@ -954,19 +954,19 @@ const STUDIO_QUALITY_TIERS: StudioQualityTier[] = [
 	{
 		value: "compatibility",
 		label: "Compatibility",
-		summary: "Lower bitrate to keep older or low-power machines smooth.",
-		bestFor: "Older Intel Macs, 8GB MacBook Air, weaker laptops.",
+		summary: "降低码率以保证老旧或低功耗设备流畅",
+		bestFor: "较旧的 Intel Mac、8GB MacBook Air、性能较弱的笔记本",
 	},
 	{
 		value: "balanced",
 		label: "Balanced",
-		summary: "Sharp footage with sensible CPU and disk usage.",
-		bestFor: "Most modern Macs and PCs with 16GB+ RAM.",
+		summary: "画面清晰，CPU 和磁盘占用合理",
+		bestFor: "大多数 16GB 以上内存的现代 Mac 和 PC",
 	},
 	{
 		value: "ultra",
 		label: "Ultra",
-		summary: "Maximum detail for color-graded, large-display edits.",
+		summary: "适合调色和大屏剪辑的最高细节",
 		bestFor: "M-series Pro/Max, discrete GPUs, 32GB+ RAM, NVMe.",
 	},
 ];
@@ -978,14 +978,14 @@ type InstantResolutionTier = {
 };
 
 const INSTANT_RESOLUTION_TIERS: InstantResolutionTier[] = [
-	{ value: 1280, label: "720p", summary: "Smallest size, low bandwidth." },
+	{ value: 1280, label: "720p", summary: "最小体积，低带宽" },
 	{
 		value: 1920,
 		label: "1080p",
 		summary: "Recommended. Sharp on most networks.",
 	},
-	{ value: 2560, label: "1440p", summary: "More detail for desktop content." },
-	{ value: 3840, label: "4K", summary: "Max clarity. Needs fast upload." },
+	{ value: 2560, label: "1440p", summary: "桌面内容更多细节" },
+	{ value: 3840, label: "4K", summary: "最高清晰度，需要较快的上传速度" },
 ];
 
 function SegmentedControl<T extends string | number>(props: {
@@ -1103,11 +1103,11 @@ function InstantQualitySetting(props: {
 	return (
 		<SettingItem
 			id="settings-section-instant-quality"
-			label="Instant Mode quality"
+			label="即时模式质量"
 			description={
 				props.hasCapPro
-					? "Choose the maximum upload resolution for Instant recordings."
-					: "Instant recordings are locked to 720p. Cap Pro unlocks higher resolutions."
+					? "选择即时录制的最大上传分辨率"
+					: "即时录制锁定 720p"
 			}
 		>
 			<div class="flex flex-col items-end gap-1.5">
@@ -1150,7 +1150,7 @@ function CapProSection(props: {
 	return (
 		<Section
 			title="Cap Pro"
-			description="Settings available with a Cap Pro license."
+			description="需要 Cap Pro 授权可用的设置"
 			pro
 		>
 			<SectionRows>
@@ -1161,7 +1161,7 @@ function CapProSection(props: {
 				/>
 				<ToggleSettingItem
 					label="Auto-open shareable links"
-					description="Open the share link in your browser as soon as the upload finishes."
+					description="上传完成后立即在浏览器中打开分享链接"
 					value={props.autoOpenShareableLinks}
 					onChange={props.onAutoOpenShareableLinksChange}
 				/>
@@ -1177,7 +1177,7 @@ function QualitySection(props: {
 	return (
 		<Section
 			title="Quality"
-			description="Pick the right profile for local Studio recordings."
+			description="为本地工作室录制选择合适的配置文件"
 		>
 			<SectionCard>
 				<StudioQualitySubsection
@@ -1209,7 +1209,7 @@ function ServerURLSetting(props: {
 	return (
 		<Section
 			title="Self-host"
-			description="Only change this if you are running your own instance of Cap Web."
+			description="仅当您运行自己的 Cap Web 实例时才更改此项"
 		>
 			<SectionCard padded>
 				<div class="flex flex-col gap-3">
@@ -1312,7 +1312,7 @@ function DefaultProjectNameCard(props: {
 		return (
 			<button
 				type="button"
-				title="Click to copy"
+				title="点击复制"
 				class="px-1.5 py-0.5 mx-0.5 font-mono text-[11px] rounded-md transition-[background-color,color,transform] duration-150 ease-out bg-gray-3 hover:bg-gray-4 active:scale-95 text-gray-12"
 				onClick={() => commands.writeClipboardString(props.children)}
 			>
@@ -1323,8 +1323,8 @@ function DefaultProjectNameCard(props: {
 
 	return (
 		<Section
-			title="Default project name"
-			description="Template used for new recordings and exported files."
+			title="默认项目名称"
+			description="用于新录制和导出文件的模板"
 			right={
 				<>
 					<Button
@@ -1471,13 +1471,13 @@ function ExcludedWindowsCard(props: {
 			try {
 				windows = await props.onRequestAvailableWindows();
 			} catch (error) {
-				console.error("Failed to fetch windows:", error);
+				console.error("获取窗口失败：", error);
 				return;
 			}
 		}
 
 		if (!windows.length) {
-			console.log("No available windows to exclude");
+			console.log("没有可排除的窗口");
 			return;
 		}
 
@@ -1506,17 +1506,17 @@ function ExcludedWindowsCard(props: {
 				window.scrollTo(0, scrollPos);
 			});
 		} catch (error) {
-			console.error("Error showing window menu:", error);
+			console.error("显示窗口菜单出错：", error);
 		}
 	};
 
 	return (
 		<Section
-			title="Excluded windows"
+			title="排除的窗口"
 			description={
 				props.isWindows
-					? "Hide windows from recordings. On Windows, only Cap-related windows can be excluded."
-					: "Hide windows from recordings."
+					? "从录制中隐藏窗口。在 Windows 上，只能排除与 Cap 相关的窗口"
+					: "从录制中隐藏窗口"
 			}
 			right={
 				<>
@@ -1594,7 +1594,7 @@ function ExcludedWindowsCard(props: {
 											type="button"
 											class="flex justify-center items-center rounded-full transition-colors size-5 text-gray-10 hover:bg-gray-5 hover:text-gray-12"
 											onClick={() => void props.onRemove(index())}
-											aria-label="Remove excluded window"
+											aria-label="移除排除的窗口"
 										>
 											<IconLucideX class="size-3" />
 										</button>

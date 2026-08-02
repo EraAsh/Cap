@@ -67,7 +67,7 @@ export default function AppsTab() {
 				if (response.status !== 200) return null;
 				return response.body;
 			} catch (error) {
-				console.error("Failed to load storage integrations", error);
+				console.error("加载存储集成失败", error);
 				return null;
 			}
 		},
@@ -108,7 +108,7 @@ export default function AppsTab() {
 			}
 			navigate(app.url);
 		} catch (error) {
-			console.error("Error handling app click:", error);
+			console.error("处理应用点击出错：", error);
 		}
 	};
 
@@ -135,9 +135,9 @@ export default function AppsTab() {
 											onClick={() => handleAppClick(app)}
 										>
 											{managedByOrganization()
-												? "Managed by your organization"
+												? "由您的组织管理"
 												: app.pro && !isPro()
-													? "Upgrade to Pro"
+													? "升级到 Pro"
 													: "Configure"}
 										</Button>
 									</div>

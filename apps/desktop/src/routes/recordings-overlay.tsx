@@ -206,10 +206,10 @@ export default function () {
 															<ActionProgressOverlay
 																title={
 																	state.type === "rendering"
-																		? "Rendering video"
+																		? "渲染视频中"
 																		: state.type === "copying"
-																			? "Copying to clipboard"
-																			: "Copied to clipboard"
+																			? "复制到剪贴板中"
+																			: "已复制到剪贴板"
 																}
 																progressPercentage={actionProgressPercentage(
 																	actionState,
@@ -227,20 +227,20 @@ export default function () {
 															<ActionProgressOverlay
 																title={(() => {
 																	if (state.type === "choosing-location")
-																		return "Preparing";
+																		return "准备中";
 
 																	if (isRecording) {
 																		if (state.type === "rendering")
-																			return "Rendering video";
+																			return "渲染视频中";
 																		if (state.type === "saving")
-																			return "Saving video";
-																		return "Saved video";
+																			return "保存视频中";
+																		return "视频已保存";
 																	} else {
 																		if (state.type === "rendering")
-																			return "Rendering image";
+																			return "渲染图片中";
 																		if (state.type === "saving")
-																			return "Saving image";
-																		return "Saved image";
+																			return "保存图片中";
+																		return "图片已保存";
 																	}
 																})()}
 																progressPercentage={actionProgressPercentage(
@@ -265,10 +265,10 @@ export default function () {
 															<ActionProgressOverlay
 																title={
 																	state.type === "rendering"
-																		? "Rendering video"
+																		? "渲染视频中"
 																		: state.type === "uploading"
-																			? "Creating shareable link"
-																			: "Shareable link copied"
+																			? "创建分享链接中"
+																			: "分享链接已复制"
 																}
 																progressPercentage={actionProgressPercentage(
 																	actionState,
@@ -354,8 +354,8 @@ export default function () {
 														class="absolute top-3 right-3 z-20"
 														tooltipText={
 															copy.isPending
-																? "Copying to Clipboard"
-																: "Copy to Clipboard"
+																? "复制到剪贴板中"
+																: "复制到剪贴板"
 														}
 														tooltipPlacement="left"
 														onClick={() => copy.mutate()}
@@ -366,8 +366,8 @@ export default function () {
 														class="absolute right-3 bottom-3 z-998"
 														tooltipText={
 															recordingMeta.data?.sharing
-																? "Copy Shareable Link"
-																: "Create Shareable Link"
+																? "复制分享链接"
+																: "创建分享链接"
 														}
 														tooltipPlacement="left"
 														onClick={() => upload.mutate()}
@@ -622,7 +622,7 @@ function createRecordingMutations(
 					state: { type: "copied" },
 				});
 			} catch (error) {
-				console.error("Error in copy media:", error);
+				console.error("复制媒体出错：", error);
 				throw error;
 			}
 		},
@@ -637,11 +637,11 @@ function createRecordingMutations(
 		mutationFn: async () => {
 			const meta = recordingMeta.data;
 			if (!meta) {
-				throw new Error("Recording metadata not available");
+				throw new Error("录制元数据不可用");
 			}
 
 			const defaultName = isRecording
-				? "Cap Recording"
+				? "Cap 录制"
 				: media.path.split(".cap/")[1];
 			const suggestedName = meta.pretty_name || defaultName;
 
@@ -722,7 +722,7 @@ function createRecordingMutations(
 			// Check connectivity first — prevent hanging on network calls when offline
 			if (!navigator.onLine) {
 				await commands.globalMessageDialog(
-					"You appear to be offline. Please check your internet connection and try again.",
+					"您似乎离线了，请检查网络连接后重试",
 				);
 				return;
 			}
@@ -730,7 +730,7 @@ function createRecordingMutations(
 			// Check authentication first
 			const existingAuth = await authStore.get();
 			if (!existingAuth) {
-				throw new Error("You need to sign in to share recordings");
+				throw new Error("请登录以分享录制内容");
 			}
 
 			const metadata = await commands.getVideoMetadata(media.path);
@@ -744,13 +744,13 @@ function createRecordingMutations(
 				if (canShare.reason === "upgrade_required") {
 					await commands.showWindow("Upgrade");
 					throw new Error(
-						"Upgrade required to share recordings longer than 5 minutes",
+						"分享超过 5 分钟的录制需要升级",
 					);
 				}
 			}
 
 			const uploadChannel = new Channel<UploadProgress>((progress) => {
-				console.log("Upload progress:", progress);
+				console.log("上传进度：", progress);
 				setActionState(
 					produce((actionState) => {
 						if (
@@ -808,11 +808,11 @@ function createRecordingMutations(
 			}
 
 			switch (res) {
-				case "NotAuthenticated":
-					throw new Error("Not authenticated");
-				case "PlanCheckFailed":
-					throw new Error("Plan check failed");
-				case "UpgradeRequired":
+				case "未登录":
+					throw new Error("未登录");
+				case "订阅检查失败":
+					throw new Error("订阅检查失败");
+				case "需要升级":
 					onEvent("upgradeRequired");
 					return;
 				default:

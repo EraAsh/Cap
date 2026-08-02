@@ -148,7 +148,7 @@ export async function initWebGPU(
 ): Promise<WebGPURenderer> {
 	const adapter = await requestWebGPUAdapter(powerPreference);
 	if (!adapter) {
-		throw new Error("No WebGPU adapter available");
+		throw new Error("没有可用的 WebGPU 适配器");
 	}
 
 	const device = await adapter.requestDevice();
@@ -164,7 +164,7 @@ export async function initWebGPU(
 
 	const context = canvas.getContext("webgpu");
 	if (!context) {
-		throw new Error("Failed to get WebGPU context from OffscreenCanvas");
+		throw new Error("从 OffscreenCanvas 获取 WebGPU 上下文失败");
 	}
 
 	const format = navigator.gpu.getPreferredCanvasFormat();

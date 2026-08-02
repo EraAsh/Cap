@@ -59,8 +59,8 @@ type CameraPreviewIssue = {
 const CAMERA_PREVIEW_ERROR_EVENT = "camera-preview-error";
 const CAMERA_PREVIEW_CLEAR_EVENT = "camera-preview-clear";
 const CAMERA_DISCONNECTED_ISSUE: CameraPreviewIssue = {
-	title: "Camera disconnected",
-	message: "The selected camera stopped sending video.",
+	title: "摄像头已断开",
+	message: "选中的摄像头停止发送视频",
 };
 
 const getCameraOnlyMode = () => {
@@ -105,7 +105,7 @@ const queueCameraPositionSave = (() => {
 			try {
 				await commands.setCameraWindowPosition(next.x, next.y);
 			} catch (error) {
-				console.error("Failed to save camera window position", error);
+				console.error("保存摄像头窗口位置失败", error);
 			}
 		}, 200);
 	};
@@ -190,7 +190,7 @@ export default function () {
 				const logicalPosition = outerPosition.toLogical(scaleFactor);
 				queueIfChanged(logicalPosition.x, logicalPosition.y);
 			} catch (error) {
-				console.error("Failed to read camera window position", error);
+				console.error("读取摄像头窗口位置失败", error);
 			}
 			syncingPosition = false;
 		};

@@ -83,7 +83,7 @@ export default function CaptureArea() {
 
 	async function handleConfirm() {
 		const currentBounds = cropperRef?.bounds();
-		if (!currentBounds) throw new Error("Cropper not initialized");
+		if (!currentBounds) throw new Error("裁剪器未初始化");
 		if (
 			currentBounds.width < MIN_SIZE.width ||
 			currentBounds.height < MIN_SIZE.height
@@ -219,7 +219,7 @@ export default function CaptureArea() {
 									</button>
 									<div class="inline-block my-3 w-px self-stretch bg-gray-3" />
 									<button
-										title="Aspect Ratio"
+										title="宽高比"
 										class="group flex items-center justify-center size-10 text-gray-11 hover:bg-gray-5 active:bg-gray-6 rounded-full transition-colors duration-200 cursor-default"
 										type="button"
 										onClick={showCropOptionsMenu}

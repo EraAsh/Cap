@@ -706,9 +706,9 @@ export function ExportPage() {
 				if (result === "NotAuthenticated")
 					throw new Error("请登录以分享录制内容");
 				else if (result === "PlanCheckFailed")
-					throw new Error("Failed to verify your subscription status");
+					throw new Error("验证订阅状态失败");
 				else if (result === "UpgradeRequired")
-					throw new Error("This feature requires an upgraded plan");
+					throw new Error("此功能需要升级");
 			} finally {
 				await releaseExportSession();
 			}
@@ -785,8 +785,8 @@ export function ExportPage() {
 												<IconLucideImage class="size-12 text-gray-8" />
 												<span class="text-sm">
 													{previewUnavailable()
-														? "Preview unavailable"
-														: "Generating preview..."}
+														? "预览不可用"
+														: "生成预览中..."}
 												</span>
 											</div>
 										}
@@ -802,7 +802,7 @@ export function ExportPage() {
 								<>
 									<img
 										src={url()}
-										alt="Export preview"
+										alt="导出预览"
 										class="relative z-0 w-full h-full object-contain"
 									/>
 									<Show when={previewLoading()}>
@@ -913,7 +913,7 @@ export function ExportPage() {
 											isDisabled()
 												? cursorOnly()
 													? "Cursor-only exports can only be saved to a file or clipboard"
-													: "Transparent exports can only be saved to a file or clipboard"
+													: "透明导出只能保存到文件或剪贴板"
 												: undefined;
 										const button = (
 											<button
@@ -1021,7 +1021,7 @@ export function ExportPage() {
 													? "MP4 doesn't support transparency"
 													: option.value === "Gif" &&
 															settings.exportTo === "link"
-														? "Links require MP4 format"
+														? "分享链接需要 MP4 格式"
 														: undefined;
 
 										const button = (
@@ -1115,7 +1115,7 @@ export function ExportPage() {
 							</div>
 						</Field>
 
-						<Field name="Frame Rate" icon={<IconLucideGauge class="size-4" />}>
+						<Field name="帧率" icon={<IconLucideGauge class="size-4" />}>
 							<div class="flex gap-1.5">
 								<For each={shouldUseGifMode() ? GIF_FPS_OPTIONS : FPS_OPTIONS}>
 									{(option) => (
@@ -1219,7 +1219,7 @@ export function ExportPage() {
 						</Show>
 
 						<Field
-							name="Advanced Options"
+							name="高级选项"
 							icon={<IconLucideSparkles class="size-4" />}
 						>
 							<button
@@ -1232,7 +1232,7 @@ export function ExportPage() {
 								)}
 								onClick={() => setAdvancedMode(!advancedMode())}
 							>
-								<span>{advancedMode() ? "Hide options" : "Show options"}</span>
+								<span>{advancedMode() ? "隐藏选项" : "显示选项"}</span>
 								<IconCapChevronDown
 									class={cx(
 										"size-4 transition-transform",
@@ -1334,7 +1334,7 @@ export function ExportPage() {
 														type="button"
 														role="switch"
 														aria-checked={forceFfmpegDecoder()}
-														aria-label="Force FFmpeg decoder"
+														aria-label="强制 FFmpeg 解码器"
 														class="flex items-center gap-2 text-xs text-gray-11 hover:text-gray-12 transition-colors w-full"
 														onClick={() =>
 															setForceFfmpegDecoder(!forceFfmpegDecoder())
@@ -1440,7 +1440,7 @@ export function ExportPage() {
 							{(url) => (
 								<img
 									src={url()}
-									alt="Export preview full size"
+									alt="全尺寸导出预览"
 									class="w-full h-full object-contain"
 								/>
 							)}
@@ -1497,7 +1497,7 @@ export function ExportPage() {
 														heading={
 															renderState.type === "rendering"
 																? `Rendering ${exportMediumLabel()}`
-																: "Preparing export"
+																: "准备导出中"
 														}
 														state={renderState}
 														onCancel={handleCancel}
@@ -1505,11 +1505,11 @@ export function ExportPage() {
 												)}
 											</Match>
 											<Match when={copyState.type === "copying"}>
-												<ActiveExport heading="Copying to clipboard" />
+												<ActiveExport heading="正在复制到剪贴板" />
 											</Match>
 											<Match when={copyState.type === "done"}>
 												<CompletedExport
-													title="Copied to clipboard"
+													title="已复制到剪贴板"
 													subtitle={`Your ${exportMediumLabel()} is ready to paste`}
 												/>
 											</Match>
@@ -1536,7 +1536,7 @@ export function ExportPage() {
 														heading={
 															renderState.type === "rendering"
 																? `Rendering ${exportMediumLabel()}`
-																: "Preparing export"
+																: "准备导出中"
 														}
 														state={renderState}
 														onCancel={handleCancel}
@@ -1544,11 +1544,11 @@ export function ExportPage() {
 												)}
 											</Match>
 											<Match when={saveState.type === "copying"}>
-												<ActiveExport heading="Saving to file" />
+												<ActiveExport heading="保存到文件中" />
 											</Match>
 											<Match when={saveState.type === "done"}>
 												<CompletedExport
-													title="Export complete"
+													title="导出完成"
 													subtitle={`Your ${exportMediumLabel()} is ready`}
 												/>
 											</Match>
@@ -1586,7 +1586,7 @@ export function ExportPage() {
 														heading={
 															renderState.type === "rendering"
 																? `Rendering ${exportMediumLabel()}`
-																: "Preparing export"
+																: "准备导出中"
 														}
 														state={renderState}
 														onCancel={handleCancel}
@@ -1595,8 +1595,8 @@ export function ExportPage() {
 											</Match>
 											<Match when={uploadState.type === "done"}>
 												<CompletedExport
-													title="Upload complete"
-													subtitle="Your Cap has been uploaded successfully"
+													title="上传完成"
+													subtitle="您的 Cap 已成功上传"
 												/>
 											</Match>
 										</Switch>

@@ -15,12 +15,12 @@ export function getTeleprompterWindowOptions(
 	const isMacOS = platform === "macos";
 	const isWindows = platform === "windows";
 	if (isWindows && !windowsWebview2BrowserArgs) {
-		throw new Error("Missing Windows WebView2 browser arguments");
+		throw new Error("缺少 Windows WebView2 浏览器参数");
 	}
 
 	return {
 		url: "/teleprompter",
-		title: "Cap Teleprompter",
+		title: "Cap 提词器",
 		width: 560,
 		height: 320,
 		minWidth: 420,

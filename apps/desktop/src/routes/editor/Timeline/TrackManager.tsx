@@ -22,11 +22,11 @@ type TrackMeta = {
 
 const TRACK_META: Record<TimelineTrackType, TrackMeta> = {
 	clip: {
-		description: "Your recorded screen footage.",
+		description: "您的屏幕录制画面",
 		unavailableHint: "",
 	},
 	zoom: {
-		description: "Smooth zoom-ins that follow the action.",
+		description: "跟随动作的平滑放大",
 		unavailableHint: "",
 	},
 	caption: {
@@ -34,24 +34,24 @@ const TRACK_META: Record<TimelineTrackType, TrackMeta> = {
 		unavailableHint: "",
 	},
 	keyboard: {
-		description: "Display key presses on screen as you type.",
+		description: "打字时在屏幕上显示按键",
 		unavailableHint: "",
 	},
 	text: {
-		description: "Add custom text overlays and titles to the canvas.",
+		description: "在画布上添加自定义文字覆盖层和标题",
 		unavailableHint: "",
 	},
 	mask: {
-		description: "Blur or black out private areas of the screen.",
+		description: "模糊或黑化屏幕的隐私区域",
 		unavailableHint: "",
 	},
 	audio: {
-		description: "Add background music or import your own audio.",
+		description: "添加背景音乐或导入自己的音频",
 		unavailableHint: "",
 	},
 	scene: {
-		description: "Switch layouts between your screen and camera.",
-		unavailableHint: "Record with a camera to use scenes.",
+		description: "在屏幕和摄像头之间切换布局",
+		unavailableHint: "使用摄像头录制以启用场景",
 	},
 };
 

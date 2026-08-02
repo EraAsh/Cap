@@ -17,7 +17,7 @@ const ModeSelectWindow = () => {
 			try {
 				unlistenResize = await initializeTitlebar();
 			} catch (error) {
-				console.error("Failed to initialize titlebar:", error);
+				console.error("初始化标题栏失败：", error);
 			}
 		}
 
@@ -28,7 +28,7 @@ const ModeSelectWindow = () => {
 				await window.setSize(new LogicalSize(580, 340));
 			}
 		} catch (error) {
-			console.error("Failed to set window size:", error);
+			console.error("设置窗口大小失败：", error);
 		}
 	});
 

@@ -59,7 +59,7 @@ export default function (props: RouteSectionProps) {
 		void applyMacOSWindowMaterial(
 			location.pathname.startsWith("/settings") ? "settings" : "panel",
 		).catch((error) => {
-			console.error("Failed to apply macOS window material:", error);
+			console.error("应用 macOS 窗口材质失败：", error);
 		});
 	});
 

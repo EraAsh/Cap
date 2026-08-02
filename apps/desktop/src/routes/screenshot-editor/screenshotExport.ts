@@ -29,13 +29,13 @@ const hasNoVisibleBackground = (source: {
 export function screenshotShareStatusText(status: ScreenshotExportStatus) {
 	switch (status) {
 		case "rendering":
-			return "Rendering screenshot";
+			return "渲染截图中";
 		case "encoding":
-			return "Preparing upload";
+			return "准备上传中";
 		case "uploading":
-			return "Uploading screenshot";
+			return "上传截图中";
 		default:
-			return "Create shareable link";
+			return "创建分享链接";
 	}
 }
 
@@ -244,7 +244,7 @@ export function renderScreenshotExportCanvas({
 }) {
 	const canvas = document.createElement("canvas");
 	const ctx = canvas.getContext("2d");
-	if (!ctx) throw new Error("Could not get canvas context");
+	if (!ctx) throw new Error("无法获取画布上下文");
 
 	canvas.width = renderedBitmap.width;
 	canvas.height = renderedBitmap.height;
@@ -262,7 +262,7 @@ export function renderScreenshotExportCanvas({
 		sourceCanvas.width = canvas.width;
 		sourceCanvas.height = canvas.height;
 		const sourceCtx = sourceCanvas.getContext("2d");
-		if (!sourceCtx) throw new Error("Could not get source canvas context");
+		if (!sourceCtx) throw new Error("无法获取源画布上下文");
 		sourceCtx.drawImage(canvas, 0, 0);
 
 		applyMaskAnnotations(ctx, sourceCanvas, scaledAnnotations, {
@@ -305,7 +305,7 @@ export function renderScreenshotExportCanvas({
 	outputCanvas.width = exportWidth;
 	outputCanvas.height = exportHeight;
 	const outputCtx = outputCanvas.getContext("2d");
-	if (!outputCtx) throw new Error("Could not get output canvas context");
+	if (!outputCtx) throw new Error("无法获取输出画布上下文");
 	if (!hasNoVisibleBackground(project.background.source)) {
 		outputCtx.fillStyle = "white";
 		outputCtx.fillRect(0, 0, exportWidth, exportHeight);
@@ -324,7 +324,7 @@ export const canvasToBlob = (
 		canvas.toBlob(
 			(blob) => {
 				if (blob) resolve(blob);
-				else reject(new Error("Failed to create blob"));
+				else reject(new Error("创建 Blob 失败"));
 			},
 			type,
 			quality,
@@ -410,13 +410,13 @@ export const screenshotProjectFingerprint = async (
 
 const shareLinkFromUploadResult = (result: UploadResult) => {
 	if (result === "NotAuthenticated") {
-		throw new Error("You need to sign in to create shareable links");
+		throw new Error("创建分享链接需要登录");
 	}
 	if (result === "PlanCheckFailed") {
-		throw new Error("Failed to verify your subscription status");
+		throw new Error("验证订阅状态失败");
 	}
 	if (result === "UpgradeRequired") {
-		throw new Error("This feature requires an upgraded plan");
+		throw new Error("此功能需要升级");
 	}
 
 	return result.Success;

@@ -36,7 +36,7 @@ function ShareButton() {
 				return;
 			}
 
-			console.log("Starting upload process...");
+			console.log("开始上传流程...");
 
 			// Check authentication first
 			const existingAuth = await authStore.get();
@@ -121,9 +121,9 @@ function ShareButton() {
 			if (result === "NotAuthenticated") {
 				throw new Error("请登录以分享录制内容");
 			} else if (result === "PlanCheckFailed")
-				throw new Error("Failed to verify your subscription status");
+				throw new Error("验证订阅状态失败");
 			else if (result === "UpgradeRequired")
-				throw new Error("This feature requires an upgraded plan");
+				throw new Error("此功能需要升级");
 
 			setUploadState({ type: "link-copied" });
 

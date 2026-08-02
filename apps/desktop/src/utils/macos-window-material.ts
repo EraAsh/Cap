@@ -52,7 +52,7 @@ export async function applyMacOSWindowMaterial(material: MacOSWindowMaterial) {
 			"apply_macos_liquid_glass_background",
 			{ enabled: true, radius },
 		).catch((error) => {
-			console.warn("Failed to apply native macOS Liquid Glass:", error);
+			console.warn("应用 macOS 原生 Liquid Glass 失败：", error);
 			return false;
 		});
 

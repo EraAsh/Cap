@@ -191,7 +191,7 @@ export function TranscriptPanel() {
 				"incoming",
 			) ?? outputStart;
 		const end = start + defaultDuration;
-		const text = "New caption";
+		const text = "新字幕";
 
 		setProject(
 			produce((p) => {
@@ -234,7 +234,7 @@ export function TranscriptPanel() {
 	const handleExportCaptions = async (format: CaptionExportFormat) => {
 		const cues = exportableCues();
 		if (cues.length === 0) {
-			toast.error("No captions to download");
+			toast.error("没有可下载的字幕");
 			return;
 		}
 
@@ -254,8 +254,8 @@ export function TranscriptPanel() {
 			await writeTextFile(path, formatCaptionCues(cues, format));
 			toast.success(`Captions saved as ${format.toUpperCase()}`);
 		} catch (error) {
-			console.error("Failed to save captions:", error);
-			toast.error("Failed to save captions");
+			console.error("保存字幕失败：", error);
+			toast.error("保存字幕失败");
 		} finally {
 			setExportingFormat(null);
 		}
@@ -313,7 +313,7 @@ export function TranscriptPanel() {
 				);
 			});
 		} catch (error) {
-			console.error("Failed to seek to word:", error);
+			console.error("跳转到单词失败：", error);
 		}
 	};
 
@@ -392,7 +392,7 @@ export function TranscriptPanel() {
 			)
 		) {
 			toast.error(
-				"Remove the nearby transition before deleting this transcript range.",
+				"删除此转录范围前，请先移除相邻的转场",
 			);
 			return;
 		}
@@ -474,7 +474,7 @@ export function TranscriptPanel() {
 			}
 			if (editorState.playing) setEditorState("previewTime", null);
 		} catch (error) {
-			console.error("Error handling play/pause:", error);
+			console.error("处理播放/暂停出错：", error);
 			setEditorState("playing", false);
 		}
 	};
@@ -487,7 +487,7 @@ export function TranscriptPanel() {
 					setEditorState("playing", false);
 				})
 				.catch((error) => {
-					console.error("Error stopping playback:", error);
+					console.error("停止播放出错：", error);
 					setEditorState("playing", false);
 				});
 		}

@@ -60,7 +60,7 @@ const fetchStorageIntegrations = async (
 	});
 
 	if (response.status !== 200)
-		throw new Error("Failed to fetch storage integrations");
+		throw new Error("获取存储集成失败");
 
 	return response.body;
 };
@@ -71,7 +71,7 @@ const fetchS3Config = async (orgId: string | null) => {
 		headers: await protectedHeaders(),
 	});
 
-	if (response.status !== 200) throw new Error("Failed to fetch S3 config");
+	if (response.status !== 200) throw new Error("获取 S3 配置失败");
 
 	return response.body;
 };
@@ -174,7 +174,7 @@ export default function GoogleDriveConfigPage() {
 				}
 			}
 			await commands.globalMessageDialog(
-				"Finish connecting Google Drive in your browser, then return here and refresh.",
+				"在浏览器中完成 Google Drive 连接，然后返回此处刷新",
 			);
 		} finally {
 			setIsWaitingForConnection(false);
@@ -194,7 +194,7 @@ export default function GoogleDriveConfigPage() {
 			}
 
 			if (response.status !== 200)
-				throw new Error("Failed to start Google Drive connection");
+				throw new Error("启动 Google Drive 连接失败");
 
 			await commands.openExternalLink(response.body.url);
 			return response.body;
@@ -202,7 +202,7 @@ export default function GoogleDriveConfigPage() {
 		onSuccess: (body) => {
 			if (!body) return;
 			waitForGoogleDriveConnection().catch((error) => {
-				console.error("Failed to wait for Google Drive connection:", error);
+				console.error("等待 Google Drive 连接失败：", error);
 			});
 		},
 	}));
@@ -215,7 +215,7 @@ export default function GoogleDriveConfigPage() {
 			});
 
 			if (response.status !== 200)
-				throw new Error("Google Drive connection test failed");
+				throw new Error("Google Drive 连接测试失败");
 
 			return response.body;
 		},
@@ -223,7 +223,7 @@ export default function GoogleDriveConfigPage() {
 			await commands.globalMessageDialog(
 				body.email
 					? `Google Drive connection is working for ${body.email}`
-					: "Google Drive connection is working",
+					: "Google Drive 连接正常",
 			);
 		},
 	}));
@@ -236,7 +236,7 @@ export default function GoogleDriveConfigPage() {
 			});
 
 			if (response.status !== 200)
-				throw new Error("Failed to update active storage provider");
+				throw new Error("更新当前存储提供商失败");
 
 			return response.body;
 		},
@@ -252,13 +252,13 @@ export default function GoogleDriveConfigPage() {
 			});
 
 			if (response.status !== 200)
-				throw new Error("Failed to disconnect Google Drive");
+				throw new Error("断开 Google Drive 失败");
 
 			return response.body;
 		},
 		onSuccess: async () => {
 			await refetch();
-			await commands.globalMessageDialog("Google Drive disconnected");
+			await commands.globalMessageDialog("Google Drive 已断开");
 		},
 	}));
 
@@ -309,9 +309,9 @@ export default function GoogleDriveConfigPage() {
 											<p class="text-xs leading-snug text-gray-10">
 												{isConnected()
 													? isActive()
-														? "Active for new uploads"
-														: "Connected but not active"
-													: "Not connected"}
+														? "对新上传生效"
+														: "已连接但未生效"
+													: "未连接"}
 											</p>
 										</div>
 										<Button
@@ -335,7 +335,7 @@ export default function GoogleDriveConfigPage() {
 													? "Waiting..."
 													: connect.isPending
 														? "Opening..."
-														: "Connect Google Drive"}
+														: "连接 Google Drive"}
 											</Button>
 										}
 									>
@@ -416,7 +416,7 @@ export default function GoogleDriveConfigPage() {
 												disabled={busy() || isActive()}
 												onClick={() => setActive.mutate("googleDrive")}
 											>
-												{isActive() ? "Active" : "Use Google Drive"}
+												{isActive() ? "Active" : "使用 Google Drive"}
 											</Button>
 											<Show when={hasS3Config()}>
 												<Button

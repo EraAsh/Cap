@@ -92,7 +92,7 @@ export default function Screenshots() {
 	);
 
 	const emptyMessage = createMemo(() => {
-		const prefix = trimmedSearch() ? "No matching" : "否";
+		const prefix = trimmedSearch() ? "无匹配" : "否";
 		return `${prefix} screenshots`;
 	});
 
@@ -140,11 +140,11 @@ export default function Screenshots() {
 					toast.loading(screenshotShareStatusText(status), { id: toastId });
 				}
 			});
-			toast.success("Share link copied to clipboard", { id: toastId });
+			toast.success("分享链接已复制到剪贴板", { id: toastId });
 		} catch (error) {
-			console.error("Failed to create screenshot share link:", error);
+			console.error("创建截图分享链接失败：", error);
 			const message = error instanceof Error ? error.message : String(error);
-			toast.error(message || "Failed to create share link", { id: toastId });
+			toast.error(message || "创建分享链接失败", { id: toastId });
 		} finally {
 			setSharingPath(null);
 			setShareStatus("idle");
@@ -155,7 +155,7 @@ export default function Screenshots() {
 		try {
 			await importImageFromPicker();
 		} catch (e) {
-			console.error("Failed to import image:", e);
+			console.error("导入图片失败：", e);
 			await showImportError("image", e);
 		}
 	};
@@ -165,7 +165,7 @@ export default function Screenshots() {
 			<SettingsPageContent class="max-w-none space-y-4">
 				<Section
 					title="截图"
-					description="Manage your screenshots and perform actions."
+					description="管理您的截图并执行操作"
 					right={
 						<Button
 							variant="gray"
@@ -207,7 +207,7 @@ export default function Screenshots() {
 									autocorrect="off"
 									autocomplete="off"
 									spellcheck={false}
-									aria-label="Search screenshots"
+									aria-label="搜索截图"
 								/>
 							</div>
 						</div>
@@ -293,7 +293,7 @@ function ScreenshotItem(props: {
 				>
 					<img
 						class="object-cover rounded-sm size-12"
-						alt="Screenshot thumbnail"
+						alt="截图缩略图"
 						src={convertFileSrc(props.screenshot.path)}
 						onError={() => setImageExists(false)}
 					/>
@@ -304,21 +304,21 @@ function ScreenshotItem(props: {
 			</div>
 			<div class="flex gap-2 items-center">
 				<TooltipIconButton
-					tooltipText="Open folder"
+					tooltipText="打开文件夹"
 					onClick={props.onOpenFolder}
 				>
 					<IconLucideFolder class="size-4" />
 				</TooltipIconButton>
 
 				<TooltipIconButton
-					tooltipText="Open in editor"
+					tooltipText="在编辑器中打开"
 					onClick={props.onOpenEditor}
 				>
 					<IconLucideEdit class="size-4" />
 				</TooltipIconButton>
 
 				<TooltipIconButton
-					tooltipText="Copy image"
+					tooltipText="复制图片"
 					onClick={props.onCopyImageToClipboard}
 				>
 					<IconLucideCopy class="size-4" />
@@ -336,7 +336,7 @@ function ScreenshotItem(props: {
 					tooltipText="删除"
 					onClick={async () => {
 						if (
-							!(await ask("Are you sure you want to delete this screenshot?"))
+							!(await ask("确定要删除此截图吗？"))
 						)
 							return;
 						const parent = props.screenshot.path.replace(/[/\\][^/\\]+$/, "");

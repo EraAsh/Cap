@@ -161,7 +161,7 @@ export default function Recordings() {
 	const emptyMessage = createMemo(() => {
 		const tabLabel =
 			activeTab() === "all" ? "recordings" : `${activeTab()} recordings`;
-		const prefix = trimmedSearch() ? "No matching" : "否";
+		const prefix = trimmedSearch() ? "无匹配" : "否";
 		return `${prefix} ${tabLabel}`;
 	});
 
@@ -173,7 +173,7 @@ export default function Recordings() {
 	const handleOpenFolder = (recording: Recording) => {
 		trackEvent("recording_folder_clicked");
 		openRecordingFolder(recording.path, recording.meta.mode).catch((error) => {
-			console.error("Failed to open recording folder:", error);
+			console.error("打开录制文件夹失败：", error);
 		});
 	};
 
@@ -193,7 +193,7 @@ export default function Recordings() {
 		try {
 			await importVideoFromPicker();
 		} catch (e) {
-			console.error("Failed to import video:", e);
+			console.error("导入视频失败：", e);
 			await showImportError("video", e);
 		}
 	};
@@ -203,7 +203,7 @@ export default function Recordings() {
 			<SettingsPageContent class="max-w-none space-y-4">
 				<Section
 					title="Recordings"
-					description="Manage your recordings and perform actions."
+					description="管理您的录制并执行操作"
 					right={
 						<Button
 							variant="gray"
@@ -261,7 +261,7 @@ export default function Recordings() {
 									autocorrect="off"
 									autocomplete="off"
 									spellcheck={false}
-									aria-label="Search recordings"
+									aria-label="搜索录制"
 								/>
 							</div>
 						</div>
@@ -356,7 +356,7 @@ function RecordingItem(props: {
 				>
 					<img
 						class="object-cover rounded-sm size-12"
-						alt="Recording thumbnail"
+						alt="录制缩略图"
 						src={`${convertFileSrc(
 							props.recording.thumbnailPath,
 						)}?t=${Date.now()}`}
@@ -449,7 +449,7 @@ function RecordingItem(props: {
 								!(await confirm(
 									"The recording failed so this file may have issues in the editor! If your having issues recovering the file please reach out to support!",
 									{
-										title: "Recording is potentially corrupted",
+										title: "录制可能已损坏",
 										kind: "warning",
 									},
 								))
@@ -509,7 +509,7 @@ function RecordingItem(props: {
 					}}
 				</Show>
 				<TooltipIconButton
-					tooltipText="Open recording bundle"
+					tooltipText="打开录制包"
 					onClick={() => {
 						props.onOpenFolder();
 					}}
@@ -519,7 +519,7 @@ function RecordingItem(props: {
 				<TooltipIconButton
 					tooltipText="删除"
 					onClick={async () => {
-						if (!(await ask("Are you sure you want to delete this recording?")))
+						if (!(await ask("确定要删除此录制吗？")))
 							return;
 						await remove(props.recording.path, { recursive: true });
 

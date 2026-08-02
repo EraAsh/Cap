@@ -115,7 +115,7 @@ function RecentCard(props: {
 	const title = () => props.item.target.pretty_name;
 	const typeLabel = () => {
 		if (props.item.kind === "screenshot") return "Screenshot";
-		return props.item.target.mode === "studio" ? "Studio Mode" : "Instant Mode";
+		return props.item.target.mode === "studio" ? "工作室模式" : "即时模式";
 	};
 	const TypeIcon = () => {
 		if (props.item.kind === "screenshot") {

@@ -994,7 +994,7 @@ export const [EditorContextProvider, useEditorContext] = createContextProvider(
 				const config = serializeProjectConfiguration(project);
 				await commands.setProjectConfig(config);
 			} catch (error) {
-				console.error("Failed to persist project config", error);
+				console.error("保存项目配置失败", error);
 			} finally {
 				saveInFlight = false;
 				if (shouldResave) {
@@ -1057,7 +1057,7 @@ export const [EditorContextProvider, useEditorContext] = createContextProvider(
 			generalSettingsStore
 				.set({ editorPreviewQuality: quality })
 				.catch((error) => {
-					console.error("Failed to persist preview quality setting", error);
+					console.error("保存预览质量设置失败", error);
 				});
 		};
 
@@ -1074,7 +1074,7 @@ export const [EditorContextProvider, useEditorContext] = createContextProvider(
 					return { open: true, type: parsed.type } as OpenLayoutMode;
 				}
 			} catch (error) {
-				console.error("Failed to read persisted editor layout mode", error);
+				console.error("读取已保存的编辑器布局模式失败", error);
 			}
 			return { open: false };
 		};
@@ -1098,7 +1098,7 @@ export const [EditorContextProvider, useEditorContext] = createContextProvider(
 					sessionStorage.removeItem(layoutModeStorageKey);
 				}
 			} catch (error) {
-				console.error("Failed to persist editor layout mode", error);
+				console.error("保存编辑器布局模式失败", error);
 			}
 		});
 
@@ -1292,13 +1292,13 @@ export const [EditorContextProvider, useEditorContext] = createContextProvider(
 				.getMicWaveforms()
 				.then(setMicWaveforms)
 				.catch((error) =>
-					console.error("Failed to load mic waveforms:", error),
+					console.error("加载麦克风波形失败：", error),
 				);
 			commands
 				.getSystemAudioWaveforms()
 				.then(setSystemAudioWaveforms)
 				.catch((error) =>
-					console.error("Failed to load system audio waveforms:", error),
+					console.error("加载系统音频波形失败：", error),
 				);
 		});
 		const customDomain = createCustomDomainQuery();
@@ -1344,7 +1344,7 @@ export const [EditorContextProvider, useEditorContext] = createContextProvider(
 						setProject("timeline", "keyboardSegments", segments);
 					});
 				} catch (error) {
-					console.error("Failed to initialize keyboard segments", error);
+					console.error("初始化键盘片段失败", error);
 				}
 			})();
 		});
@@ -1456,7 +1456,7 @@ export const [EditorContextProvider, useEditorContext] = createContextProvider(
 							)
 							.catch((error) => {
 								console.error(
-									"Failed to refresh caption preview config",
+									"刷新字幕预览配置失败",
 									error,
 								);
 							});
@@ -1503,7 +1503,7 @@ export type { EditorPreviewQuality } from "~/utils/tauri";
 
 function transformMeta({ pretty_name, ...rawMeta }: RecordingMeta) {
 	if ("fps" in rawMeta) {
-		throw new Error("Instant mode recordings cannot be edited");
+		throw new Error("即时模式录制无法编辑");
 	}
 
 	let meta:

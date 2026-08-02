@@ -42,7 +42,7 @@ export function RoundingPopover() {
 					setActivePopover(activePopover() === "rounding" ? null : "rounding")
 				}
 				leftIcon={<IconCapCorners class="size-4" />}
-				tooltipText="Corner Rounding"
+				tooltipText="圆角大小"
 			/>
 			<Popover.Portal>
 				<Popover.Content class="z-50 w-[240px] overflow-hidden rounded-xl border border-gray-3 bg-gray-1 shadow-xl animate-in fade-in zoom-in-95 p-4">
@@ -59,7 +59,7 @@ export function RoundingPopover() {
 							/>
 						</div>
 						<CornerStyleSelect
-							label="Corner Style"
+							label="圆角风格"
 							value={project.background.roundingType || "squircle"}
 							onChange={(v) => setProject("background", "roundingType", v)}
 						/>

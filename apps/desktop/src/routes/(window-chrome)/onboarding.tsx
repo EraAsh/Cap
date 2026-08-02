@@ -70,43 +70,43 @@ interface ModeDetail {
 const modes: ModeDetail[] = [
 	{
 		id: "instant",
-		title: "Instant Mode",
-		tagline: "Record & share in seconds",
+		title: "即时模式",
+		tagline: "秒级录制与分享",
 		description:
 			"Your recording uploads as you capture. Stop recording and instantly get a shareable link — no waiting.",
 		icon: IconCapInstant,
 		features: [
-			"Instant shareable link",
-			"Background uploading",
+			"即时分享链接",
+			"后台上传",
 			"AI transcription & summary",
 			"Browser-based playback",
 		],
 	},
 	{
 		id: "studio",
-		title: "Studio Mode",
-		tagline: "Professional editing tools",
+		title: "工作室模式",
+		tagline: "专业编辑工具",
 		description:
 			"Record in full quality locally, then use the built-in editor to add backgrounds, padding, cursor effects, and more.",
 		icon: IconCapFilmCut,
 		features: [
-			"Full quality local recording",
+			"全质量本地录制",
 			"Built-in editor & effects",
-			"Custom backgrounds & padding",
-			"Export or share when ready",
+			"自定义背景与内边距",
+			"准备好后导出或分享",
 		],
 	},
 	{
 		id: "screenshot",
-		title: "Screenshot Mode",
-		tagline: "Capture & beautify instantly",
+		title: "截图模式",
+		tagline: "即时捕获并美化",
 		description:
 			"Take screenshots with a single hotkey, add annotations and beautiful backgrounds, then share or copy instantly.",
 		icon: IconCapScreenshot,
 		features: [
-			"Instant hotkey capture",
-			"Annotation & drawing tools",
-			"Beautiful backgrounds",
+			"即时快捷键捕获",
+			"标注与绘图工具",
+			"精美背景",
 			"Copy, save, or share",
 		],
 	},
@@ -122,7 +122,7 @@ type SetupPermission = {
 
 const setupPermissions: readonly SetupPermission[] = [
 	{
-		name: "Screen Recording",
+		name: "屏幕录制",
 		key: "screenRecording",
 		description:
 			"Click Grant to allow when macOS asks, or pick Cap in System Settings if needed. Restart the app after allowing screen recording.",
@@ -138,7 +138,7 @@ const setupPermissions: readonly SetupPermission[] = [
 	{
 		name: "Microphone",
 		key: "microphone",
-		description: "This permission is required to record audio in your Caps.",
+		description: "录制音频需要此权限",
 		requiresManualGrant: false,
 		optional: true,
 	},
@@ -146,7 +146,7 @@ const setupPermissions: readonly SetupPermission[] = [
 		name: "Camera",
 		key: "camera",
 		description:
-			"This permission is required to record your camera in your Caps.",
+			"录制摄像头需要此权限",
 		requiresManualGrant: false,
 		optional: true,
 	},
@@ -413,8 +413,8 @@ export default function OnboardingPage() {
 	});
 
 	const nextLabel = () => {
-		if (permissionsOnly()) return "Continue to Cap";
-		if (step() === totalSteps() - 1) return "Start Using Cap";
+		if (permissionsOnly()) return "继续使用 Cap";
+		if (step() === totalSteps() - 1) return "开始使用 Cap";
 		return "Continue";
 	};
 
@@ -959,19 +959,19 @@ function ShortcutsStep(props: { active: boolean }) {
 
 	const settingsAreas = [
 		{
-			title: "Keyboard Shortcuts",
-			desc: "Global hotkeys for recording, screenshots, and switching modes",
+			title: "键盘快捷键",
+			desc: "录制、截图和切换模式的全局快捷键",
 		},
 		{
-			title: "Custom S3 Storage",
-			desc: "Connect your own S3-compatible bucket for full control over your recordings",
+			title: "自定义 S3 存储",
+			desc: "连接您自己的 S3 兼容存储桶，完全掌控您的录制",
 		},
 		{
-			title: "Custom Domain",
-			desc: "Use your own domain for shareable links instead of cap.so",
+			title: "自定义域名",
+			desc: "使用您自己的域名代替 cap.so 生成分享链接",
 		},
 		{
-			title: "Recording Preferences",
+			title: "录制偏好",
 			desc: "FPS, quality, countdown timer, cursor effects, and more",
 		},
 	];
@@ -1070,7 +1070,7 @@ function FaqStep(props: { active: boolean }) {
 					visible() ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
 				)}
 			>
-				<FaqItem question="Is Cap free to use?">
+				<FaqItem question="Cap 免费吗？">
 					<p class="text-[13px] text-gray-10 leading-relaxed">
 						Cap is free for personal use. For teams and commercial use, check
 						out our{" "}
@@ -1092,20 +1092,20 @@ function FaqStep(props: { active: boolean }) {
 						sharing.
 					</p>
 				</FaqItem>
-				<FaqItem question="Where are my recordings stored?">
+				<FaqItem question="我的录制存储在哪里？">
 					<p class="text-[13px] text-gray-10 leading-relaxed">
 						All recordings are stored locally on your computer. In Instant mode,
 						they're also uploaded to Cap's cloud for easy sharing. You can
 						manage storage in Settings.
 					</p>
 				</FaqItem>
-				<FaqItem question="Can I change my shortcuts later?">
+				<FaqItem question="以后可以修改快捷键吗？">
 					<p class="text-[13px] text-gray-10 leading-relaxed">
 						Head to Settings → Shortcuts at any time to customize all your
 						keyboard shortcuts.
 					</p>
 				</FaqItem>
-				<FaqItem question="How does sharing work?">
+				<FaqItem question="分享是如何工作的？">
 					<p class="text-[13px] text-gray-10 leading-relaxed">
 						In Instant mode, you get a shareable link automatically when you
 						stop recording. In Studio mode, export your edited video and share
@@ -1219,7 +1219,7 @@ function StartRecordingClickMock(props: {
 	});
 
 	const modeLabel = () =>
-		props.mode === "studio" ? "Studio Mode" : "Instant Mode";
+		props.mode === "studio" ? "工作室模式" : "即时模式";
 
 	const cursorW = () => (ostype() === "windows" ? 24 : 22);
 	const cursorH = () => (ostype() === "windows" ? 34 : 32);
@@ -1385,7 +1385,7 @@ function InstantMockup(props: { active: boolean }) {
 	return (
 		<div class="w-full h-full flex flex-col min-h-0 p-4">
 			<MockupStepBar
-				steps={["Record", "Stop", "Share link"]}
+				steps={["Record", "Stop", "分享链接"]}
 				activeStep={activeStep()}
 			/>
 			<div class="relative flex-1 min-h-[200px] w-full max-w-[420px] mx-auto">
@@ -2002,7 +2002,7 @@ function PermissionsStep(props: {
 				? "After enabling Accessibility for Cap in System Settings, macOS may keep showing it as denied until you restart the app."
 				: "After adding Cap in System Settings, you'll need to restart the app for the permission to take effect.";
 		const shouldRestart = await ask(message, {
-			title: "Restart Required",
+			title: "需要重启",
 			kind: "info",
 			okLabel: "Restart, I've granted permission",
 			cancelLabel: "No, I still need to add it",
@@ -2139,7 +2139,7 @@ function PermissionsStep(props: {
 										>
 											{permission.requiresManualGrant ||
 											permStatus() === "denied"
-												? "Open Settings"
+												? "打开设置"
 												: "Grant"}
 										</Button>
 									</Show>
@@ -2172,7 +2172,7 @@ function ScreenshotMockup(props: { active: boolean }) {
 	return (
 		<div class="w-full h-full flex flex-col items-center justify-center p-4">
 			<MockupStepBar
-				steps={["Select area", "Beautify", "Copy"]}
+				steps={["选择区域", "Beautify", "Copy"]}
 				activeStep={activeStep()}
 			/>
 			<div class="relative w-full max-w-[420px] h-[240px]">

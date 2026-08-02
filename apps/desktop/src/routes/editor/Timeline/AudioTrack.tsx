@@ -160,7 +160,7 @@ function FadeControl(props: {
 				<div
 					role="slider"
 					aria-label={
-						props.edge === "in" ? "Fade in duration" : "Fade out duration"
+						props.edge === "in" ? "淡入时长" : "淡出时长"
 					}
 					aria-valuenow={Math.round(props.fadeSeconds * 1000)}
 					tabindex={-1}
@@ -187,7 +187,7 @@ function FadeControl(props: {
 				<div
 					role="slider"
 					aria-label={
-						props.edge === "in" ? "Fade in corner" : "Fade out corner"
+						props.edge === "in" ? "淡入圆角" : "淡出圆角"
 					}
 					aria-valuenow={Math.round(props.fadeSeconds * 1000)}
 					tabindex={-1}

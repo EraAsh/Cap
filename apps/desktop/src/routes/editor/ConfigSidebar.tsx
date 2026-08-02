@@ -384,7 +384,7 @@ const CURSOR_ANIMATION_STYLE_OPTIONS = [
 	},
 	{
 		value: "custom",
-		label: "Custom",
+		label: "自定义",
 		description: "手动调节张力、摩擦和质量，完全控制",
 	},
 ] satisfies Array<{
@@ -2574,7 +2574,7 @@ function BackgroundConfig(props: {
 				/>
 			</Field>
 			<Field
-				name="Border"
+				name="边框"
 				icon={<IconCapSettings class="size-4" />}
 				value={
 					<Toggle
@@ -2677,7 +2677,7 @@ function BackgroundConfig(props: {
 					</div>
 				</KCollapsible.Content>
 			</KCollapsible>
-			<Field name="Shadow" icon={<IconCapShadow class="size-4" />}>
+			<Field name="阴影" icon={<IconCapShadow class="size-4" />}>
 				<Slider
 					value={[project.background.shadow ?? 0]}
 					onChange={(v) => {
@@ -2772,7 +2772,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 			value={TAB_IDS.camera}
 			class="flex flex-col flex-1 gap-6 p-4 min-h-0"
 		>
-			<Field icon={<IconCapCamera class="size-4" />} name="Camera">
+			<Field icon={<IconCapCamera class="size-4" />} name="摄像头">
 				<div class="flex flex-col gap-6">
 					<div>
 						<Subfield name="位置" />
@@ -3040,7 +3040,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 					/>
 				</div>
 			</Field>
-			<Field name="Shadow" icon={<IconCapShadow class="size-4" />}>
+			<Field name="阴影" icon={<IconCapShadow class="size-4" />}>
 				<div class="space-y-8">
 					<Slider
 						value={[project.camera.shadow ?? 0]}
@@ -3095,7 +3095,7 @@ function CameraConfig(props: { scrollRef: HTMLDivElement }) {
 				</div>
 			</Field>
 			{/* <ComingSoonTooltip>
-            <Field name="Shadow" icon={<IconCapShadow />}>
+            <Field name="阴影" icon={<IconCapShadow />}>
               <Slider
                 disabled
                 value={[project.camera.shadow]}
@@ -3337,14 +3337,14 @@ function TextSegmentConfig(props: {
 				<div class="flex flex-col gap-2">
 					<KSelect
 						options={[
-							{ label: "Normal", value: 400 },
+							{ label: "正常", value: 400 },
 							{ label: "中等", value: 500 },
 							{ label: "Bold", value: 700 },
 						]}
 						optionValue="value"
 						optionTextValue="label"
 						value={{
-							label: "Custom",
+							label: "自定义",
 							value: props.segment.fontWeight,
 						}}
 						onChange={(value) => {
@@ -3374,13 +3374,13 @@ function TextSegmentConfig(props: {
 									if (selected) return selected.label;
 									const weight = props.segment.fontWeight;
 									const option = [
-										{ label: "Normal", value: 400 },
+										{ label: "正常", value: 400 },
 										{ label: "中等", value: 500 },
 										{ label: "Bold", value: 700 },
 									].find((o) => o.value === weight);
 									if (option) return option.label;
 									if (weight != null) return `Custom (${weight})`;
-									return "Normal";
+									return "正常";
 								}}
 							</KSelect.Value>
 							<KSelect.Icon>
@@ -3522,7 +3522,7 @@ function AudioSegmentConfig(props: {
 					</div>
 				</div>
 			</Field>
-			<Field name="Volume" icon={<IconLucideVolume2 class="size-4" />}>
+			<Field name="音量" icon={<IconLucideVolume2 class="size-4" />}>
 				<Slider
 					value={[
 						clampNumber(props.segment.volumeDb, MIN_VOLUME_DB, MAX_VOLUME_DB),
@@ -3608,7 +3608,7 @@ function KeyboardSegmentConfig(props: {
 					}
 				/>
 			</Field>
-			<Field name="Timing" icon={<IconLucideTimer class="size-4" />}>
+			<Field name="时序" icon={<IconLucideTimer class="size-4" />}>
 				<div class="rounded-xl border border-gray-3 bg-gray-2/70 p-3 space-y-3">
 					<div class="grid grid-cols-[1fr_auto_1fr] gap-2 items-start">
 						<div class="rounded-lg border border-gray-3 bg-gray-1/80 p-2.5 space-y-2">
@@ -3722,7 +3722,7 @@ function CaptionSegmentConfig(props: {
 					}
 				/>
 			</Field>
-			<Field name="Timing" icon={<IconLucideTimer class="size-4" />}>
+			<Field name="时序" icon={<IconLucideTimer class="size-4" />}>
 				<div class="rounded-xl border border-gray-3 bg-gray-2/70 p-3 space-y-3">
 					<div class="grid grid-cols-[1fr_auto_1fr] gap-2 items-start">
 						<div class="rounded-lg border border-gray-3 bg-gray-1/80 p-2.5 space-y-2">
@@ -3889,7 +3889,7 @@ function MaskSegmentConfig(props: {
 				</div>
 			</Field>
 			<Show when={props.segment.maskType === "sensitive"}>
-				<Field name="Effect" icon={<IconLucideEyeOff class="size-4" />}>
+				<Field name="效果" icon={<IconLucideEyeOff class="size-4" />}>
 					<RadioGroup
 						class="grid grid-cols-2 gap-2"
 						value={maskEffect()}
@@ -4270,7 +4270,7 @@ function ZoomSegmentConfig(props: {
 
 								// Add error handling
 								video.onerror = (e) => {
-									console.error("Failed to load video for zoom preview:", e);
+									console.error("加载缩放预览视频失败：", e);
 									// Try to reload after a short delay
 									setTimeout(() => {
 										video.load();
@@ -4498,8 +4498,8 @@ function ClipSegmentConfig(props: {
 							<For
 								each={[
 									{ value: "mute", label: "Mute" },
-									{ value: "maintainPitch", label: "Maintain pitch" },
-									{ value: "matchSpeed", label: "Match speed" },
+									{ value: "maintainPitch", label: "保持音调" },
+									{ value: "matchSpeed", label: "匹配速度" },
 								]}
 							>
 								{(option) => (
@@ -4530,7 +4530,7 @@ function ClipSegmentConfig(props: {
 
 			{meta().hasSystemAudio && (
 				<SourceOffsetField
-					name="System Audio Offset"
+					name="系统音频偏移"
 					value={offsets().system_audio}
 					autoCalculated={offsetsAutoCalculated()}
 					onChange={(offset) => {
@@ -4540,7 +4540,7 @@ function ClipSegmentConfig(props: {
 			)}
 			{meta().hasMicrophone && (
 				<SourceOffsetField
-					name="Microphone Offset"
+					name="麦克风偏移"
 					value={offsets().mic}
 					autoCalculated={offsetsAutoCalculated()}
 					onChange={(offset) => {
@@ -4550,7 +4550,7 @@ function ClipSegmentConfig(props: {
 			)}
 			{meta().hasCamera && (
 				<SourceOffsetField
-					name="Camera Offset"
+					name="摄像头偏移"
 					value={offsets().camera}
 					autoCalculated={offsetsAutoCalculated()}
 					onChange={(offset) => {
@@ -4560,11 +4560,11 @@ function ClipSegmentConfig(props: {
 			)}
 
 			{/*<ComingSoonTooltip>
-			<Field name="Hide Cursor" disabled value={<Toggle disabled />} />
+			<Field name="隐藏光标" disabled value={<Toggle disabled />} />
 		</ComingSoonTooltip>
 		<ComingSoonTooltip>
 			<Field
-				name="Disable Smooth Cursor Movement"
+				name="禁用平滑光标移动"
 				disabled
 				value={<Toggle disabled />}
 			/>
@@ -4587,7 +4587,7 @@ function SourceOffsetField(props: {
 	return (
 		<Field
 			name={props.name}
-			badge={props.autoCalculated ? "Auto-synced" : undefined}
+			badge={props.autoCalculated ? "自动同步" : undefined}
 		>
 			<div class="flex flex-row justify-between items-center -mt-2 w-full">
 				<div class="flex flex-row items-end space-x-1">
@@ -4700,15 +4700,15 @@ function SceneSegmentConfig(props: {
 	const description = () => {
 		switch (props.segment.mode) {
 			case "cameraOnly":
-				return "Shows only the camera feed";
+				return "仅显示摄像头画面";
 			case "hideCamera":
-				return "Shows only the screen recording";
+				return "仅显示屏幕录制";
 			case "splitScreen":
-				return "Screen and camera side by side (auto-stacks in portrait)";
+				return "屏幕和摄像头并排（竖屏自动堆叠）";
 			case "floating":
-				return "Screen and camera float side by side as rounded cards over the background";
+				return "屏幕和摄像头以圆角卡片形式悬浮于背景之上";
 			default:
-				return "Shows both screen and camera";
+				return "同时显示屏幕和摄像头";
 		}
 	};
 
@@ -4740,7 +4740,7 @@ function SceneSegmentConfig(props: {
 					Delete
 				</EditorButton>
 			</div>
-			<Field name="Camera Layout" icon={<IconLucideLayout />}>
+			<Field name="摄像头布局" icon={<IconLucideLayout />}>
 				<KTabs
 					class="space-y-3"
 					value={props.segment.mode || "default"}
@@ -4806,7 +4806,7 @@ function SceneSegmentConfig(props: {
 				</KTabs>
 			</Field>
 
-			<Field name="Transition" icon={<IconLucideTimer class="size-4" />}>
+			<Field name="转场" icon={<IconLucideTimer class="size-4" />}>
 				<div class="flex flex-col gap-3">
 					<Subfield name="In">
 						<Slider
@@ -4856,7 +4856,7 @@ function SceneSegmentConfig(props: {
 				}
 			>
 				<div class="w-full border-t border-dashed border-gray-5" />
-				<Field name="Screen Zoom" icon={<IconCapEnlarge class="size-4" />}>
+				<Field name="屏幕缩放" icon={<IconCapEnlarge class="size-4" />}>
 					<Slider
 						value={[split().screenZoom * 100]}
 						onChange={(v) => updateSplit({ screenZoom: v[0] / 100 })}
@@ -4866,14 +4866,14 @@ function SceneSegmentConfig(props: {
 						formatTooltip="%"
 					/>
 				</Field>
-				<Field name="Screen Position" icon={<IconLucideMove class="size-4" />}>
+				<Field name="屏幕位置" icon={<IconLucideMove class="size-4" />}>
 					<PositionPad
 						value={() => split().screenPosition}
 						onChange={(pos) => updateSplit({ screenPosition: pos })}
 					/>
 				</Field>
 				<div class="w-full border-t border-dashed border-gray-5" />
-				<Field name="Camera Zoom" icon={<IconCapEnlarge class="size-4" />}>
+				<Field name="摄像头缩放" icon={<IconCapEnlarge class="size-4" />}>
 					<Slider
 						value={[split().cameraZoom * 100]}
 						onChange={(v) => updateSplit({ cameraZoom: v[0] / 100 })}
@@ -4883,7 +4883,7 @@ function SceneSegmentConfig(props: {
 						formatTooltip="%"
 					/>
 				</Field>
-				<Field name="Camera Position" icon={<IconLucideMove class="size-4" />}>
+				<Field name="摄像头位置" icon={<IconLucideMove class="size-4" />}>
 					<PositionPad
 						value={() => split().cameraPosition}
 						onChange={(pos) => updateSplit({ cameraPosition: pos })}

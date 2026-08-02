@@ -271,7 +271,7 @@ function createScreenshotEditorContext() {
 						setIsRenderReady(true);
 					} catch (e: unknown) {
 						console.error(
-							"Failed to create ImageBitmap from fallback image:",
+							"从后备图片创建 ImageBitmap 失败：",
 							e,
 						);
 					}
@@ -663,7 +663,7 @@ function createScreenshotEditorContext() {
 			return editorInstance()?.path ?? "";
 		},
 		get prettyName() {
-			return editorInstance()?.prettyName ?? "Screenshot";
+			return editorInstance()?.prettyName ?? "截图";
 		},
 		project,
 		setProject,

@@ -8,12 +8,12 @@ import {
 import IconLucideAlertCircle from "~icons/lucide/alert-circle";
 
 const funMessages = [
-	"Adjusting the Cap just right...",
-	"Putting on our thinking Cap...",
+	"正在调整 Cap...",
+	"正在思考...",
 	"Cap-sizing the pixels...",
-	"Wearing our processing Cap...",
+	"正在处理...",
 	"Cap-tivating import in progress...",
-	"Flipping our Cap backwards...",
+	"正在翻转 Cap...",
 	"Cap-puccino break? Almost done...",
 	"Cap-able of great things...",
 ];

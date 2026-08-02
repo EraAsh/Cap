@@ -249,7 +249,7 @@ export function BackgroundSettingsPopover() {
 					>
 						<Field
 							icon={<IconCapImage class="size-4" />}
-							name="Background Image"
+							name="背景图片"
 						>
 							<KTabs
 								value={project.background.source.type}
@@ -369,7 +369,7 @@ export function BackgroundSettingsPopover() {
 															src={photo.url}
 															loading="eager"
 															class="object-cover w-full h-full"
-															alt="Wallpaper option"
+															alt="壁纸选项"
 														/>
 													</KRadioGroup.ItemControl>
 												</KRadioGroup.Item>
@@ -402,7 +402,7 @@ export function BackgroundSettingsPopover() {
 												<img
 													src={convertFileSrc(source())}
 													class="object-cover w-full h-full"
-													alt="Selected background"
+													alt="已选背景"
 												/>
 												<div class="absolute top-2 right-2">
 													<button
@@ -557,7 +557,7 @@ export function BackgroundSettingsPopover() {
 							</KTabs>
 						</Field>
 
-						<Field name="Background Blur" icon={<IconCapBgBlur />}>
+						<Field name="背景模糊" icon={<IconCapBgBlur />}>
 							<Slider
 								value={[project.background.blur]}
 								onChange={(v) => setProject("background", "blur", v[0])}

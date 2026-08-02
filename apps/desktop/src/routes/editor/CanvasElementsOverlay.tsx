@@ -645,7 +645,7 @@ export function CanvasElementsOverlay(props: { size: Size }) {
 								displayDraggable()
 									? null
 									: {
-											message: "Screen is locked while a zoom is active",
+											message: "缩放激活时屏幕被锁定",
 											actionLabel: "Edit zoom",
 											onAction: selectActiveZoom,
 										}
@@ -672,7 +672,7 @@ export function CanvasElementsOverlay(props: { size: Size }) {
 								cameraResizable()
 									? null
 									: {
-											message: "Camera size follows the zoom — drag to move",
+											message: "摄像头大小跟随缩放——拖动以移动",
 											actionLabel: "Edit zoom",
 											onAction: selectActiveZoom,
 										}

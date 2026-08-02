@@ -92,15 +92,15 @@ export function SceneTrack(props: {
 	const getSceneLabel = (mode: string | undefined) => {
 		switch (mode) {
 			case "cameraOnly":
-				return "Camera Only";
+				return "仅摄像头";
 			case "hideCamera":
-				return "Hide Camera";
+				return "隐藏摄像头";
 			case "splitScreen":
-				return "Split Screen";
+				return "分屏";
 			case "floating":
 				return "Floating";
 			default:
-				return "Default";
+				return "默认";
 		}
 	};
 

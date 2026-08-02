@@ -23,19 +23,19 @@ import {
 import { Section, SectionCard, SettingsPageContent } from "./Setting";
 
 const ACTION_TEXT = {
-	startStudioRecording: "Start studio recording",
-	startInstantRecording: "Start instant recording",
-	restartRecording: "Restart recording",
-	stopRecording: "Stop recording",
+	startStudioRecording: "开始工作室录制",
+	startInstantRecording: "开始即时录制",
+	restartRecording: "重新录制",
+	stopRecording: "停止录制",
 	togglePauseRecording: "Pause/resume recording",
-	cycleRecordingMode: "Cycle recording mode",
-	openRecordingPicker: "Open recording picker",
-	openRecordingPickerDisplay: "Record display",
-	openRecordingPickerWindow: "Record window",
-	openRecordingPickerArea: "Record area",
-	screenshotDisplay: "Screenshot current display",
-	screenshotWindow: "Screenshot current window",
-	screenshotArea: "Screenshot area picker",
+	cycleRecordingMode: "循环切换录制模式",
+	openRecordingPicker: "打开录制选择器",
+	openRecordingPickerDisplay: "录制显示器",
+	openRecordingPickerWindow: "录制窗口",
+	openRecordingPickerArea: "录制区域",
+	screenshotDisplay: "截取当前显示器",
+	screenshotWindow: "截取当前窗口",
+	screenshotArea: "截图区域选择器",
 } satisfies { [K in HotkeyAction]?: string };
 
 export default function () {
@@ -102,7 +102,7 @@ function Inner(props: { initialStore: HotkeysStore | null }) {
 			<SettingsPageContent>
 				<Section
 					title="Shortcuts"
-					description="Configure system-wide keyboard shortcuts to control Cap."
+					description="配置全局快捷键以控制 Cap"
 				>
 					<SectionCard class="flex flex-col gap-3 p-4">
 						<Index each={actions()}>

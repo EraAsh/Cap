@@ -113,37 +113,37 @@ const TRIGGER_ICONS: Record<Trigger, IconComponent> = {
 };
 
 const TRIGGER_PHRASE: Record<Trigger, string> = {
-	screenshotTaken: "Screenshot taken",
-	studioRecordingFinished: "Studio recording ends",
-	instantRecordingFinished: "Instant recording ends",
-	recordingStarted: "Recording starts",
-	uploadCompleted: "Upload completes",
-	videoImported: "Video imported",
-	recordingDeleted: "Recording deleted",
+	screenshotTaken: "截图已拍摄",
+	studioRecordingFinished: "工作室录制结束",
+	instantRecordingFinished: "即时录制结束",
+	recordingStarted: "录制开始",
+	uploadCompleted: "上传完成",
+	videoImported: "视频已导入",
+	recordingDeleted: "录制已删除",
 };
 
 const ACTION_SHORT: Record<ActionType, string> = {
-	copyToClipboard: "Copy to clipboard",
-	saveToLocation: "Save to folder",
+	copyToClipboard: "复制到剪贴板",
+	saveToLocation: "保存到文件夹",
 	export: "导出",
-	upload: "Upload & copy link",
-	revealInFileManager: "Reveal in file manager",
+	upload: "上传并复制链接",
+	revealInFileManager: "在文件管理器中显示",
 	openFile: "Open file",
-	recognizeTextToClipboard: "Copy text (OCR)",
+	recognizeTextToClipboard: "复制文字（OCR）",
 	notify: "Notify",
-	openEditor: "Open editor",
-	skipEditor: "Skip editor",
-	applyPreset: "Apply preset",
-	runCommand: "Run command",
-	webhook: "Send webhook",
-	deleteLocalFiles: "Delete local files",
+	openEditor: "打开编辑器",
+	skipEditor: "跳过编辑器",
+	applyPreset: "应用预设",
+	runCommand: "运行命令",
+	webhook: "发送 Webhook",
+	deleteLocalFiles: "删除本地文件",
 };
 
 const TRIGGER_NOUN: Record<Trigger, string> = {
 	screenshotTaken: "截图",
-	studioRecordingFinished: "Studio recording",
-	instantRecordingFinished: "Instant recording",
-	recordingStarted: "Recording start",
+	studioRecordingFinished: "工作室录制",
+	instantRecordingFinished: "即时录制",
+	recordingStarted: "录制开始",
 	uploadCompleted: "上传",
 	videoImported: "Import",
 	recordingDeleted: "Deletion",
@@ -159,7 +159,7 @@ const ACTION_NOUN: Record<ActionType, string> = {
 	recognizeTextToClipboard: "文字",
 	notify: "Notify",
 	openEditor: "编辑器",
-	skipEditor: "Skip editor",
+	skipEditor: "跳过编辑器",
 	applyPreset: "Preset",
 	runCommand: "命令",
 	webhook: "Webhook",
@@ -205,7 +205,7 @@ const TEMPLATES: Template[] = [
 	{
 		id: "copy-screenshot",
 		name: "Auto-copy new screenshots to clipboard",
-		description: "Snap a screenshot and it's right there, ready to paste.",
+		description: "截图即刻可用，直接粘贴",
 		icon: IconLucideCopy,
 		build: () =>
 			buildRule({
@@ -216,36 +216,36 @@ const TEMPLATES: Template[] = [
 	},
 	{
 		id: "ocr-screenshot",
-		name: "Pull the text out of screenshots",
-		description: "Cap reads the text in your screenshot and copies it for you.",
+		name: "从截图中提取文字",
+		description: "Cap 读取截图中的文字并为您复制",
 		icon: IconLucideScanText,
 		build: () =>
 			buildRule({
-				name: "Pull the text out of screenshots",
+				name: "从截图中提取文字",
 				trigger: "screenshotTaken",
 				actions: [{ type: "recognizeTextToClipboard" }],
 			}),
 	},
 	{
 		id: "save-screenshot",
-		name: "Tuck screenshots into a folder",
-		description: "Send every new screenshot straight to a folder you pick.",
+		name: "将截图收进文件夹",
+		description: "将每张新截图直接发送到您选择的文件夹",
 		icon: IconLucideFolderDown,
 		build: () =>
 			buildRule({
-				name: "Tuck screenshots into a folder",
+				name: "将截图收进文件夹",
 				trigger: "screenshotTaken",
 				actions: [defaultActionForType("saveToLocation")],
 			}),
 	},
 	{
 		id: "reveal-screenshot",
-		name: "Jump to each new screenshot",
-		description: "Pop open every screenshot in Finder the moment you take it.",
+		name: "跳转到每张新截图",
+		description: "每次截图后立即在文件管理器中打开",
 		icon: IconLucideFolderOpen,
 		build: () =>
 			buildRule({
-				name: "Jump to each new screenshot",
+				name: "跳转到每张新截图",
 				trigger: "screenshotTaken",
 				actions: [{ type: "revealInFileManager" }],
 			}),
@@ -253,7 +253,7 @@ const TEMPLATES: Template[] = [
 	{
 		id: "export-studio",
 		name: "Auto-export when you finish recording",
-		description: "Render an MP4 the second a Studio recording wraps up.",
+		description: "工作室录制一结束就渲染 MP4",
 		icon: IconLucideFilm,
 		build: () =>
 			buildRule({
@@ -264,43 +264,43 @@ const TEMPLATES: Template[] = [
 	},
 	{
 		id: "upload-share",
-		name: "Upload and grab the share link",
+		name: "上传并获取分享链接",
 		description:
-			"Finish a recording and the link is waiting on your clipboard.",
+			"录制一结束，链接就会出现在剪贴板中",
 		icon: IconLucideLink,
 		build: () =>
 			buildRule({
-				name: "Upload and grab the share link",
+				name: "上传并获取分享链接",
 				trigger: "studioRecordingFinished",
 				actions: [defaultActionForType("upload")],
 			}),
 	},
 	{
 		id: "notify-upload",
-		name: "Ping me when an upload is ready",
-		description: "Get a gentle desktop nudge once your recording is shareable.",
+		name: "上传完成时提醒我",
+		description: "录制可分享时给您一个温和的桌面提醒",
 		icon: IconLucideBell,
 		build: () =>
 			buildRule({
-				name: "Ping me when an upload is ready",
+				name: "上传完成时提醒我",
 				trigger: "uploadCompleted",
 				actions: [
 					{
 						type: "notify",
 						titleTemplate: "Cap",
-						bodyTemplate: "Your recording is ready to share.",
+						bodyTemplate: "您的录制已准备好分享",
 					},
 				],
 			}),
 	},
 	{
 		id: "webhook-share",
-		name: "Tell Slack when you share something",
-		description: "Send the share link to Slack, Discord, or your own webhook.",
+		name: "分享时通知 Slack",
+		description: "将分享链接发送到 Slack、Discord 或您自己的 Webhook",
 		icon: IconLucideWebhook,
 		build: () =>
 			buildRule({
-				name: "Tell Slack when you share something",
+				name: "分享时通知 Slack",
 				trigger: "instantRecordingFinished",
 				actions: [
 					{
@@ -465,8 +465,8 @@ export default function AutomationsSettings() {
 				rules: store.rules,
 			});
 		} catch (e) {
-			console.error("Failed to save automations", e);
-			toast.error("Failed to save automations");
+			console.error("保存自动化失败", e);
+			toast.error("保存自动化失败");
 		}
 	};
 
@@ -501,7 +501,7 @@ export default function AutomationsSettings() {
 			setTestReports(ruleId, report);
 			const unsupported = report.actionChecks.filter((c) => !c.supported);
 			if (unsupported.length === 0) {
-				toast.success("All actions supported on this device");
+				toast.success("此设备支持的所有操作");
 			} else {
 				toast(
 					`${unsupported.length} action(s) not supported here: ${unsupported
@@ -510,8 +510,8 @@ export default function AutomationsSettings() {
 				);
 			}
 		} catch (e) {
-			console.error("Failed to test automation", e);
-			toast.error("Failed to test automation");
+			console.error("测试自动化失败", e);
+			toast.error("测试自动化失败");
 		}
 	};
 
@@ -559,7 +559,7 @@ export default function AutomationsSettings() {
 
 				<Section
 					title="Templates"
-					description="One click to add a ready-made automation. Tweak anything afterwards."
+					description="一键添加现成自动化，之后可随意调整"
 				>
 					<div class="grid grid-cols-2 gap-2.5">
 						<For each={TEMPLATES}>
@@ -884,7 +884,7 @@ function RuleEditorBody(props: {
 			</Show>
 
 			<div class="flex justify-between items-center pt-4 border-t border-gray-3 -mx-4 px-4 -mb-4 pb-4 mt-2">
-				<span title="Checks which actions are supported on this device. Does not run the automation.">
+				<span title="检查此设备支持哪些操作，不会运行自动化">
 					<Button variant="gray" size="xs" onClick={props.onTest}>
 						Check compatibility
 					</Button>
@@ -928,7 +928,7 @@ function ConditionRow(props: {
 						onChange={props.onChange}
 					/>
 				</div>
-				<RowButton onClick={props.onRemove} title="Remove condition">
+				<RowButton onClick={props.onRemove} title="移除条件">
 					<IconLucideX class="size-4" />
 				</RowButton>
 			</div>
@@ -1010,7 +1010,7 @@ function ConditionValue(props: {
 			return (
 				<TextInput
 					value={c.id}
-					placeholder="Organization ID"
+					placeholder="组织 ID"
 					onInput={(v) =>
 						props.onChange((cond) => {
 							if (cond.type === "organizationIs") cond.id = v;
@@ -1048,7 +1048,7 @@ function ActionRow(props: {
 				/>
 				<Show when={props.support === false}>
 					<span
-						title="Not supported on this device; will be skipped"
+						title="此设备不支持，将被跳过"
 						class="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-500"
 					>
 						Skipped here
@@ -1068,7 +1068,7 @@ function ActionRow(props: {
 				>
 					<IconLucideChevronDown class="size-4" />
 				</RowButton>
-				<RowButton onClick={props.onRemove} title="Remove action">
+				<RowButton onClick={props.onRemove} title="移除操作">
 					<IconLucideX class="size-4" />
 				</RowButton>
 			</div>
@@ -1094,8 +1094,8 @@ function ActionParams(props: {
 					<SelectInput<ClipboardSource>
 						value={a.source}
 						options={[
-							{ value: "raw", label: "Original capture" },
-							{ value: "rendered", label: "Edited / rendered" },
+							{ value: "raw", label: "原始捕获" },
+							{ value: "rendered", label: "已编辑 / 已渲染" },
 						]}
 						onChange={(v) =>
 							props.onChange((act) => {
@@ -1134,7 +1134,7 @@ function ActionParams(props: {
 							</Button>
 						</div>
 					</Field>
-					<Field label="Filename template (optional)">
+					<Field label="文件名模板（可选）">
 						<TextInput
 							value={a.filenameTemplate ?? ""}
 							placeholder="{date}-{window}"
@@ -1153,7 +1153,7 @@ function ActionParams(props: {
 		case "upload":
 			return (
 				<div class="space-y-2">
-					<Field label="Organization ID (optional)">
+					<Field label="组织 ID（可选）">
 						<TextInput
 							value={a.organizationId ?? ""}
 							onInput={(v) =>
@@ -1207,7 +1207,7 @@ function ActionParams(props: {
 								}
 							/>
 						</Field>
-						<Field label="Arguments (space-separated)">
+						<Field label="参数（空格分隔）">
 							<TextInput
 								value={a.args.join(" ")}
 								onInput={(v) =>
@@ -1265,7 +1265,7 @@ function ActionParams(props: {
 							/>
 						</Field>
 					</div>
-					<Field label="Body template (optional)">
+					<Field label="请求体模板（可选）">
 						<TextInput
 							value={a.bodyTemplate ?? ""}
 							placeholder='{"text":"{share_link}"}'
@@ -1405,7 +1405,7 @@ function ExportParams(props: {
 				</Field>
 			</div>
 			<div class="flex gap-2">
-				<Field label="Frame rate">
+				<Field label="帧率">
 					<SelectInput
 						value={String(a.profile.fps)}
 						options={FPS_PRESETS.map((f) => ({
@@ -1438,7 +1438,7 @@ function ExportParams(props: {
 					</Field>
 				</Show>
 			</div>
-			<Field label="Destination folder (optional, blank = project folder)">
+			<Field label="目标文件夹（可选，留空为项目文件夹）">
 				<div class="flex gap-2">
 					<TextInput
 						value={
@@ -1446,7 +1446,7 @@ function ExportParams(props: {
 								? ""
 								: a.destination.customPath.dir
 						}
-						placeholder="Project folder"
+						placeholder="项目文件夹"
 						onInput={(v) =>
 							props.onChange((act) => {
 								if (act.type === "export")

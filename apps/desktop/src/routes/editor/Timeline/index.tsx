@@ -816,7 +816,7 @@ export function Timeline(props: {
 					await commands.startPlayback(FPS, previewResolutionBase());
 					setEditorState("playing", true);
 				} catch (err) {
-					console.error("Failed to seek during playback:", err);
+					console.error("播放中跳转失败：", err);
 				}
 			}
 
@@ -895,7 +895,7 @@ export function Timeline(props: {
 
 			if (result.segments.length < 1) {
 				toast.error(
-					"No captions were generated. The audio might be too quiet or unclear.",
+					"未生成字幕，音频可能太安静或不清晰",
 				);
 				return;
 			}
@@ -913,9 +913,9 @@ export function Timeline(props: {
 
 			setEditorState("timeline", "tracks", "caption", true);
 			setEditorState("captions", "isStale", false);
-			toast.success("Captions generated successfully!");
+			toast.success("字幕生成成功！");
 		} catch (error) {
-			console.error("Error generating captions:", error);
+			console.error("生成字幕出错：", error);
 			const errorMessage = getCaptionGenerationErrorMessage(error);
 			toast.error(`Failed to generate captions: ${errorMessage}`);
 		} finally {
@@ -1231,7 +1231,7 @@ export function Timeline(props: {
 										: undefined
 								}
 								deleteLabel="Clear all"
-								deleteTitle="Delete all zoom segments"
+								deleteTitle="删除所有缩放片段"
 							>
 								<ZoomTrack
 									onDragStateChanged={(v) => {
@@ -1251,7 +1251,7 @@ export function Timeline(props: {
 											: undefined
 									}
 									deleteLabel="Clear all"
-									deleteTitle="Delete all scene segments"
+									deleteTitle="删除所有场景片段"
 								>
 									<SceneTrack
 										onDragStateChanged={(v) => {
@@ -1302,7 +1302,7 @@ function TrackRow(props: {
 							props.onDelete?.();
 						}}
 						onMouseDown={(e) => e.stopPropagation()}
-						title={props.deleteTitle ?? "Delete track"}
+						title={props.deleteTitle ?? "删除轨道"}
 					>
 						<IconCapTrash class="size-4" />
 						<span class="text-[0.625rem] leading-none font-medium">

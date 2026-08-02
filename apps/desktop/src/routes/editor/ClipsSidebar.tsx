@@ -152,7 +152,7 @@ const loadClipThumbnail = (
 					resolve(url);
 				})
 				.catch((error) => {
-					console.error("Failed to load clip thumbnail", error);
+					console.error("加载片段缩略图失败", error);
 					resolve(null);
 				})
 				.finally(() => {
@@ -496,14 +496,14 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 		try {
 			await commands.focusWindow(target.id);
 		} catch (error) {
-			console.error("Failed to focus window:", error);
+			console.error("聚焦窗口失败：", error);
 		}
 	};
 
 	const importRecordingPath = async (sourcePath: string) => {
 		if (importing()) return;
 		setImporting(true);
-		const toastId = toast.loading("Importing clip…");
+		const toastId = toast.loading("正在导入片段…");
 		try {
 			if (editorState.playing) {
 				await commands.stopPlayback();
@@ -511,7 +511,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 			}
 			await commands.setProjectConfig(serializeProjectConfiguration(project));
 			const count = await commands.addExistingRecordingToEditor(sourcePath);
-			toast.success(count === 1 ? "Clip imported" : `${count} clips imported`, {
+			toast.success(count === 1 ? "片段已导入" : `${count} clips imported`, {
 				id: toastId,
 			});
 			window.location.reload();
@@ -543,7 +543,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 		const menu = await Menu.new({
 			items: [
 				await MenuItem.new({
-					text: "Existing recording",
+					text: "已有录制",
 					action: () => void pickCapRecording(),
 				}),
 				await MenuItem.new({
@@ -939,7 +939,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 														onClick={() =>
 															startRename(index(), segment.name ?? "")
 														}
-														aria-label="Rename clip"
+														aria-label="重命名片段"
 														class="flex flex-none justify-center items-center rounded-md opacity-0 transition-colors size-7 text-gray-10 hover:bg-gray-5 hover:text-gray-12 group-hover:opacity-100"
 													>
 														<IconCapPencil class="size-3.5" />
@@ -949,7 +949,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 															type="button"
 															data-clip-delete
 															onClick={() => deleteClip(index())}
-															aria-label="Remove clip"
+															aria-label="移除片段"
 															class="flex flex-none justify-center items-center rounded-md opacity-0 transition-colors size-7 text-gray-10 hover:bg-red-3 hover:text-red-11 group-hover:opacity-100"
 														>
 															<IconCapTrash class="size-3.5" />
@@ -1034,7 +1034,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 																});
 															}}
 															aria-haspopup="menu"
-															aria-label="Choose display"
+															aria-label="选择显示器"
 														/>
 													</div>
 													<div
@@ -1067,7 +1067,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 																});
 															}}
 															aria-haspopup="menu"
-															aria-label="Choose window"
+															aria-label="选择窗口"
 														/>
 													</div>
 												</div>
@@ -1077,7 +1077,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 														"Area",
 														IconMaterialSymbolsScreenshotFrame2Rounded,
 													)}
-													{areaButton("camera", "Camera Only", IconLucideVideo)}
+													{areaButton("camera", "仅摄像头", IconLucideVideo)}
 												</div>
 											</div>
 
@@ -1161,8 +1161,8 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 													}}
 													placeholder={
 														activeTargetMenu() === "window"
-															? "Search windows"
-															: "Search displays"
+															? "搜索窗口"
+															: "搜索显示器"
 													}
 													autoCapitalize="off"
 													autocorrect="off"
@@ -1179,7 +1179,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 													isLoading={displayTargets.isPending}
 													errorMessage={
 														displayTargets.error
-															? "Unable to load displays."
+															? "无法加载显示器"
 															: undefined
 													}
 													onSelect={(target) =>
@@ -1188,7 +1188,7 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 													highlightQuery={targetSearch().trim()}
 													emptyMessage={
 														targetSearch().trim()
-															? "No matching displays"
+															? "没有匹配的显示器"
 															: undefined
 													}
 												/>
@@ -1200,14 +1200,14 @@ function ClipsSidebarInner(props: { open: boolean; class?: string }) {
 													isLoading={windowTargets.isPending}
 													errorMessage={
 														windowTargets.error
-															? "Unable to load windows."
+															? "无法加载窗口"
 															: undefined
 													}
 													onSelect={(target) => void selectWindowTarget(target)}
 													highlightQuery={targetSearch().trim()}
 													emptyMessage={
 														targetSearch().trim()
-															? "No matching windows"
+															? "没有匹配的窗口"
 															: undefined
 													}
 												/>

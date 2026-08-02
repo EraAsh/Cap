@@ -253,7 +253,7 @@ function Inner() {
 				const info = await commands.displayInformation(params.displayId);
 				return info;
 			} catch (error) {
-				console.error("Failed to fetch screen information:", error);
+				console.error("获取屏幕信息失败：", error);
 				return null;
 			}
 		},
@@ -540,7 +540,7 @@ function Inner() {
 							},
 							currentDisplayId,
 						).catch((e) =>
-							console.error("Failed to reposition camera for window", e),
+							console.error("为窗口重新定位摄像头失败", e),
 						);
 					});
 
@@ -974,7 +974,7 @@ function Inner() {
 										);
 										lastApplied = target;
 									} catch (e) {
-										console.error("Failed to update camera window", e);
+										console.error("更新摄像头窗口失败", e);
 									}
 									processing = false;
 								}
@@ -998,7 +998,7 @@ function Inner() {
 								win = await getCameraWindow();
 								if (win) setCameraWindow(win);
 							} catch (e) {
-								console.error("Failed to find camera window", e);
+								console.error("未找到摄像头窗口", e);
 							}
 						}
 
@@ -1013,7 +1013,7 @@ function Inner() {
 								setOriginalCameraBounds({ position: pos, size });
 								setCachedScaleFactor(factor);
 							} catch (e) {
-								console.error("Failed to init camera bounds", e);
+								console.error("初始化摄像头边界失败", e);
 							}
 							return;
 						}
@@ -1139,7 +1139,7 @@ function Inner() {
 						e.stopPropagation();
 						const items = [
 							{
-								text: "Reset selection",
+								text: "重置选择",
 								action: resetSelection,
 							},
 							await PredefinedMenuItem.new({
@@ -1300,7 +1300,7 @@ function Inner() {
 								} catch (e) {
 									const message = e instanceof Error ? e.message : String(e);
 									toast.error(`Failed to take screenshot: ${message}`);
-									console.error("Failed to take screenshot", e);
+									console.error("截图失败", e);
 								}
 							}
 						}
@@ -1327,7 +1327,7 @@ function Inner() {
 										<div class="min-w-28 px-2 text-base font-normal leading-none tracking-[-0.01em] tabular-nums">
 											{isValid()
 												? `${Math.round(crop().width)} × ${Math.round(crop().height)}`
-												: "Draw an area"}
+												: "绘制区域"}
 										</div>
 
 										<div class="h-6 w-px bg-gray-5" />
@@ -1373,8 +1373,8 @@ function Inner() {
 											type="button"
 											class="flex size-9 items-center justify-center rounded-xl text-gray-11 transition-colors hover:bg-gray-12/8 hover:text-gray-12"
 											onClick={showCropOptionsMenu}
-											title="More aspect ratios"
-											aria-label="More aspect ratios"
+											title="更多宽高比"
+											aria-label="更多宽高比"
 										>
 											<IconLucideRatio class="size-4" />
 										</button>
@@ -1385,8 +1385,8 @@ function Inner() {
 											type="button"
 											class="flex size-9 items-center justify-center rounded-xl text-gray-11 transition-colors hover:bg-gray-12/8 hover:text-gray-12"
 											onClick={resetSelection}
-											title="Reset selection"
-											aria-label="Reset selection"
+											title="重置选择"
+											aria-label="重置选择"
 										>
 											<IconLucideRotateCcw class="size-4" />
 										</button>
@@ -1394,8 +1394,8 @@ function Inner() {
 											type="button"
 											class="flex size-9 items-center justify-center rounded-xl text-gray-11 transition-colors hover:bg-gray-12/8 hover:text-gray-12"
 											onClick={() => cropperRef?.fill()}
-											title="Fill display"
-											aria-label="Fill display"
+											title="填充屏幕"
+											aria-label="填充屏幕"
 										>
 											<IconLucideMaximize2 class="size-4" />
 										</button>
@@ -1413,8 +1413,8 @@ function Inner() {
 												aria-pressed={isSelectionLocked()}
 												title={
 													isSelectionLocked()
-														? "Stop reusing this area"
-														: "Reuse this area for future recordings"
+														? "停止复用此区域"
+														: "为以后的录制复用此区域"
 												}
 											>
 												<IconLucideLock class="size-3.5" />
@@ -1890,7 +1890,7 @@ function RecordingControls(props: {
 		if (rawOptions.micName) {
 			setMicInput
 				.mutateAsync(rawOptions.micName)
-				.catch((error) => console.error("Failed to set mic input:", error));
+				.catch((error) => console.error("设置麦克风失败：", error));
 		}
 
 		const isCameraOnly = props.target.variant === "cameraOnly";
@@ -1964,7 +1964,7 @@ function RecordingControls(props: {
 		// (targetMode: null) disposes the <Match> branch that owns
 		// this component, and the display/area target props call its
 		// narrowed accessor — reading props.target afterwards throws
-		// "Stale read from <Match>." and the recording never starts.
+		// "从 <Match> 读取过期数据" and the recording never starts.
 		const target = props.target;
 
 		if (target.variant === "area") {
@@ -2009,7 +2009,7 @@ function RecordingControls(props: {
 			} catch (e) {
 				const message = e instanceof Error ? e.message : String(e);
 				toast.error(`Failed to take screenshot: ${message}`);
-				console.error("Failed to take screenshot", e);
+				console.error("截图失败", e);
 			}
 			return;
 		}
@@ -2037,7 +2037,7 @@ function RecordingControls(props: {
 					msg.includes("DeviceNotFound")
 				) {
 					toast.error(
-						"Selected microphone is not available. Please select a different microphone in settings.",
+						"选中的麦克风不可用，请在设置中选择其他麦克风",
 					);
 				} else {
 					toast.error(`Failed to start recording: ${msg}`);
@@ -2057,7 +2057,7 @@ function RecordingControls(props: {
 		await Menu.new({
 			items: [
 				await CheckMenuItem.new({
-					text: "Studio Mode",
+					text: "工作室模式",
 					action: () => {
 						setOptions("mode", "studio");
 						commands.setRecordingMode("studio");
@@ -2065,7 +2065,7 @@ function RecordingControls(props: {
 					checked: rawOptions.mode === "studio",
 				}),
 				await CheckMenuItem.new({
-					text: "Instant Mode",
+					text: "即时模式",
 					action: () => {
 						setOptions("mode", "instant");
 						commands.setRecordingMode("instant");
@@ -2073,7 +2073,7 @@ function RecordingControls(props: {
 					checked: rawOptions.mode === "instant",
 				}),
 				await CheckMenuItem.new({
-					text: "Screenshot Mode",
+					text: "截图模式",
 					action: () => {
 						setOptions("mode", "screenshot");
 						commands.setRecordingMode("screenshot");
@@ -2112,7 +2112,7 @@ function RecordingControls(props: {
 		return await Menu.new({
 			items: [
 				await MenuItem.new({
-					text: "Recording Countdown",
+					text: "录制倒计时",
 					enabled: false,
 				}),
 				...(await countdownItems()),
@@ -2182,11 +2182,11 @@ function RecordingControls(props: {
 										<span class="text-[0.95rem] font-medium text-white text-nowrap">
 											{(() => {
 												if (rawOptions.mode === "instant" && !auth.data)
-													return "Sign In To Use";
+													return "登录以使用";
 												if (startLoading()) return "Preparing...";
 												if (rawOptions.mode === "screenshot")
-													return "Take Screenshot";
-												return "Start Recording";
+													return "截图";
+												return "开始录制";
 											})()}
 										</span>
 										<span class="text-[11px] flex items-center text-nowrap gap-1 transition-opacity duration-200 text-white/90 font-light -mt-0.5">

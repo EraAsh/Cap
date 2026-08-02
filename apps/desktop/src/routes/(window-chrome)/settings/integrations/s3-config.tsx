@@ -37,7 +37,7 @@ export default function S3ConfigPage() {
 				headers: await protectedHeaders(),
 			});
 
-			if (response.status !== 200) throw new Error("Failed to fetch S3 config");
+			if (response.status !== 200) throw new Error("获取 S3 配置失败");
 
 			return response.body;
 		},
@@ -55,7 +55,7 @@ export default function S3ConfigPage() {
 				headers: await protectedHeaders(),
 			});
 
-			if (response.status !== 200) throw new Error("Failed to save S3 config");
+			if (response.status !== 200) throw new Error("保存 S3 配置失败");
 			return response;
 		},
 		onSuccess: async () => {
@@ -71,7 +71,7 @@ export default function S3ConfigPage() {
 			});
 
 			if (response.status !== 200)
-				throw new Error("Failed to delete S3 config");
+				throw new Error("删除 S3 配置失败");
 			return response;
 		},
 		onSuccess: async () => {
@@ -233,13 +233,13 @@ export default function S3ConfigPage() {
 								</div>
 
 								{renderInput(
-									"Access Key ID",
+									"访问密钥 ID",
 									"accessKeyId",
 									"PL31OADSQNK",
 									"password",
 								)}
 								{renderInput(
-									"Secret Access Key",
+									"秘密访问密钥",
 									"secretAccessKey",
 									"PL31OADSQNK",
 									"password",
@@ -249,7 +249,7 @@ export default function S3ConfigPage() {
 									"endpoint",
 									"https://s3.amazonaws.com",
 								)}
-								{renderInput("Bucket Name", "bucketName", "my-bucket")}
+								{renderInput("存储桶名称", "bucketName", "my-bucket")}
 								{renderInput("Region", "region", "us-east-1")}
 							</div>
 						</Suspense>
@@ -272,14 +272,14 @@ export default function S3ConfigPage() {
 									variant="destructive"
 									onClick={() => deleteConfig.mutate()}
 								>
-									{deleteConfig.isPending ? "Removing..." : "Remove Config"}
+									{deleteConfig.isPending ? "Removing..." : "移除配置"}
 								</Button>
 							)}
 							<Button
 								variant="gray"
 								onClick={() => testConfig.mutate(s3Config())}
 							>
-								{testConfig.isPending ? "Testing..." : "Test Connection"}
+								{testConfig.isPending ? "Testing..." : "测试连接"}
 							</Button>
 						</div>
 						<Button

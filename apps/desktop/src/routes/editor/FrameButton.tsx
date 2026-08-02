@@ -30,31 +30,31 @@ const FRAME_STYLES: Array<{
 	{
 		value: "none",
 		label: "None",
-		description: "Show the recording as-is",
+		description: "按原样显示录制",
 		icon: IconLucideBan,
 	},
 	{
 		value: "macOS",
 		label: "macOS",
-		description: "Window chrome with traffic lights",
+		description: "带红绿灯按钮的窗口边框",
 		icon: IconLucideAppWindowMac,
 	},
 	{
 		value: "windows",
 		label: "Windows",
-		description: "Title bar with window controls",
+		description: "带窗口控制的标题栏",
 		icon: IconLucideAppWindow,
 	},
 	{
 		value: "browser",
 		label: "Browser",
-		description: "Browser chrome with address bar",
+		description: "带地址栏的浏览器窗口",
 		icon: IconLucideGlobe,
 	},
 	{
 		value: "macbook",
 		label: "MacBook",
-		description: "Laptop bezel around the recording",
+		description: "录制周围显示笔记本边框",
 		icon: IconLucideLaptop,
 	},
 ];
@@ -165,7 +165,7 @@ function FrameSettings() {
 								<div class="w-40">
 									<Input
 										value={frame().title}
-										placeholder="Window title"
+										placeholder="窗口标题"
 										onInput={(e) =>
 											updateFrame({ title: e.currentTarget.value })
 										}
@@ -193,7 +193,7 @@ export function FrameButton() {
 		<KPopover placement="bottom-start" gutter={8} fitViewport>
 			<EditorButton<typeof KPopover.Trigger>
 				as={KPopover.Trigger}
-				tooltipText="Add a frame"
+				tooltipText="添加相框"
 				leftIcon={
 					<Dynamic
 						component={hasFrame() ? activeStyle().icon : IconLucideAppWindowMac}

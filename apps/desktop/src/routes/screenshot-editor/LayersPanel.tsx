@@ -20,8 +20,8 @@ const ANNOTATION_TYPE_ICONS = {
 
 const ANNOTATION_TYPE_LABELS = {
 	arrow: "Arrow",
-	rectangle: "Rectangle",
-	circle: "Circle",
+	rectangle: "矩形",
+	circle: "圆形",
 	mask: "Mask",
 	text: "Text",
 };

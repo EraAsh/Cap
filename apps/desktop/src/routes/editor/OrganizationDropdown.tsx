@@ -151,11 +151,11 @@ function BrandSettingsDialog(props: {
 
 	const selectLogoFile = (file: File) => {
 		if (!isSupportedLogoContentType(file.type)) {
-			toast.error("Unsupported logo file type");
+			toast.error("不支持的 Logo 文件类型");
 			return;
 		}
 		if (file.size > ORGANIZATION_LOGO_MAX_BYTES) {
-			toast.error("Logo file must be less than 1MB");
+			toast.error("Logo 文件必须小于 1MB");
 			return;
 		}
 
@@ -197,14 +197,14 @@ function BrandSettingsDialog(props: {
 				},
 			);
 
-			toast.success("Organization branding updated");
+			toast.success("组织品牌设置已更新");
 			props.onSaved(updatedOrganization);
 			props.onOpenChange(false);
 		} catch (error) {
 			toast.error(
 				error instanceof Error
 					? error.message
-					: "Failed to update organization branding",
+					: "更新组织品牌设置失败",
 			);
 		} finally {
 			setSaving(false);
@@ -363,19 +363,19 @@ export function OrganizationDropdown() {
 	});
 	const fallbackTitle = createMemo(() => {
 		const availability = organizationSelection.availability();
-		if (availability === "loading") return "Loading organizations";
-		if (availability === "unavailable") return "Unable to load organizations";
-		return "Organization branding requires sign in";
+		if (availability === "loading") return "加载组织中";
+		if (availability === "unavailable") return "无法加载组织";
+		return "组织品牌设置需要登录";
 	});
 	const fallbackDescription = createMemo(() => {
 		const availability = organizationSelection.availability();
 		if (availability === "loading") {
-			return "Fetching organization branding from Cap web.";
+			return "正在从 Cap 网页获取组织品牌设置";
 		}
 		if (availability === "unavailable") {
 			return "Organization branding uses live Cap web data. Connect to Cap web to select an organization and use its colours.";
 		}
-		return "Sign in to select an organization, edit brand colours, and use those colours in Studio.";
+		return "登录以选择组织、编辑品牌色并在工作室中使用这些颜色";
 	});
 
 	const selectOrganization = (organization: DesktopOrganization) => {

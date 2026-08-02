@@ -33,13 +33,13 @@ if (key && host) {
 		});
 		console.log("PostHog initialization started");
 	} catch (error) {
-		console.error("Failed to initialize PostHog:", error);
+		console.error("初始化 PostHog 失败：", error);
 	}
 }
 
 export function initAnonymousUser() {
 	if (!key || !host) {
-		console.warn("Cannot initialize anonymous user - missing key or host");
+		console.warn("无法初始化匿名用户——缺少密钥或主机");
 		return;
 	}
 
@@ -47,9 +47,9 @@ export function initAnonymousUser() {
 		const anonymousId = localStorage.getItem("anonymous_id") ?? uuid();
 		localStorage.setItem("anonymous_id", anonymousId);
 		posthog.identify(anonymousId);
-		console.log("Anonymous user identified:", anonymousId);
+		console.log("匿名用户已识别：", anonymousId);
 	} catch (error) {
-		console.error("Error initializing anonymous user:", error);
+		console.error("初始化匿名用户出错：", error);
 	}
 }
 
@@ -58,7 +58,7 @@ export function identifyUser(
 	properties?: Record<string, unknown>,
 ) {
 	if (!key || !host) {
-		console.warn("Cannot identify user - missing key or host");
+		console.warn("无法识别用户——缺少密钥或主机");
 		return;
 	}
 
@@ -81,7 +81,7 @@ export function identifyUser(
 			console.log(`User already identified as ${userId}`);
 		}
 	} catch (error) {
-		console.error("Error identifying user:", error);
+		console.error("识别用户出错：", error);
 	}
 }
 

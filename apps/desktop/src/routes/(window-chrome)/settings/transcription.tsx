@@ -62,7 +62,7 @@ function Inner(props: { initialStore: GeneralSettingsStore | null }) {
 					resetTimeout = setTimeout(() => setSaveState("idle"), 1200);
 				})
 				.catch((error) => {
-					console.error("Failed to save transcription hints", error);
+					console.error("保存转写提示失败", error);
 					setSaveState("idle");
 				});
 		}, 250);
@@ -143,7 +143,7 @@ function Inner(props: { initialStore: GeneralSettingsStore | null }) {
 									event.preventDefault();
 									addHint();
 								}}
-								placeholder="Add a term"
+								placeholder="添加术语"
 								spellcheck={false}
 								autocapitalize="off"
 								autocomplete="off"
@@ -168,7 +168,7 @@ function Inner(props: { initialStore: GeneralSettingsStore | null }) {
 
 				<Show when={hints().length > 0}>
 					<Section
-						title="Active hints"
+						title="生效提示"
 						right={
 							<span class="text-xs text-gray-10">
 								{hints().length} {hints().length === 1 ? "item" : "items"}

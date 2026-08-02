@@ -22,8 +22,8 @@ export default function () {
 			if (!update) return;
 			return update;
 		} catch (e) {
-			console.error("Failed to check for updates:", e);
-			setUpdateError("Unable to check for updates.");
+			console.error("检查更新失败：", e);
+			setUpdateError("无法检查更新");
 			return;
 		}
 	});
@@ -80,8 +80,8 @@ export default function () {
 							);
 						})
 						.catch((e) => {
-							console.error("Failed to download/install update:", e);
-							setUpdateError("Failed to download or install the update.");
+							console.error("下载/安装更新失败：", e);
+							setUpdateError("下载或安装更新失败。");
 						});
 
 					return (

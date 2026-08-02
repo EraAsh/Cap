@@ -16,7 +16,7 @@ export default function Page() {
 				});
 
 				if (response.status !== 200) {
-					throw new Error("Failed to fetch changelog");
+					throw new Error("获取更新日志失败");
 				}
 				return response.body;
 			},
@@ -34,7 +34,7 @@ export default function Page() {
 								<div class="text-(--text-primary) font-medium">
 									{changelog.error instanceof Error
 										? changelog.error.message
-										: "Failed to fetch changelog"}
+										: "获取更新日志失败"}
 								</div>
 							}
 						>

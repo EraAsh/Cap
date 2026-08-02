@@ -39,7 +39,7 @@ export async function openTeleprompter() {
 			await existingWindow.setFocus();
 			return;
 		} catch (error) {
-			console.error("Discarding unusable teleprompter window:", error);
+			console.error("丢弃不可用的提词器窗口：", error);
 			await cleanupFailedWindow(existingWindow, openerWindow);
 		}
 	}
@@ -72,12 +72,12 @@ export async function openTeleprompter() {
 				if (creatingWindow === teleprompterWindow) creatingWindow = undefined;
 			})
 			.catch(async (error) => {
-				console.error("Teleprompter window has no native handle:", error);
+				console.error("提词器窗口没有原生句柄：", error);
 				await cleanupFailedWindow(teleprompterWindow, openerWindow);
 			});
 	});
 	void teleprompterWindow.once("tauri://error", (event) => {
-		console.error("Failed to create teleprompter window:", event.payload);
+		console.error("创建提词器窗口失败：", event.payload);
 		if (isWindows && openerWindow) {
 			void cleanupFailedWindow(teleprompterWindow, openerWindow);
 		} else {

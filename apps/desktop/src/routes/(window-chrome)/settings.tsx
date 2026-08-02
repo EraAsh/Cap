@@ -67,21 +67,21 @@ async function loadProfileImageObjectUrl(signal: AbortSignal) {
 		headers: await protectedHeaders(),
 		signal,
 	});
-	if (!response.ok) throw new Error("Failed to load profile image");
+	if (!response.ok) throw new Error("加载头像失败");
 
 	const contentType = response.headers.get("content-type");
 	if (contentType && !contentType.toLowerCase().startsWith("image/")) {
-		throw new Error("Invalid profile image response");
+		throw new Error("无效的头像响应");
 	}
 
 	const contentLength = Number(response.headers.get("content-length"));
 	if (contentLength > MAX_PROFILE_IMAGE_BYTES) {
-		throw new Error("Profile image is too large");
+		throw new Error("头像图片太大");
 	}
 
 	const blob = await response.blob();
 	if (blob.size > MAX_PROFILE_IMAGE_BYTES) {
-		throw new Error("Profile image is too large");
+		throw new Error("头像图片太大");
 	}
 
 	return URL.createObjectURL(blob);
@@ -182,7 +182,7 @@ export default function Settings(props: RouteSectionProps) {
 			}
 
 			if (response.status !== 200)
-				throw new Error("Failed to load account profile");
+				throw new Error("加载账号资料失败");
 
 			await userProfileStore.set({
 				userId: currentAuth.user_id,
@@ -256,7 +256,7 @@ export default function Settings(props: RouteSectionProps) {
 		},
 	];
 	const accountName = createMemo(() => {
-		if (!auth()) return "Click to sign in";
+		if (!auth()) return "点击登录";
 		if (!userProfile.isSuccess) return "Signed in";
 
 		const name = userProfile.data?.name?.trim();
@@ -337,7 +337,7 @@ export default function Settings(props: RouteSectionProps) {
 	onMount(() => {
 		void getVersion()
 			.then(setVersion)
-			.catch((error) => console.error("Failed to load app version:", error));
+			.catch((error) => console.error("加载应用版本失败：", error));
 	});
 
 	let disposed = false;
@@ -377,7 +377,7 @@ export default function Settings(props: RouteSectionProps) {
 
 				setAuth(() => value);
 			})
-			.catch((error) => console.error("Failed to load auth store:", error))
+			.catch((error) => console.error("加载登录状态失败：", error))
 			.finally(() => {
 				if (!disposed) setAuthLoaded(true);
 			});
@@ -392,7 +392,7 @@ export default function Settings(props: RouteSectionProps) {
 				stopAuthListening = unlisten;
 			})
 			.catch((error) =>
-				console.error("Failed to listen to auth store:", error),
+				console.error("监听登录状态失败：", error),
 			);
 	});
 
@@ -410,10 +410,10 @@ export default function Settings(props: RouteSectionProps) {
 	const copyVersion = async (appVersion: string) => {
 		try {
 			await writeText(appVersion);
-			toast.success("Version copied to clipboard");
+			toast.success("版本已复制到剪贴板");
 		} catch (error) {
-			console.error("Failed to copy app version:", error);
-			toast.error("Failed to copy version");
+			console.error("复制应用版本失败：", error);
+			toast.error("复制版本失败");
 		}
 	};
 
@@ -427,7 +427,7 @@ export default function Settings(props: RouteSectionProps) {
 				await dialog.message(
 					"You're already using the latest version of Cap.",
 					{
-						title: "No Update Available",
+						title: "没有可用更新",
 						kind: "info",
 					},
 				);
@@ -436,16 +436,16 @@ export default function Settings(props: RouteSectionProps) {
 
 			const shouldUpdate = await dialog.confirm(
 				`Version ${update.version} of Cap is available, would you like to install it?`,
-				{ title: "Update Cap", okLabel: "Update", cancelLabel: "Ignore" },
+				{ title: "更新 Cap", okLabel: "Update", cancelLabel: "Ignore" },
 			);
 
 			if (shouldUpdate) navigate("/update");
 		} catch (e) {
-			console.error("Failed to check for updates:", e);
+			console.error("检查更新失败：", e);
 			const openDownload = await dialog
 				.confirm(
 					"Couldn't check for updates automatically. You can download the latest version of Cap from cap.so/download \u2014 your data won't be lost.",
-					{ title: "Update Cap", okLabel: "Download", cancelLabel: "Later" },
+					{ title: "更新 Cap", okLabel: "Download", cancelLabel: "Later" },
 				)
 				.catch(() => false);
 			if (openDownload) await shell.open("https://cap.so/download");
@@ -521,7 +521,7 @@ export default function Settings(props: RouteSectionProps) {
 								<button
 									type="button"
 									class="-ml-1 cursor-copy rounded px-1 py-0.5 transition-colors hover:bg-gray-3 hover:text-gray-12"
-									title="Copy version to clipboard"
+									title="复制版本号到剪贴板"
 									aria-label={`Copy version ${v()} to clipboard`}
 									onClick={() => copyVersion(v())}
 								>
@@ -545,7 +545,7 @@ export default function Settings(props: RouteSectionProps) {
 									>
 										{isCheckingForUpdates()
 											? "Checking..."
-											: "Check for updates"}
+											: "检查更新"}
 									</button>
 								</div>
 							</div>

@@ -185,7 +185,7 @@ export function PerformanceOverlay(_props: PerformanceOverlayProps) {
 			.join("\n");
 
 		await writeText(statsText);
-		toast.success("Performance stats copied to clipboard");
+		toast.success("性能统计已复制到剪贴板");
 	};
 
 	const fpsColor = createMemo(() => {
@@ -224,7 +224,7 @@ export function PerformanceOverlay(_props: PerformanceOverlayProps) {
 						border: "1px solid rgba(255, 255, 255, 0.15)",
 					}}
 					onClick={copyStatsToClipboard}
-					title="Click to copy stats"
+					title="点击复制统计信息"
 				>
 					<div class="flex flex-col gap-0.5">
 						<div class="flex items-center gap-2">

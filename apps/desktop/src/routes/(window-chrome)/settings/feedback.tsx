@@ -22,7 +22,7 @@ const sendFeedbackAction = action(async (feedback: string) => {
 		headers: await protectedHeaders(),
 	});
 
-	if (response.status !== 200) throw new Error("Failed to submit feedback");
+	if (response.status !== 200) throw new Error("提交反馈失败");
 	return response.body;
 });
 
@@ -30,7 +30,7 @@ async function fetchDiagnostics(): Promise<SystemDiagnostics | null> {
 	try {
 		return await commands.getSystemDiagnostics();
 	} catch (e) {
-		console.error("Failed to fetch diagnostics:", e);
+		console.error("获取诊断信息失败：", e);
 		return null;
 	}
 }
@@ -47,10 +47,10 @@ export default function FeedbackTab() {
 		setUploadingLogs(true);
 		try {
 			await commands.uploadLogs();
-			toast.success("Logs uploaded successfully");
+			toast.success("日志上传成功");
 		} catch (error) {
-			toast.error("Failed to upload logs");
-			console.error("Failed to upload logs:", error);
+			toast.error("上传日志失败");
+			console.error("上传日志失败：", error);
 		} finally {
 			setUploadingLogs(false);
 		}
@@ -61,7 +61,7 @@ export default function FeedbackTab() {
 			<SettingsPageContent>
 				<Section
 					title="反馈"
-					description="Help us improve Cap by submitting feedback or reporting bugs. We'll get right on it."
+					description="提交反馈或报告错误，帮助改进 Cap。我们会立即处理"
 				>
 					<form
 						class="space-y-4"
@@ -75,7 +75,7 @@ export default function FeedbackTab() {
 								<textarea
 									value={feedback()}
 									onInput={(e) => setFeedback(e.currentTarget.value)}
-									placeholder="Tell us what you think about Cap..."
+									placeholder="告诉我们您对 Cap 的看法..."
 									required
 									minLength={10}
 									class="p-2 w-full h-32 text-[13px] rounded-md border transition-colors duration-200 resize-none bg-gray-2 placeholder:text-gray-10 border-gray-3 text-primary focus:outline-hidden focus:ring-1 focus:ring-gray-8 hover:border-gray-6"
@@ -99,15 +99,15 @@ export default function FeedbackTab() {
 								disabled={feedback().trim().length < 4}
 								class="mt-2"
 							>
-								{submission.pending ? "Submitting..." : "Submit Feedback"}
+								{submission.pending ? "Submitting..." : "提交反馈"}
 							</Button>
 						</fieldset>
 					</form>
 				</Section>
 
 				<Section
-					title="Join the Community"
-					description="Have questions, want to share ideas, or just hang out? Join the Cap Discord community."
+					title="加入社区"
+					description="有问题、想分享想法或随便聊聊？加入 Cap Discord 社区"
 				>
 					<Button
 						onClick={() => shell.open("https://cap.link/discord")}
@@ -119,8 +119,8 @@ export default function FeedbackTab() {
 				</Section>
 
 				<Section
-					title="Debug Information"
-					description="Upload your logs to help us diagnose issues with Cap. No personal information is included."
+					title="调试信息"
+					description="上传日志以帮助我们诊断 Cap 的问题，不含任何个人信息"
 				>
 					<Button
 						onClick={handleUploadLogs}
@@ -128,11 +128,11 @@ export default function FeedbackTab() {
 						variant="gray"
 						disabled={uploadingLogs()}
 					>
-						{uploadingLogs() ? "Uploading..." : "Upload Logs"}
+						{uploadingLogs() ? "Uploading..." : "上传日志"}
 					</Button>
 				</Section>
 
-				<Section title="System Information">
+				<Section title="系统信息">
 					<Show
 						when={!diagnostics.loading && diagnostics()}
 						fallback={
@@ -181,7 +181,7 @@ export default function FeedbackTab() {
 												}`}
 											>
 												Screen Capture:{" "}
-												{captureSupported ? "Supported" : "Not Supported"}
+												{captureSupported ? "Supported" : "不支持"}
 											</span>
 										</div>
 									</div>

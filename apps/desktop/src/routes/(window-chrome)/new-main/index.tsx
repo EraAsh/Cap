@@ -552,8 +552,8 @@ function CameraListItem(props: {
 			<button
 				type="button"
 				disabled={props.disabled}
-				title="Device settings"
-				aria-label="Device settings"
+				title="设备设置"
+				aria-label="设备设置"
 				onPointerDown={(event) => event.stopPropagation()}
 				onClick={(event) => {
 					event.preventDefault();
@@ -647,8 +647,8 @@ function MicrophoneListItem(props: {
 			<button
 				type="button"
 				disabled={props.disabled}
-				title="Device settings"
-				aria-label="Device settings"
+				title="设备设置"
+				aria-label="设备设置"
 				onPointerDown={(event) => event.stopPropagation()}
 				onClick={(event) => {
 					event.preventDefault();
@@ -1114,7 +1114,7 @@ function DeviceListPanel(props: DeviceListPanelProps) {
 				>
 					<IconLucideCircleOff class="size-4 shrink-0" />
 					<span class="truncate flex-1">
-						{props.variant === "camera" ? "No Camera" : "No Microphone"}
+						{props.variant === "camera" ? "无摄像头" : "无麦克风"}
 					</span>
 					<Show when={isNoneSelected()}>
 						<IconLucideCheck class="size-4 shrink-0" />
@@ -1257,7 +1257,7 @@ function TargetMenuPanel(props: TargetMenuPanelProps & SharedTargetMenuProps) {
 	};
 
 	const settingsSubtitle = () =>
-		props.variant === "camera" ? "Camera settings" : "Microphone settings";
+		props.variant === "camera" ? "摄像头设置" : "麦克风设置";
 
 	const settingsTitle = () => {
 		const target = settingsTarget();
@@ -1266,34 +1266,34 @@ function TargetMenuPanel(props: TargetMenuPanelProps & SharedTargetMenuProps) {
 	};
 	const placeholder =
 		props.variant === "display"
-			? "Search displays"
+			? "搜索显示器"
 			: props.variant === "window"
-				? "Search windows"
+				? "搜索窗口"
 				: props.variant === "recording"
-					? "Search recordings"
+					? "搜索录制"
 					: props.variant === "screenshot"
-						? "Search screenshots"
+						? "搜索截图"
 						: props.variant === "camera"
-							? "Search cameras"
-							: "Search microphones";
+							? "搜索摄像头"
+							: "搜索麦克风";
 	const noResultsMessage =
 		props.variant === "display"
-			? "No matching displays"
+			? "没有匹配的显示器"
 			: props.variant === "window"
-				? "No matching windows"
+				? "没有匹配的窗口"
 				: props.variant === "recording"
-					? "No matching recordings"
+					? "没有匹配的录制"
 					: props.variant === "screenshot"
-						? "No matching screenshots"
+						? "没有匹配的截图"
 						: props.variant === "camera"
-							? "No matching cameras"
-							: "No matching microphones";
+							? "没有匹配的摄像头"
+							: "没有匹配的麦克风";
 
 	const handleVideoImport = async () => {
 		try {
 			await importVideoFromPicker({ hideCurrentWindow: true });
 		} catch (e) {
-			console.error("Failed to import video:", e);
+			console.error("导入视频失败：", e);
 			await showImportError("video", e);
 		}
 	};
@@ -1302,7 +1302,7 @@ function TargetMenuPanel(props: TargetMenuPanelProps & SharedTargetMenuProps) {
 		try {
 			await importImageFromPicker({ hideCurrentWindow: true });
 		} catch (e) {
-			console.error("Failed to import image:", e);
+			console.error("导入图片失败：", e);
 			await showImportError("image", e);
 		}
 	};
@@ -1486,7 +1486,7 @@ function TargetMenuPanel(props: TargetMenuPanelProps & SharedTargetMenuProps) {
 							}
 							disabled={cameraProps.disabled}
 							emptyMessage={
-								trimmedSearch() ? noResultsMessage : "No cameras found"
+								trimmedSearch() ? noResultsMessage : "未找到摄像头"
 							}
 							permissions={cameraProps.permissions}
 							deviceSettings={cameraProps.deviceSettings}
@@ -1544,7 +1544,7 @@ function TargetMenuPanel(props: TargetMenuPanelProps & SharedTargetMenuProps) {
 							onSettingsRequested={(mic) => handleSettingsTargetChange(mic)}
 							disabled={micProps.disabled}
 							emptyMessage={
-								trimmedSearch() ? noResultsMessage : "No microphones found"
+								trimmedSearch() ? noResultsMessage : "未找到麦克风"
 							}
 							permissions={micProps.permissions}
 							deviceSettings={micProps.deviceSettings}
@@ -1577,7 +1577,7 @@ function TargetMenuPanel(props: TargetMenuPanelProps & SharedTargetMenuProps) {
 					class="flex h-[36px] gap-1 items-center shrink-0 rounded-md px-2 text-xs
 					text-gray-11 transition-colors hover:text-gray-12 hover:bg-gray-4
 					focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-9 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-1"
-					aria-label={inSettingsMode() ? "Back to list" : "Back"}
+					aria-label={inSettingsMode() ? "返回列表" : "Back"}
 				>
 					<IconLucideArrowLeft class="size-3 text-gray-11" />
 					<span class="font-medium text-gray-12">Back</span>
@@ -1625,7 +1625,7 @@ function TargetMenuPanel(props: TargetMenuPanelProps & SharedTargetMenuProps) {
 								>
 									<IconLucideImport class="size-3.5" />
 									<span>
-										{props.variant === "screenshot" ? "Import image" : "Import"}
+										{props.variant === "screenshot" ? "导入图片" : "导入"}
 									</span>
 								</Button>
 							</Show>
@@ -1747,7 +1747,7 @@ function createUpdateCheck() {
 		try {
 			update = await commands.updatesCheck();
 		} catch (e) {
-			console.error("Failed to check for updates:", e);
+			console.error("检查更新失败：", e);
 			return;
 		}
 
@@ -1757,10 +1757,10 @@ function createUpdateCheck() {
 		try {
 			shouldUpdate = await dialog.confirm(
 				`Version ${update.version} of Cap is available, would you like to install it?`,
-				{ title: "Update Cap", okLabel: "Update", cancelLabel: "Ignore" },
+				{ title: "更新 Cap", okLabel: "更新", cancelLabel: "忽略" },
 			);
 		} catch (e) {
-			console.error("Failed to show update dialog:", e);
+			console.error("显示更新对话框失败：", e);
 			return;
 		}
 
@@ -1796,10 +1796,10 @@ function createUpdateReadyToast() {
 								// relaunch call is unreachable there; that matches update.tsx.
 								install
 									.then(() => relaunch())
-									.catch((e) => console.error("Failed to install update:", e));
+									.catch((e) => console.error("安装更新失败：", e));
 							}}
 						>
-							{update.installed ? "Restart now" : "Install and restart"}
+							{update.installed ? "立即重启" : "安装并重启"}
 						</button>
 						<button
 							type="button"
@@ -1826,7 +1826,7 @@ function MainWindowHelpButton() {
 			<button
 				type="button"
 				onClick={() => {
-					commands.showWindow("Onboarding");
+					commands.showWindow("新手引导");
 				}}
 				class="flex shrink-0 justify-center items-center size-5 focus:outline-hidden"
 			>
@@ -1869,11 +1869,11 @@ function Page() {
 			await resizeMainWindow(expanded, true);
 			if (expanded) setIsExpanded(true);
 			void mainWindowUIStore.set({ expanded }).catch((error) => {
-				console.error("Failed to save main window size:", error);
+				console.error("保存主窗口尺寸失败：", error);
 			});
 		} catch (error) {
 			setIsExpanded(previousExpanded);
-			console.error("Failed to resize main window:", error);
+			console.error("调整主窗口大小失败：", error);
 		} finally {
 			setIsWindowResizing(false);
 		}
@@ -1904,7 +1904,7 @@ function Page() {
 					gcTime: CAPTURE_LIST_GC_TIME,
 				}),
 			]).catch((error) => {
-				console.error("Failed to prewarm capture lists:", error);
+				console.error("预热捕获列表失败：", error);
 			});
 
 			if (cancelled) return;
@@ -1916,7 +1916,7 @@ function Page() {
 					gcTime: CAPTURE_THUMBNAIL_GC_TIME,
 				})
 				.catch((error) => {
-					console.error("Failed to prewarm display thumbnails:", error);
+					console.error("预热显示器缩略图失败：", error);
 				});
 
 			if (cancelled) return;
@@ -1928,7 +1928,7 @@ function Page() {
 					gcTime: CAPTURE_THUMBNAIL_GC_TIME,
 				})
 				.catch((error) => {
-					console.error("Failed to prewarm window thumbnails:", error);
+					console.error("预热窗口缩略图失败：", error);
 				});
 		};
 
@@ -1975,7 +1975,7 @@ function Page() {
 		if (!cameraWindowOpen) return;
 
 		await commands.setCameraInput(selectedCameraId, true).catch((error) => {
-			console.error("Failed to refresh selected camera settings:", error);
+			console.error("刷新摄像头设置失败：", error);
 		});
 	};
 
@@ -2392,12 +2392,12 @@ function Page() {
 
 	const displayErrorMessage = () => {
 		if (!displayTargets.error) return undefined;
-		return "Unable to load displays. Try using the Display button.";
+		return "无法加载显示器，请尝试使用显示器按钮";
 	};
 
 	const windowErrorMessage = () => {
 		if (!windowTargets.error) return undefined;
-		return "Unable to load windows. Try using the Window button.";
+		return "无法加载窗口，请尝试使用窗口按钮";
 	};
 
 	const selectDisplayTarget = async (target: CaptureDisplayWithThumbnail) => {
@@ -2432,7 +2432,7 @@ function Page() {
 		try {
 			await commands.focusWindow(target.id);
 		} catch (error) {
-			console.error("Failed to focus window:", error);
+			console.error("聚焦窗口失败：", error);
 		}
 	};
 
@@ -2484,13 +2484,13 @@ function Page() {
 		const targetMode = __CAP__?.initialTargetMode ?? null;
 		const currentWindow = getCurrentWindow();
 		const storedWindowUI = await mainWindowUIStore.get().catch((error) => {
-			console.error("Failed to load main window size:", error);
+			console.error("加载主窗口尺寸失败：", error);
 			return undefined;
 		});
 		const expanded = storedWindowUI?.expanded ?? false;
 		setIsExpanded(expanded);
 		await resizeMainWindow(expanded, false).catch((error) => {
-			console.error("Failed to restore main window size:", error);
+			console.error("恢复主窗口尺寸失败：", error);
 		});
 
 		if (targetMode) {
@@ -2506,7 +2506,7 @@ function Page() {
 			await currentWindow.setFocus();
 			setIsWindowFocused(true);
 			void commands.closeTargetSelectOverlays().catch((error) => {
-				console.error("Failed to close target select overlays:", error);
+				console.error("关闭目标选择层失败：", error);
 			});
 		}
 
@@ -2517,13 +2517,13 @@ function Page() {
 		if (rawOptions.micName) {
 			setMicInput
 				.mutateAsync(rawOptions.micName)
-				.catch((error) => console.error("Failed to set mic input:", error));
+				.catch((error) => console.error("设置麦克风失败：", error));
 		}
 
 		if (rawOptions.cameraID) {
 			setCamera
 				.mutateAsync({ model: rawOptions.cameraID })
-				.catch((error) => console.error("Failed to set camera input:", error));
+				.catch((error) => console.error("设置摄像头失败：", error));
 		}
 
 		const unlistenFocus = currentWindow.onFocusChanged(
@@ -2532,7 +2532,7 @@ function Page() {
 				if (focused) {
 					if (!isWindowResizing()) {
 						void resizeMainWindow(isExpanded(), false).catch((error) => {
-							console.error("Failed to restore main window size:", error);
+							console.error("恢复主窗口尺寸失败：", error);
 						});
 					}
 					scheduleTargetListPrewarm();
@@ -2556,7 +2556,7 @@ function Page() {
 					});
 				} else {
 					// Rust clears the target mode when it shows the main window
-					// itself (e.g. tray "Open Main Window"), so this dismissal may
+					// itself (e.g. tray "打开主窗口"), so this dismissal may
 					// reveal — matching the window Rust just made visible anyway.
 					// Closing the window only hides it, so panel state from the
 					// previous session survives — reset to the main screen.
@@ -2771,7 +2771,7 @@ function Page() {
 					`Failed to stop recording: ${
 						error instanceof Error ? error.message : String(error)
 					}`,
-					{ title: "Stop Recording", kind: "error" },
+					{ title: "停止录制", kind: "error" },
 				);
 			}
 		},
@@ -2824,7 +2824,7 @@ function Page() {
 				try {
 					projectPath = await commands.recoverRecording(projectPath);
 				} catch (error) {
-					console.error("Failed to recover recording:", error);
+					console.error("恢复录制失败：", error);
 				}
 			}
 
@@ -2834,7 +2834,7 @@ function Page() {
 		} else {
 			const link = recording.sharing?.link;
 			if (!link) {
-				toast.error("This recording isn't ready to open yet.");
+				toast.error("此录制还未准备好打开");
 				return;
 			}
 			await shell.open(link);
@@ -2868,7 +2868,7 @@ function Page() {
 	const BaseControls = () => (
 		<div class={cx("space-y-2", isExpanded() && "space-y-2.5")}>
 			<div>
-				<ExpandedControlLabel title="Camera" />
+				<ExpandedControlLabel title="摄像头" />
 				<CameraSelect
 					disabled={enableDeviceQueries() && devices.isPending}
 					options={devices.cameras}
@@ -2898,7 +2898,7 @@ function Page() {
 				/>
 			</div>
 			<div>
-				<ExpandedControlLabel title="Microphone" />
+				<ExpandedControlLabel title="麦克风" />
 				<MicrophoneSelect
 					disabled={enableDeviceQueries() && devices.isPending}
 					options={devices.microphones.map((m) => m.name)}
@@ -2918,7 +2918,7 @@ function Page() {
 				/>
 			</div>
 			<div>
-				<ExpandedControlLabel title="System audio" />
+				<ExpandedControlLabel title="系统音频" />
 				<SystemAudio />
 			</div>
 		</div>
@@ -2954,11 +2954,11 @@ function Page() {
 								selected={rawOptions.targetMode === "display"}
 								Component={IconMdiMonitor}
 								disabled={isRecording()}
-								description={isExpanded() ? "Entire screen" : undefined}
+								description={isExpanded() ? "整个屏幕" : undefined}
 								onClick={() => {
 									toggleTargetMode("display");
 								}}
-								name="Display"
+								name="显示器"
 								class={cx(
 									"flex-1 rounded-none border-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0",
 									isExpanded() ? "pl-3" : "pl-5",
@@ -2982,7 +2982,7 @@ function Page() {
 									});
 								}}
 								aria-haspopup="menu"
-								aria-label="Choose display"
+								aria-label="选择显示器"
 							/>
 						</div>
 						<div
@@ -2997,7 +2997,7 @@ function Page() {
 								selected={rawOptions.targetMode === "window"}
 								Component={IconLucideAppWindowMac}
 								disabled={isRecording()}
-								description={isExpanded() ? "One app" : undefined}
+								description={isExpanded() ? "一个应用" : undefined}
 								onClick={() => {
 									toggleTargetMode("window");
 								}}
@@ -3025,7 +3025,7 @@ function Page() {
 									});
 								}}
 								aria-haspopup="menu"
-								aria-label="Choose window"
+								aria-label="选择窗口"
 							/>
 						</div>
 					</div>
@@ -3034,7 +3034,7 @@ function Page() {
 							selected={rawOptions.targetMode === "area"}
 							Component={IconMaterialSymbolsScreenshotFrame2Rounded}
 							disabled={isRecording()}
-							description={isExpanded() ? "Custom region" : undefined}
+							description={isExpanded() ? "自定义区域" : undefined}
 							onClick={() => {
 								toggleTargetMode("area");
 							}}
@@ -3045,11 +3045,11 @@ function Page() {
 							selected={rawOptions.targetMode === "camera"}
 							Component={IconLucideVideo}
 							disabled={isRecording()}
-							description={isExpanded() ? "No screen" : undefined}
+							description={isExpanded() ? "无屏幕" : undefined}
 							onClick={() => {
 								toggleTargetMode("camera");
 							}}
-							name="Camera Only"
+							name="仅摄像头"
 							class="flex-1"
 						/>
 					</div>
@@ -3066,7 +3066,7 @@ function Page() {
 							}
 							errorMessage={
 								recentMedia.error && recentMedia.data === undefined
-									? "Unable to load recent captures"
+									? "无法加载最近的录制"
 									: undefined
 							}
 							disabled={isRecording()}
@@ -3115,13 +3115,13 @@ function Page() {
 					<div class="flex-1 min-h-9 min-w-0" data-tauri-drag-region />
 					<div class="flex gap-1 items-center shrink-0" data-tauri-drag-region>
 						<Tooltip
-							content={<span>{isExpanded() ? "Collapse" : "Expand"}</span>}
+							content={<span>{isExpanded() ? "收起" : "展开"}</span>}
 						>
 							<button
 								type="button"
 								disabled={isWindowResizing()}
 								onClick={() => void toggleMainWindowExpanded()}
-								aria-label={isExpanded() ? "Collapse window" : "Expand window"}
+								aria-label={isExpanded() ? "收起窗口" : "展开窗口"}
 								aria-pressed={isExpanded()}
 								class="flex items-center justify-center size-5 focus:outline-hidden disabled:opacity-50"
 							>
@@ -3190,7 +3190,7 @@ function Page() {
 								type="button"
 								onClick={() => void openTeleprompter()}
 								class="flex justify-center items-center size-5 focus:outline-hidden"
-								aria-label="Open teleprompter"
+								aria-label="打开提词器"
 							>
 								<IconLucideScanText class="transition-colors text-gray-11 size-4 hover:text-gray-12" />
 							</button>
@@ -3232,7 +3232,7 @@ function Page() {
 									fallback={
 										<span class="text-[0.6rem] ml-2 rounded-lg border border-gray-5 px-1 py-0.5 bg-(--blue-400) text-gray-1 dark:text-gray-12">
 											{license.data?.type === "commercial"
-												? "Commercial"
+												? "商业版"
 												: "Pro"}
 										</span>
 									}
@@ -3317,7 +3317,7 @@ function Page() {
 									targets={recordingsData()}
 									isLoading={recordings.isPending}
 									errorMessage={
-										recordings.error ? "Failed to load recordings" : undefined
+										recordings.error ? "加载录制失败" : undefined
 									}
 									onSelect={openRecording}
 									disabled={isRecording()}
@@ -3341,7 +3341,7 @@ function Page() {
 									targets={screenshotsData()}
 									isLoading={screenshots.isPending}
 									errorMessage={
-										screenshots.error ? "Failed to load screenshots" : undefined
+										screenshots.error ? "加载截图失败" : undefined
 									}
 									onSelect={openScreenshot}
 									disabled={isRecording()}

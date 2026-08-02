@@ -33,7 +33,7 @@ export function AnnotationPopover() {
 			<Popover.Trigger
 				as={EditorButton}
 				leftIcon={<IconLucidePencil class="size-4" />}
-				tooltipText="Annotation Settings"
+				tooltipText="标注设置"
 				disabled={!selectedAnnotation()}
 			/>
 			<Popover.Portal>

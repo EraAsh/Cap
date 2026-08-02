@@ -58,9 +58,9 @@ export const CAPTION_STYLE_PRESETS: CaptionStylePreset[] = [
 	{
 		id: "classic",
 		label: "Classic",
-		description: "Clean text on a solid rounded background.",
+		description: "纯色圆角背景上的干净文字",
 		style: {
-			font: "System Sans-Serif",
+			font: "系统无衬线字体",
 			fontWeight: 700,
 			size: 50,
 			color: "#FFFFFF",
@@ -79,9 +79,9 @@ export const CAPTION_STYLE_PRESETS: CaptionStylePreset[] = [
 	{
 		id: "karaoke",
 		label: "Karaoke",
-		description: "Words light up in sync with speech.",
+		description: "单词随语音同步点亮",
 		style: {
-			font: "System Sans-Serif",
+			font: "系统无衬线字体",
 			fontWeight: 700,
 			size: 52,
 			color: "#FFFFFF",
@@ -100,9 +100,9 @@ export const CAPTION_STYLE_PRESETS: CaptionStylePreset[] = [
 	{
 		id: "highlight",
 		label: "Highlight",
-		description: "Bold caps with a pill behind the active word.",
+		description: "粗体字幕，当前词后有胶囊背景",
 		style: {
-			font: "System Sans-Serif",
+			font: "系统无衬线字体",
 			fontWeight: 700,
 			size: 54,
 			color: "#FFFFFF",
@@ -121,9 +121,9 @@ export const CAPTION_STYLE_PRESETS: CaptionStylePreset[] = [
 	{
 		id: "pop",
 		label: "Pop",
-		description: "Playful caps that pop in with a vibrant accent.",
+		description: "活泼的字幕风格，以鲜艳色调弹出",
 		style: {
-			font: "System Sans-Serif",
+			font: "系统无衬线字体",
 			fontWeight: 700,
 			size: 56,
 			color: "#FFFFFF",
@@ -142,9 +142,9 @@ export const CAPTION_STYLE_PRESETS: CaptionStylePreset[] = [
 	{
 		id: "minimal",
 		label: "Minimal",
-		description: "Subtle outlined text with no background.",
+		description: "无背景的柔和描边文字",
 		style: {
-			font: "System Sans-Serif",
+			font: "系统无衬线字体",
 			fontWeight: 600,
 			size: 46,
 			color: "#FFFFFF",
@@ -263,7 +263,7 @@ function createCaptionsStore() {
 					id,
 					start: time,
 					end: time + 2,
-					text: "New caption",
+					text: "新字幕",
 				},
 			]);
 		},
@@ -298,10 +298,10 @@ function createCaptionsStore() {
 						);
 					}
 				} catch (e) {
-					console.error("Error loading saved captions from localStorage:", e);
+					console.error("从本地存储加载字幕出错：", e);
 				}
 			} catch (e) {
-				console.error("Error loading captions:", e);
+				console.error("加载字幕出错：", e);
 			}
 		},
 
@@ -342,7 +342,7 @@ function createCaptionsStore() {
 					JSON.stringify(captionsData),
 				);
 			} catch (e) {
-				console.error("Error saving captions:", e);
+				console.error("保存字幕出错：", e);
 			}
 		},
 

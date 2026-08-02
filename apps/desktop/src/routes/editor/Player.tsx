@@ -63,7 +63,7 @@ export function PlayerContent() {
 
 	const zoomHint = () =>
 		ostype() === "windows"
-			? "Hold Ctrl and scroll, or press Ctrl +/- to zoom"
+			? "按住 Ctrl 滚动，或按 Ctrl +/- 缩放"
 			: "Pinch, or press Cmd +/- to zoom";
 
 	// Load captions on mount
@@ -196,7 +196,7 @@ export function PlayerContent() {
 			await commands.startPlayback(FPS, previewResolutionBase());
 			setEditorState("playing", true);
 		} catch (error) {
-			console.error("Failed to update preview quality:", error);
+			console.error("更新预览质量失败：", error);
 			setEditorState("playing", false);
 		}
 	};
@@ -226,7 +226,7 @@ export function PlayerContent() {
 			}
 			if (editorState.playing) setEditorState("previewTime", null);
 		} catch (error) {
-			console.error("Error handling play/pause:", error);
+			console.error("处理播放/暂停出错：", error);
 			setEditorState("playing", false);
 		}
 	};
@@ -290,7 +290,7 @@ export function PlayerContent() {
 				<div class="flex items-center gap-3">
 					<AspectRatioSelect />
 					<EditorButton
-						tooltipText="Crop Video"
+						tooltipText="裁剪视频"
 						onClick={cropDialogHandler}
 						leftIcon={<IconCapCrop class="w-5 text-gray-12" />}
 					>
@@ -331,7 +331,7 @@ export function PlayerContent() {
 								value: EditorPreviewQuality;
 							}> class="flex-1 text-left truncate">
 								{(state) =>
-									state.selectedOption()?.label ?? "Select preview quality"
+									state.selectedOption()?.label ?? "选择预览质量"
 								}
 							</KSelect.Value>
 							<KSelect.Icon>
@@ -406,7 +406,7 @@ export function PlayerContent() {
 				<div class="flex flex-row flex-1 gap-4 justify-end items-center">
 					<div class="flex-1" />
 					<EditorButton<typeof KToggleButton>
-						tooltipText="Toggle Split"
+						tooltipText="切换分屏"
 						kbd={["S"]}
 						pressed={editorState.timeline.interactMode === "split"}
 						onChange={(v: boolean) =>
@@ -506,7 +506,7 @@ function PreviewCanvas() {
 			items: [
 				{
 					id: "performance-mode",
-					text: performanceMode() ? "✓ Performance Mode" : "Performance Mode",
+					text: performanceMode() ? "✓ Performance Mode" : "性能模式",
 					action: () => setPerformanceMode(!performanceMode()),
 				},
 			],

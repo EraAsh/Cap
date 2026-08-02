@@ -9,28 +9,28 @@ import { getColorPreviewBorderColor } from "./color-utils";
 import { TextInput } from "./TextInput";
 
 export const FONT_OPTIONS = [
-	{ value: "System Sans-Serif", label: "System Sans-Serif" },
-	{ value: "System Serif", label: "System Serif" },
-	{ value: "System Monospace", label: "System Monospace" },
+	{ value: "系统无衬线字体", label: "系统无衬线字体" },
+	{ value: "系统衬线字体", label: "系统衬线字体" },
+	{ value: "系统等宽字体", label: "系统等宽字体" },
 ];
 
 export const CAPTION_POSITION_OPTIONS = [
 	{ value: "manual", label: "Manual" },
 	{ value: "top-left", label: "Top Left" },
-	{ value: "top-center", label: "Top Center" },
+	{ value: "top-center", label: "顶部居中" },
 	{ value: "top-right", label: "Top Right" },
-	{ value: "bottom-left", label: "Bottom Left" },
-	{ value: "bottom-center", label: "Bottom Center" },
-	{ value: "bottom-right", label: "Bottom Right" },
+	{ value: "bottom-left", label: "左下角" },
+	{ value: "bottom-center", label: "底部居中" },
+	{ value: "bottom-right", label: "右下角" },
 ];
 
 export const KEYBOARD_POSITION_OPTIONS = [
 	{ value: "top-left", label: "Top Left" },
-	{ value: "top-center", label: "Top Center" },
+	{ value: "top-center", label: "顶部居中" },
 	{ value: "top-right", label: "Top Right" },
-	{ value: "bottom-left", label: "Bottom Left" },
-	{ value: "bottom-center", label: "Bottom Center" },
-	{ value: "bottom-right", label: "Bottom Right" },
+	{ value: "bottom-left", label: "左下角" },
+	{ value: "bottom-center", label: "底部居中" },
+	{ value: "bottom-right", label: "右下角" },
 ];
 
 export const TEXT_WEIGHT_OPTIONS = [

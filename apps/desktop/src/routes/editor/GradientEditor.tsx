@@ -202,7 +202,7 @@ export function GradientEditor(props: {
 					</Subfield>
 
 					<Show when={noiseIntensity() > 0}>
-						<Subfield name="Grain Scale">
+						<Subfield name="颗粒缩放">
 							<div class="w-[120px]">
 								<Slider
 									value={[noiseScale()]}

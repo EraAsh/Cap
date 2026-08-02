@@ -606,7 +606,7 @@ export function CaptionsTab(props: {
 				startDownloadStatusPolling();
 			}
 		} catch (error) {
-			console.error("Error checking models:", error);
+			console.error("检查模型出错：", error);
 		}
 	});
 
@@ -642,7 +642,7 @@ export function CaptionsTab(props: {
 			setIsDownloading(true);
 			setDownloadProgress(0);
 			setDownloadingModel(modelToDownload);
-			setDownloadMessage("Preparing model download");
+			setDownloadMessage("准备下载模型");
 			startDownloadStatusPolling();
 
 			if (PARAKEET_DIR_MODELS.has(modelToDownload)) {
@@ -650,7 +650,7 @@ export function CaptionsTab(props: {
 				try {
 					await commands.createDir(modelDir, true);
 				} catch (err) {
-					console.error("Error creating directory:", err);
+					console.error("创建目录出错：", err);
 				}
 				await commands.downloadParakeetModel(modelDir);
 			} else {
@@ -661,21 +661,21 @@ export function CaptionsTab(props: {
 				try {
 					await commands.createDir(modelsPath, true);
 				} catch (err) {
-					console.error("Error creating directory:", err);
+					console.error("创建目录出错：", err);
 				}
 				await commands.downloadWhisperModel(modelToDownload, modelPath);
 			}
 
 			await syncModelDownloadStatus(modelToDownload);
 			addDownloadedModel(modelToDownload);
-			toast.success("Caption model downloaded");
+			toast.success("字幕模型已下载");
 		} catch (error) {
-			console.error("Error downloading model:", error);
+			console.error("下载模型出错：", error);
 			const active = await syncModelDownloadStatus(modelToDownload).catch(
 				() => false,
 			);
 			if (!active) {
-				toast.error("Failed to download caption model");
+				toast.error("下载字幕模型失败");
 				setDownloadProgress(0);
 				setIsDownloading(false);
 				setDownloadingModel(null);
@@ -698,10 +698,10 @@ export function CaptionsTab(props: {
 			}
 
 			removeDownloadedModel(modelToDelete);
-			toast.success("Caption model deleted");
+			toast.success("字幕模型已删除");
 		} catch (error) {
-			console.error("Error deleting model:", error);
-			toast.error("Failed to delete caption model");
+			console.error("删除模型出错：", error);
+			toast.error("删除字幕模型失败");
 			await refreshDownloadedModels();
 		} finally {
 			setDeletingModel(null);
@@ -710,7 +710,7 @@ export function CaptionsTab(props: {
 
 	const generateCaptions = async () => {
 		if (!editorInstance) {
-			toast.error("Editor instance not found");
+			toast.error("未找到编辑器实例");
 			return;
 		}
 
@@ -737,14 +737,14 @@ export function CaptionsTab(props: {
 				setEditorState("timeline", "tracks", "caption", true);
 				setEditorState("captions", "isStale", false);
 
-				toast.success("Captions generated successfully!");
+				toast.success("字幕生成成功！");
 			} else {
 				toast.error(
-					"No captions were generated. The audio might be too quiet or unclear.",
+					"未生成字幕，音频可能太安静或不清晰",
 				);
 			}
 		} catch (error) {
-			console.error("Error generating captions:", error);
+			console.error("生成字幕出错：", error);
 			const errorMessage = getCaptionGenerationErrorMessage(error);
 			toast.error(`Failed to generate captions: ${errorMessage}`);
 		} finally {
@@ -821,7 +821,7 @@ export function CaptionsTab(props: {
 									<div class="min-w-0 flex-1 text-left">
 										<div class="flex items-center gap-1.5">
 											<span class="truncate font-medium">
-												{selectedModelOption()?.label || "Select a model"}
+												{selectedModelOption()?.label || "选择模型"}
 											</span>
 											<Show when={selectedModelOption()}>
 												<Tooltip
@@ -907,7 +907,7 @@ export function CaptionsTab(props: {
 												(l) => l.code === state.selectedOption(),
 											);
 											return (
-												<span>{language?.label || "Select a language"}</span>
+												<span>{language?.label || "选择语言"}</span>
 											);
 										}}
 									</KSelect.Value>
@@ -977,7 +977,7 @@ export function CaptionsTab(props: {
 												</div>
 												<p class="text-xs leading-relaxed text-gray-10">
 													{downloadMessage() ||
-														"Keep Cap open while the model downloads. Editor reloads will reconnect automatically."}
+														"模型下载期间请保持 Cap 打开，编辑器重载后会自动重新连接"}
 												</p>
 											</div>
 										</Show>
@@ -994,8 +994,8 @@ export function CaptionsTab(props: {
 											{isGenerating()
 												? "Generating..."
 												: hasCaptions()
-													? "Regenerate Captions"
-													: "Generate Captions"}
+													? "重新生成字幕"
+													: "生成字幕"}
 										</Button>
 									</Show>
 									<div class="flex items-center justify-between gap-2 text-xs text-gray-10">
@@ -1070,7 +1070,7 @@ export function CaptionsTab(props: {
 							</div>
 						</Field>
 
-						<Field name="Font Settings" icon={<IconCapMessageBubble />}>
+						<Field name="字体设置" icon={<IconCapMessageBubble />}>
 							<div class="space-y-3">
 								<div class="flex flex-col gap-2">
 									<span class="text-gray-11 text-sm">Font Family</span>
@@ -1235,7 +1235,7 @@ export function CaptionsTab(props: {
 							</div>
 						</Field>
 
-						<Field name="Background Settings" icon={<IconCapMessageBubble />}>
+						<Field name="背景设置" icon={<IconCapMessageBubble />}>
 							<div class="space-y-3">
 								<div class="flex flex-col gap-2">
 									<span class="text-gray-11 text-sm">Background Color</span>
@@ -1400,7 +1400,7 @@ export function CaptionsTab(props: {
 							</div>
 						</Field>
 
-						<Field name="Font Weight" icon={<IconCapMessageBubble />}>
+						<Field name="字重" icon={<IconCapMessageBubble />}>
 							<KSelect
 								options={TEXT_WEIGHT_OPTIONS}
 								optionValue="value"
@@ -1456,8 +1456,8 @@ export function CaptionsTab(props: {
 							</KSelect>
 						</Field>
 
-						<Field name="Export Options" icon={<IconCapMessageBubble />}>
-							<Subfield name="Export with Subtitles">
+						<Field name="导出选项" icon={<IconCapMessageBubble />}>
+							<Subfield name="带字幕导出">
 								<Toggle
 									checked={getSetting("exportWithSubtitles")}
 									onChange={(checked) =>
@@ -1478,13 +1478,13 @@ export function CaptionsTab(props: {
 						{(() => {
 							return (
 								<Field
-									name="Selected Caption Override"
+									name="选中的字幕覆盖"
 									icon={<IconCapMessageBubble />}
 								>
 									<Show when={selectedCaptionSegment()}>
 										{(seg) => (
 											<div class="space-y-3">
-												<Subfield name="Start Time">
+												<Subfield name="开始时间">
 													<Input
 														type="number"
 														value={seg().start.toFixed(2)}
@@ -1512,7 +1512,7 @@ export function CaptionsTab(props: {
 														}
 													/>
 												</Subfield>
-												<Subfield name="Caption Text">
+												<Subfield name="字幕文字">
 													<Input
 														type="text"
 														value={seg().text}
@@ -1529,7 +1529,7 @@ export function CaptionsTab(props: {
 														}
 													/>
 												</Subfield>
-												<Subfield name="Fade Duration Override">
+												<Subfield name="淡入淡出时长覆盖">
 													<Slider
 														value={[
 															(seg().fadeDurationOverride ??

@@ -149,7 +149,7 @@ export function CaptionsTrack(props: {
 								void props.onGenerate();
 							}}
 						>
-							{props.isGenerating ? "Generating..." : "Generate captions"}
+							{props.isGenerating ? "Generating..." : "生成字幕"}
 						</button>
 					</div>
 				}

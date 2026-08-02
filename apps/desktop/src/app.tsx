@@ -300,7 +300,7 @@ function createThemeListener(currentWindow: WebviewWindow) {
 				if (!disposed) setAppTheme(settings?.theme ?? null);
 			})
 			.catch((error) =>
-				console.error("Failed to load general settings:", error),
+				console.error("加载常规设置失败：", error),
 			);
 
 		void generalSettingsStore
@@ -315,7 +315,7 @@ function createThemeListener(currentWindow: WebviewWindow) {
 				stopSettingsListening = unlisten;
 			})
 			.catch((error) =>
-				console.error("Failed to listen to general settings:", error),
+				console.error("监听常规设置失败：", error),
 			);
 
 		void currentWindow
@@ -328,7 +328,7 @@ function createThemeListener(currentWindow: WebviewWindow) {
 				stopThemeListening = unlisten;
 			})
 			.catch((error) =>
-				console.error("Failed to listen to window theme changes:", error),
+				console.error("监听窗口主题变化失败：", error),
 			);
 	});
 

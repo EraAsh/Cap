@@ -25,7 +25,7 @@ export default function Debug() {
 			if (update) {
 				setUpdateStatus(`Update available: v${update.version}`);
 			} else {
-				setUpdateStatus("No update available");
+				setUpdateStatus("没有可用更新");
 			}
 		} catch (e) {
 			setUpdateStatus(`Error: ${e}`);
@@ -39,13 +39,13 @@ export default function Debug() {
 
 		const shouldUpdate = await dialog.confirm(
 			`Version ${fakeVersion} of Cap is available, would you like to install it?`,
-			{ title: "Update Cap", okLabel: "Update", cancelLabel: "Ignore" },
+			{ title: "更新 Cap", okLabel: "Update", cancelLabel: "Ignore" },
 		);
 
 		if (shouldUpdate) {
 			navigate("/update");
 		} else {
-			setUpdateStatus("User declined update");
+			setUpdateStatus("用户拒绝了更新");
 		}
 	};
 

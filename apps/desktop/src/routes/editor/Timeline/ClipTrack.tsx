@@ -792,7 +792,7 @@ export function ClipTrack(
 													"background-image":
 														"linear-gradient(135deg, transparent 42%, rgb(96 165 250 / 0.7) 43%, rgb(96 165 250 / 0.7) 57%, transparent 58%)",
 												}}
-												title={`${transition().type === "cross-fade" ? "Crossfade" : "Fade through black"} · ${transition().duration.toFixed(2)}s`}
+												title={`${transition().type === "cross-fade" ? "Crossfade" : "黑场转场"} · ${transition().duration.toFixed(2)}s`}
 												onMouseDown={(event) => event.stopPropagation()}
 											>
 												<span class="sr-only">Edit clip transition</span>
@@ -839,7 +839,7 @@ export function ClipTrack(
 													</div>
 													<input
 														type="range"
-														aria-label="Transition duration"
+														aria-label="转场时长"
 														min={MIN_CLIP_TRANSITION_DURATION}
 														max={maxTransitionDuration(
 															segments()[i() - 1],
