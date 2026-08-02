@@ -1,0 +1,49 @@
+name: "build-windows"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.5.2
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: apps/desktop/src-tauri
+
+      - name: Install deps
+        shell: bash
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build desktop (Windows)
+        shell: bash
+        run: pnpm --filter @cap/desktop tauri build -- --no-bundle
+        env:
+          CI: "false"
+
+      - name: Upload exe artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cap-windows
+          path: |
+            apps/desktop/src-tauri/target/release/*.exe
+            apps/desktop/src-tauri/target/release/*.dll
+          retention-days: 14
