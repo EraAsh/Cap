@@ -67,7 +67,7 @@ jobs:
         with:
           name: cap-windows
           path: |
-            apps/desktop/src-tauri/target/release/*.exe
-            apps/desktop/src-tauri/target/release/*.dll
-            apps/desktop/src-tauri/target/release/bundle/**/*
+            target/x86_64-pc-windows-msvc/release/*.exe
+            target/x86_64-pc-windows-msvc/release/*.dll
+            target/x86_64-pc-windows-msvc/release/bundle/**/*
           retention-days: 14
